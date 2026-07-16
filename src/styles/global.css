@@ -1,0 +1,78 @@
+/* QuoteLens marketing site — global styles */
+:root {
+  --gold:        #b8862a;
+  --gold-dark:   #7a4f0d;
+  --gold-hover:  #9a6f1f;
+  --gold-pale:   #faeeda;
+  --ink:         #1a1916;
+  --ink-soft:    #555;
+  --ink-faint:   #888;
+  --paper:       #fdfcfa;
+  --card:        #ffffff;
+  --border:      #eee6d8;
+  --radius:      14px;
+  --font: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+section {
+  padding: 88px 20px;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); line-height: 1.12; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.6rem, 4.5vw, 2.4rem); line-height: 1.2; letter-spacing: -0.01em; }
+p  { font-size: clamp(1rem, 2.2vw, 1.125rem); color: var(--ink-soft); }
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 15px 30px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: background 0.15s ease, transform 0.1s ease;
+  cursor: pointer;
+}
+.btn:active { transform: scale(0.98); }
+
+.btn-primary { background: var(--gold); color: #fff; }
+.btn-primary:hover { background: var(--gold-hover); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--gold);
+  border: 2px solid var(--gold);
+}
+.btn-ghost:hover { background: var(--gold-pale); }
+
+.statement {
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 700;
+  color: var(--ink);
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto;
+  line-height: 1.35;
+}
