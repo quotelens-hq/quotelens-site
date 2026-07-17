@@ -1,0 +1,119 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Footer from '../components/Footer.astro'
+const updated = 'July 2026'
+---
+<Layout title="Privacy Policy — QuoteLens" description="How QuoteLens collects, uses, and protects personal data.">
+
+  <section class="legal">
+    <p class="eyebrow">QuoteLens</p>
+    <h1>Privacy Policy</h1>
+    <p class="updated">Last updated: {updated}</p>
+
+    <p class="todo">
+      Draft for review. [LEGAL ENTITY NAME], [REGISTERED ADDRESS],
+      [PRIVACY EMAIL] and [JURISDICTION] to be confirmed.
+    </p>
+
+    <h2>Who we are</h2>
+    <p>
+      QuoteLens is operated by [LEGAL ENTITY NAME], [REGISTERED ADDRESS].
+      For any privacy question or request, contact
+      <a href="mailto:[PRIVACY EMAIL]">[PRIVACY EMAIL]</a>.
+    </p>
+
+    <h2>Two kinds of people use QuoteLens</h2>
+    <p>
+      <strong>Businesses</strong> sign up for an account to offer instant
+      quotes. <strong>Customers</strong> use a business's quote link to get
+      a price. This policy covers both, but the roles differ: for customer
+      enquiry data, the business you contacted decides how that data is
+      used, and QuoteLens processes it on their behalf. For business
+      account data, QuoteLens decides.
+    </p>
+
+    <h2>What we collect</h2>
+    <p><strong>From businesses:</strong> business name, login email, phone
+    or WhatsApp number, the products and prices you configure, and account
+    activity.</p>
+    <p><strong>From customers:</strong> the name, phone number, location
+    and (if provided) email address you enter to receive a quote; the
+    measurements and product options you choose; and any photo you take or
+    upload.</p>
+
+    <h2>Photos</h2>
+    <p>
+      If you take or upload a photo, it is used to estimate the dimensions
+      of what you are quoting and is saved with your enquiry so the
+      business can see what you asked about. Photos are stored on our
+      infrastructure and shared with the business you contacted. To
+      estimate measurements, the photo is sent to Google's Gemini service.
+      You do not have to use a photo — every quote can be completed by
+      entering measurements manually.
+    </p>
+
+    <h2>Who we share data with</h2>
+    <p>
+      We use these providers to run the service, and they process data only
+      to provide it to us:
+    </p>
+    <ul>
+      <li><strong>Supabase</strong> — database, authentication and file storage</li>
+      <li><strong>Vercel</strong> — hosting</li>
+      <li><strong>Google (Gemini)</strong> — estimating measurements from photos</li>
+      <li><strong>OpenAI</strong> — generating product reference images for businesses</li>
+      <li><strong>Resend</strong> — sending quote emails</li>
+    </ul>
+    <p>
+      We do not sell personal data and we do not use it for advertising.
+      When you request a quote, your enquiry details are shared with the
+      business you contacted — that is the point of the service.
+    </p>
+
+    <h2>How long we keep it</h2>
+    <p>
+      Enquiry data, including photos, is kept for as long as the business
+      that received it keeps its account, unless they or you ask us to
+      delete it. Business account data is kept while the account is active
+      and for a reasonable period afterwards.
+    </p>
+
+    <h2>Your rights</h2>
+    <p>
+      You can ask us for a copy of your data, ask us to correct it, or ask
+      us to delete it. Businesses can delete their account, and everything
+      in it, from the dashboard. Customers who submitted an enquiry do not
+      have an account — to have your enquiry deleted, write to
+      <a href="mailto:[PRIVACY EMAIL]">[PRIVACY EMAIL]</a> or contact the
+      business you sent it to, as they hold their own copy.
+    </p>
+
+    <h2>Cookies</h2>
+    <p>
+      We use a small number of cookies that are necessary to run the
+      service. See our <a href="/cookies">Cookie Policy</a>.
+    </p>
+
+    <h2>Security</h2>
+    <p>
+      Data is stored with access controls and encrypted in transit. No
+      system is perfectly secure, but we take reasonable measures to
+      protect what we hold.
+    </p>
+
+    <h2>Children</h2>
+    <p>QuoteLens is intended for businesses and their customers, and is not
+    directed at children.</p>
+
+    <h2>Changes</h2>
+    <p>We will update this page when our practices change, and revise the
+    date at the top.</p>
+
+    <h2>Governing law</h2>
+    <p>This policy is governed by the laws of [JURISDICTION].</p>
+
+    <p class="back"><a href="/">← Back to QuoteLens</a></p>
+  </section>
+
+  <Footer />
+</Layout>

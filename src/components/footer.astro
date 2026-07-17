@@ -1,0 +1,91 @@
+---
+const year = new Date().getFullYear()
+---
+<footer class="footer">
+  <div class="footer-inner">
+
+    <div class="footer-cols">
+      <div>
+        <p class="footer-head">Product</p>
+        <a href="/#salesperson">How it Works</a>
+        <a href="/#demo">Demo</a>
+        <a href="/#pricing">Pricing</a>
+        <a href="/join">Start Free</a>
+      </div>
+
+      <div>
+        <p class="footer-head">Resources</p>
+        <a href="/#faq">FAQs</a>
+        <a href="mailto:[CONTACT EMAIL]">Contact</a>
+      </div>
+
+      <div>
+        <p class="footer-head">Company</p>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+        <a href="/cookies">Cookies</a>
+        <a href="/refunds">Refund Policy</a>
+      </div>
+    </div>
+
+    <div class="trust-row">
+      <span>✓ Secure Payments</span>
+      <span>✓ SSL Encrypted</span>
+      <span>✓ Privacy Protected</span>
+      <span>✓ AI Assisted Quoting</span>
+      <span>✓ Built in Nairobi, Kenya</span>
+    </div>
+
+    <p class="footer-legal">
+      © {year} QuoteLens. All rights reserved.
+    </p>
+
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: #f4f2ee;
+    border-top: 1px solid var(--border);
+    padding: 54px 20px 34px;
+  }
+  .footer-inner { max-width: 1040px; margin: 0 auto; }
+  .footer-cols {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 26px;
+  }
+  .footer-head {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .footer-cols a {
+    display: block;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 0.92rem;
+    padding: 4px 0;
+  }
+  .footer-cols a:hover { color: var(--gold-dark); }
+
+  .trust-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    margin-top: 38px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+    font-size: 0.82rem;
+    color: var(--ink-faint);
+    font-weight: 600;
+  }
+  .footer-legal {
+    margin-top: 20px;
+    font-size: 0.82rem;
+    color: var(--ink-faint);
+  }
+</style>

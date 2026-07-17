@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Footer from '../components/Footer.astro'
+const updated = 'July 2026'
+---
+<Layout title="Cookie Policy — QuoteLens" description="How QuoteLens uses cookies.">
+
+  <section class="legal">
+    <p class="eyebrow">QuoteLens</p>
+    <h1>Cookie Policy</h1>
+    <p class="updated">Last updated: {updated}</p>
+
+    <p class="todo">
+      Draft for review. Update this page if analytics or any cookie-setting
+      tool is added — a consent banner may then be required.
+    </p>
+
+    <h2>The short version</h2>
+    <p>
+      QuoteLens uses only the cookies it needs to work. We do not use
+      cookies for advertising, and we do not sell what we collect.
+    </p>
+
+    <h2>What we use</h2>
+    <ul>
+      <li>
+        <strong>Session cookies</strong> — set when a business signs in to
+        its dashboard, so you stay signed in. These are strictly necessary;
+        without them you could not log in.
+      </li>
+      <li>
+        <strong>Analytics</strong> — we measure page visits so we can see
+        what is useful. [CONFIRM TOOL. If a cookieless tool such as Vercel
+        Analytics or Plausible is used, state that no analytics cookies are
+        set. If a cookie-based tool is used, a consent banner is required
+        and this section must be rewritten.]
+      </li>
+    </ul>
+
+    <h2>Customers getting a quote</h2>
+    <p>
+      If you are using a business's quote link, you do not need an account
+      and we do not set a login cookie for you.
+    </p>
+
+    <h2>Controlling cookies</h2>
+    <p>
+      Your browser can block or delete cookies. Blocking the session cookie
+      will prevent businesses from signing in to the dashboard.
+    </p>
+
+    <h2>More</h2>
+    <p>
+      See our <a href="/privacy">Privacy Policy</a> for how we handle
+      personal data generally.
+    </p>
+
+    <p class="back"><a href="/">← Back to QuoteLens</a></p>
+  </section>
+
+  <Footer />
+</Layout>

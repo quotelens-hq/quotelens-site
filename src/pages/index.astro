@@ -1,15 +1,30 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import Footer from '../components/Footer.astro'
 ---
 <Layout>
 
-  <!-- ── 1. THE PROMISE + THE FLOW ──────────────────────── -->
-  <section id="promise" style="text-align:center; padding-top: 110px;">
+  <!-- ── NAV ────────────────────────────────────────────── -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="nav-brand" href="/">QuoteLens</a>
+      <div class="nav-links">
+        <a class="nav-hide-sm" href="#salesperson">How it Works</a>
+        <a class="nav-hide-sm" href="#demo">Demo</a>
+        <a href="#pricing">Pricing</a>
+        <a class="nav-hide-sm" href="/admin">Sign In</a>
+        <a class="nav-cta" href="/join">Start Free</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── 1. HERO ────────────────────────────────────────── -->
+  <section id="promise" style="text-align:center; padding-top: 86px;">
     <p class="eyebrow">QuoteLens</p>
     <h1>"How much?"<br />finally has an answer.</h1>
     <p style="margin-top:18px; font-size:1.2rem; max-width:580px; margin-left:auto; margin-right:auto;">
-      Photo, measurements, materials, price — your customers answer it
-      themselves, before anyone lifts a tape measure.
+      Photo. Measurements. Products. Instant price.<br />
+      No one lifts a tape measure.
     </p>
 
     <div class="journey">
@@ -21,14 +36,16 @@ import Layout from '../layouts/Layout.astro'
       <div class="journey-arrow">↓</div>
       <div class="journey-step">Explores your products</div>
       <div class="journey-arrow">↓</div>
-      <div class="journey-step gold">Gets their price</div>
+      <div class="journey-step">Gets their price</div>
+      <div class="journey-arrow">↓</div>
+      <div class="journey-step gold">Quote sent to WhatsApp &amp; email</div>
     </div>
 
-    <p class="timer">⏱ 4 minutes 18 seconds</p>
+    <p class="timer">⏱ Average journey — 4 minutes</p>
 
     <div style="margin-top:34px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
       <a class="btn btn-primary" href="/join">Start Free</a>
-      <a class="btn btn-ghost" href="#salesperson">Watch Demo</a>
+      <a class="btn btn-ghost" href="#demo">Watch Demo</a>
     </div>
   </section>
 
@@ -38,34 +55,34 @@ import Layout from '../layouts/Layout.astro'
     <h2>Every enquiry starts with "How much?"<br />
         Every answer starts with "What size?"</h2>
     <p style="margin-top:14px; max-width:560px; margin-left:auto; margin-right:auto;">
-      Curtains, doors, gates, kitchens — for fabricators and installers,
-      no price exists until someone measures. And that translates to:
+      Curtains, doors, gates, kitchens — no custom product has a price
+      until someone measures.
     </p>
 
-   <div class="mirror-cards">
+    <div class="mirror-cards">
       <div class="pain-card">
         <span>🚗</span>
-        <p>Drive 40 minutes.<br />Customer says,<br />"I was just asking."</p>
+        <p>Drive 40 minutes.<br />Customer was "just asking."</p>
       </div>
       <div class="pain-card">
         <span>📞</span>
-        <p>Answer the same WhatsApp<br />27 times today.</p>
+        <p>Answer the same<br />WhatsApp all day.</p>
       </div>
       <div class="pain-card">
         <span>📍</span>
-        <p>Lose customers because<br />they're outside your area.</p>
+        <p>Ignore enquiries<br />outside your town.</p>
       </div>
     </div>
   </section>
 
-  <!-- ── 3. WITH QUOTELENS — the mirror ─────────────────── -->
+  <!-- ── 3. WITH QUOTELENS ──────────────────────────────── -->
   <section id="salesperson" style="text-align:center;">
     <p class="eyebrow">With QuoteLens</p>
 
-   <div class="mirror-cards">
+    <div class="mirror-cards">
       <div class="answer-card">
-        <span>✓</span>
-        <p>Visit customers who are ready.</p>
+        <span>🤝</span>
+        <p>Visit customers ready to buy.</p>
       </div>
       <div class="answer-card">
         <span>⚡</span>
@@ -73,56 +90,173 @@ import Layout from '../layouts/Layout.astro'
       </div>
       <div class="answer-card">
         <span>🌍</span>
-        <p>Quote customers anywhere.</p>
+        <p>Quote customers any distance.</p>
       </div>
     </div>
 
     <p class="objection">
-      Every business sells differently — your products, your materials,
+      Every business sells differently. Your products, your materials,
       your prices. <strong>QuoteLens quotes the way you do.</strong>
     </p>
 
     <h2 style="margin-top:34px;">That's your Virtual Salesperson.</h2>
-
-    <!-- Demo slot — recordings drop in here -->
-    <div class="media-slot">Watch it working — demos coming</div>
   </section>
 
-  <!-- ── 4. THE DECISION (dark band, no button) ─────────── -->
+  <!-- ── 4. WATCH IT WORK ───────────────────────────────── -->
+  <section id="demo" style="text-align:center; padding-top:20px;">
+    <div class="media-slot">Full demo — recording soon</div>
+
+    <p style="margin-top:20px; color:var(--ink-faint); font-size:0.95rem;">
+      Customer discovers the business → uses QuoteLens → business
+      receives a qualified lead.
+    </p>
+
+    <div style="margin-top:24px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
+      <a class="btn btn-primary" href="/join">Start Free</a>
+    </div>
+  </section>
+
+  <!-- ── 5. BUILT FOR CUSTOM BUSINESSES ─────────────────── -->
+  <section id="industries" style="text-align:center;">
+    <h2>Built for custom businesses.</h2>
+
+    <div class="industry-grid">
+      <div>Curtains</div>
+      <div>Blinds</div>
+      <div>Wooden Doors</div>
+      <div>Steel Doors</div>
+      <div>Gates</div>
+      <div>Garage Doors</div>
+      <div>Kitchen Islands</div>
+      <div>Plantation Shutters</div>
+      <div class="more">+ More</div>
+    </div>
+
+    <p style="margin-top:26px; font-weight:600; color:var(--ink);">
+      If your product starts with "What size?" — QuoteLens can sell it.
+    </p>
+  </section>
+
+  <!-- ── 6. ONE LINK. EVERY CUSTOMER. ───────────────────── -->
+  <section id="onelink" style="text-align:center;">
+    <h2>One link.<br />Every customer.</h2>
+
+    <div class="channel-row">
+      <span>Instagram</span>
+      <span>Facebook</span>
+      <span>TikTok</span>
+      <span>WhatsApp</span>
+      <span>Google Business</span>
+      <span>Jiji</span>
+      <span>QR Code</span>
+    </div>
+
+    <p class="funnel-arrow">↓</p>
+    <p class="funnel-node">Your QuoteLens link</p>
+    <p class="funnel-arrow">↓</p>
+    <p class="funnel-line">
+      Every customer gets the same professional journey.
+    </p>
+    <p class="funnel-arrow">↓</p>
+    <p class="funnel-node gold">Qualified lead delivered</p>
+  </section>
+
+  <!-- ── 7. PRICING ─────────────────────────────────────── -->
+  <section id="pricing" style="text-align:center;">
+    <h2>Hire your first Virtual Salesperson.</h2>
+
+    <div class="plans">
+      <div class="price-card">
+        <p class="plan-name">QuoteLens Starter</p>
+        <p class="price">$49<span>/month</span></p>
+        <ul>
+          <li>Unlimited enquiries</li>
+          <li>Unlimited products</li>
+          <li>500 AI credits monthly</li>
+          <li>WhatsApp delivery</li>
+          <li>Email delivery</li>
+          <li>Business dashboard</li>
+        </ul>
+        <a class="btn btn-primary" href="/join" style="width:100%; text-align:center;">Start Free</a>
+      </div>
+
+      <div class="price-card soon">
+        <p class="plan-badge">Coming soon</p>
+        <p class="plan-name">QuoteLens Professional</p>
+        <p class="price">$89<span>/month</span></p>
+        <ul>
+          <li>Everything in Starter</li>
+          <li>Product visualisation</li>
+          <li>Premium AI</li>
+          <li>Higher AI credits</li>
+          <li>Priority support</li>
+        </ul>
+        <span class="btn btn-disabled">Not yet available</span>
+      </div>
+    </div>
+
+    <p style="margin-top:18px; font-weight:600; color:var(--gold-dark);">
+      Less than the cost of one unnecessary site visit.
+    </p>
+    <p class="trust-strip">
+      No setup fee · Cancel anytime · Free to start
+    </p>
+  </section>
+
+  <!-- ── 8. FAQ ─────────────────────────────────────────── -->
+  <section id="faq">
+    <h2 style="text-align:center;">Frequently asked questions</h2>
+
+    <div class="faq-list">
+      <details>
+        <summary>Does QuoteLens replace WhatsApp?</summary>
+        <p>No. Your customers still reach you on WhatsApp — they just
+        arrive knowing the price.</p>
+      </details>
+      <details>
+        <summary>Do customers install an app?</summary>
+        <p>No. They tap your link and it opens in their browser.</p>
+      </details>
+      <details>
+        <summary>Can I change my prices?</summary>
+        <p>Yes, any time, from your dashboard. New quotes use your new
+        rates immediately.</p>
+      </details>
+      <details>
+        <summary>Can I use my own branding?</summary>
+        <p>Yes. Your business name and products are what your customers
+        see.</p>
+      </details>
+      <details>
+        <summary>How long is setup?</summary>
+        <p>Around twenty minutes — add your products, set your rates,
+        share your link.</p>
+      </details>
+      <details>
+        <summary>What businesses is this for?</summary>
+        <p>Any business pricing custom work — anything that starts with
+        "what size?"</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- ── 9. FINAL CTA ───────────────────────────────────── -->
   <div class="final-band">
     <p>Your customers are already asking "How much?"<br />
        Give them an instant answer.</p>
-    <p class="hire-line">Hire your first Virtual Salesperson.</p>
+    <div style="margin-top:26px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
+      <a class="btn btn-primary" href="/join">Start Free</a>
+      <a class="btn btn-ghost-dark" href="#demo">Watch Demo</a>
+    </div>
   </div>
 
-  <!-- ── 5. PRICING (the action) ────────────────────────── -->
-  <section id="pricing" style="text-align:center; padding-top:64px;">
-    <div class="price-card">
-      <p class="price">$49<span>/month</span></p>
-      <ul>
-        <li>Unlimited quotes & enquiries</li>
-        <li>Unlimited products</li>
-        <li>500 AI credits monthly</li>
-        <li>WhatsApp & email delivery</li>
-        <li>Business dashboard</li>
-      </ul>
-      <a class="btn btn-primary" href="/join" style="width:100%; text-align:center;">Create Your QuoteLens</a>
-    </div>
-
-    <p style="margin-top:16px; font-weight:600; color:var(--gold-dark);">
-      Less than the cost of one unnecessary site visit.
-    </p>
-
-    <p class="trust-strip">
-      Works on WhatsApp · No technical skills needed · Free to start
-    </p>
-  </section>
+  <Footer />
 
 </Layout>
 
 <style>
   .journey {
-    margin: 44px auto 0;
+    margin: 40px auto 0;
     max-width: 380px;
     display: flex;
     flex-direction: column;
@@ -143,21 +277,18 @@ import Layout from '../layouts/Layout.astro'
   }
   .journey-arrow { color: var(--gold); font-weight: 700; }
   .timer {
-    margin-top: 26px;
-    font-size: 1.15rem;
+    margin-top: 24px;
+    font-size: 1.1rem;
     font-weight: 700;
     color: var(--gold-dark);
   }
 
-  /* Shared grid so problem and answer sections rhyme visually */
   .mirror-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 14px;
     margin-top: 40px;
   }
-
-  /* Pains: muted, grey-toned — the "before" */
   .pain-card {
     background: #f4f2ee;
     border: 1px solid #e4e0d8;
@@ -165,9 +296,8 @@ import Layout from '../layouts/Layout.astro'
     padding: 26px 18px;
   }
   .pain-card span { font-size: 1.8rem; display: block; margin-bottom: 10px; filter: grayscale(0.6); }
-  .pain-card p { font-weight: 600; color: var(--ink-soft); font-size: 1rem; }
+  .pain-card p { font-weight: 600; color: var(--ink-soft); font-size: 1rem; line-height: 1.5; }
 
-  /* Answers: warm gold — the "after", same shape transformed */
   .answer-card {
     background: var(--gold-pale);
     border: 1px solid var(--gold);
@@ -175,7 +305,7 @@ import Layout from '../layouts/Layout.astro'
     padding: 26px 18px;
   }
   .answer-card span { font-size: 1.8rem; display: block; margin-bottom: 10px; }
-  .answer-card p { font-weight: 700; color: var(--gold-dark); font-size: 1rem; }
+  .answer-card p { font-weight: 700; color: var(--gold-dark); font-size: 1rem; line-height: 1.5; }
 
   .objection {
     margin: 36px auto 0;
@@ -186,7 +316,7 @@ import Layout from '../layouts/Layout.astro'
   .objection strong { color: var(--ink); }
 
   .media-slot {
-    margin: 38px auto 0;
+    margin: 0 auto;
     max-width: 640px;
     aspect-ratio: 16 / 9;
     border: 2px dashed var(--border);
@@ -198,49 +328,176 @@ import Layout from '../layouts/Layout.astro'
     font-weight: 600;
   }
 
+  .industry-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    margin-top: 36px;
+  }
+  .industry-grid div {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .industry-grid .more {
+    background: var(--gold-pale);
+    border-color: var(--gold);
+    color: var(--gold-dark);
+  }
+
+  .channel-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 34px;
+  }
+  .channel-row span {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+  .funnel-arrow {
+    color: var(--gold);
+    font-weight: 700;
+    margin: 10px 0;
+    font-size: 1.2rem;
+  }
+  .funnel-node {
+    display: inline-block;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 26px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .funnel-node.gold {
+    background: var(--gold-pale);
+    border-color: var(--gold);
+    color: var(--gold-dark);
+  }
+  .funnel-line { color: var(--ink-soft); font-size: 1rem; }
+
+  .plans {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 36px;
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: start;
+  }
+  .price-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    text-align: left;
+    position: relative;
+  }
+  .price-card.soon { opacity: 0.72; }
+  .plan-badge {
+    position: absolute;
+    top: -11px;
+    left: 24px;
+    background: var(--ink);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+  .plan-name {
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+    text-align: center;
+  }
+  .price { font-size: 2.5rem; font-weight: 800; color: var(--ink); text-align: center; margin-top: 4px; }
+  .price span { font-size: 1rem; font-weight: 600; color: var(--ink-faint); }
+  .price-card ul { list-style: none; margin: 18px 0 22px; }
+  .price-card li {
+    padding: 7px 0;
+    color: var(--ink-soft);
+    border-bottom: 1px solid var(--border);
+    font-size: 0.95rem;
+  }
+  .price-card li::before { content: "✓ "; color: var(--gold); font-weight: 700; }
+  .btn-disabled {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1rem;
+    background: #eee;
+    color: #999;
+    cursor: not-allowed;
+  }
+
+  .trust-strip {
+    margin-top: 22px;
+    font-size: 0.88rem;
+    color: var(--ink-faint);
+  }
+
+  .faq-list { max-width: 680px; margin: 32px auto 0; }
+  .faq-list details {
+    border-bottom: 1px solid var(--border);
+    padding: 16px 0;
+  }
+  .faq-list summary {
+    font-weight: 700;
+    color: var(--ink);
+    cursor: pointer;
+    font-size: 1rem;
+    list-style: none;
+  }
+  .faq-list summary::-webkit-details-marker { display: none; }
+  .faq-list summary::after {
+    content: "+";
+    float: right;
+    color: var(--gold);
+    font-weight: 700;
+  }
+  .faq-list details[open] summary::after { content: "−"; }
+  .faq-list details p { margin-top: 10px; font-size: 0.97rem; }
+
   .final-band {
     background: var(--ink);
     text-align: center;
-    padding: 74px 20px 66px;
+    padding: 74px 20px;
     margin-top: 60px;
   }
   .final-band p {
     color: #fff;
     font-size: clamp(1.2rem, 3.5vw, 1.7rem);
     font-weight: 700;
-    margin-bottom: 14px;
   }
-  .final-band .hire-line {
-    font-size: 1.15rem;
-    font-weight: 600;
-    color: var(--gold-pale);
-    margin-bottom: 0;
+  .btn-ghost-dark {
+    display: inline-block;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    background: transparent;
+    color: #fff;
+    border: 2px solid #555;
   }
-
-  .price-card {
-    margin: 0 auto;
-    max-width: 360px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 30px 26px;
-    text-align: left;
-  }
-  .price { font-size: 2.6rem; font-weight: 800; color: var(--ink); text-align: center; }
-  .price span { font-size: 1rem; font-weight: 600; color: var(--ink-faint); }
-  .price-card ul { list-style: none; margin: 20px 0 24px; }
-  .price-card li {
-    padding: 7px 0;
-    color: var(--ink-soft);
-    border-bottom: 1px solid var(--border);
-    font-size: 0.97rem;
-  }
-  .price-card li::before { content: "✓ "; color: var(--gold); font-weight: 700; }
-
-  .trust-strip {
-    margin-top: 28px;
-    font-size: 0.88rem;
-    color: var(--ink-faint);
-    letter-spacing: 0.02em;
-  }
+  .btn-ghost-dark:hover { border-color: var(--gold); color: var(--gold-pale); }
 </style>
