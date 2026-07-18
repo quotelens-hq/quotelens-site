@@ -143,6 +143,36 @@ p  { font-size: clamp(1rem, 2.2vw, 1.125rem); color: var(--ink-soft); }
   border-radius: 8px;
 }
 .nav-cta:hover { background: var(--gold-hover); color: #fff !important; }
-@media (max-width: 700px) {
+@media (max-width: 460px) {
   .nav-links a.nav-hide-sm { display: none; }
 }
+/* ── Section rhythm ───────────────────────────────────── */
+/* Sections are max-width-capped and centred, so a background on
+   the <section> itself can't span the viewport — it would stop at
+   1040px with pale gutters. The band wraps the section instead and
+   carries the full-width colour; the section inside keeps its cap.
+   This is what turns nine same-coloured blocks into distinct
+   panels you scroll between. */
+.band { width: 100%; }
+.band-paper { background: var(--paper); }
+.band-tint  { background: #f7f3ec; }
+.band-white { background: #ffffff; }
+
+.band-ink {
+  background: var(--ink);
+}
+/* A section sitting inside a dark band needs its text lifted, since
+   the base styles assume a light background. */
+.band-ink h2 { color: #fff; }
+.band-ink p  { color: #cfc9bf; }
+.band-ink .eyebrow { color: var(--gold-pale); }
+
+/* A touch more air between panels than the old flat layout had —
+   the colour change already signals the break, and the extra
+   space lets each one breathe. */
+.band section { padding-top: 96px; padding-bottom: 96px; }
+
+/* The dark seam between a tinted section and the dark final band
+   can look abrupt; a hairline softens nothing structural but reads
+   as intentional. */
+.band + .band { border-top: 1px solid rgba(0,0,0,0.03); }
