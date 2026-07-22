@@ -1,0 +1,170 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Footer from '../components/Footer.astro'
+---
+<Layout title="Marketplace — QuoteLens" description="Browse made-to-measure products from businesses using QuoteLens.">
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="nav-brand" href="/">QuoteLens</a>
+      <div class="nav-links">
+        <a href="/market">Marketplace</a>
+        <a class="nav-hide-sm" href="/#pricing">Pricing</a>
+        <a class="nav-hide-sm" href="/admin">Sign In</a>
+        <a class="nav-cta" href="/#pricing">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="band band-paper">
+    <section style="text-align:center; padding-top: 60px;">
+      <p class="eyebrow">Marketplace</p>
+      <h1>Made-to-measure products,<br />ready to configure.</h1>
+      <p style="margin-top:14px; max-width:520px; margin-left:auto; margin-right:auto; color:var(--ink-faint);">
+        Tap any product to get your own instant quote from that business.
+      </p>
+    </section>
+  </div>
+
+  <div class="band band-white">
+    <section>
+      <div id="market-status" style="text-align:center; color:var(--ink-faint); padding: 20px 0;">
+        Loading products...
+      </div>
+      <div id="market-grid" class="market-grid"></div>
+    </section>
+  </div>
+
+  <Footer />
+</Layout>
+
+<style>
+  .market-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .market-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .market-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  }
+
+  .market-card img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+  }
+
+  .market-card-body {
+    padding: 12px;
+    text-align: center;
+  }
+  .market-card-business {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--gold-dark);
+    margin: 0 0 4px;
+  }
+  .market-card-title {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--ink);
+    margin: 0 0 2px;
+  }
+  .market-card-spec {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    margin: 0 0 8px;
+  }
+  .market-card-price {
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: var(--gold-dark);
+    margin: 0;
+  }
+</style>
+
+<script>
+  import { supabase } from '../utils/supabase.js'
+
+  const APP_DOMAIN = 'quote-lens.app'
+
+  async function loadMarketplace() {
+    const statusEl = document.getElementById('market-status')
+    const gridEl = document.getElementById('market-grid')
+
+    const { data: tenants, error } = await supabase
+      .from('tenant_config')
+      .select('tenant_id, business_name, currency_symbol, marketplace_listing')
+      .eq('subscription_status', 'active')
+      .not('marketplace_listing', 'is', null)
+
+    if (error) {
+      statusEl.textContent = 'Could not load the marketplace right now.'
+      console.error(error)
+      return
+    }
+
+    // Flatten every tenant's cards into one list, tagging each with
+    // its own business name / tenant link / currency — a card knows
+    // nothing about its neighbours, only its own business.
+    const allCards = []
+    ;(tenants || []).forEach((tenant) => {
+      const listing = tenant.marketplace_listing
+      if (!listing?.cards?.length) return
+
+      listing.cards.forEach((card) => {
+        // Cards with no image are excluded entirely — no
+        // "photo coming soon" placeholder shown publicly.
+        if (!card.imageUrl) return
+
+        allCards.push({
+          tenantId: tenant.tenant_id,
+          businessName: tenant.business_name,
+          currencySymbol: tenant.currency_symbol || '',
+          material: card.material?.label || '',
+          spec: card.spec?.label || '',
+          price: card.price,
+          imageUrl: card.imageUrl
+        })
+      })
+    })
+
+    if (allCards.length === 0) {
+      statusEl.textContent = 'No products listed yet — check back soon.'
+      return
+    }
+
+    statusEl.remove()
+
+    gridEl.innerHTML = allCards.map((card) => `
+      <a class="market-card" href="https://${APP_DOMAIN}/t/${card.tenantId}">
+        <img src="${card.imageUrl}" alt="${card.material} ${card.spec}" loading="lazy" />
+        <div class="market-card-body">
+          <p class="market-card-business">${card.businessName}</p>
+          <p class="market-card-title">${card.material}</p>
+          <p class="market-card-spec">${card.spec}</p>
+          <p class="market-card-price">${card.currencySymbol} ${Number(card.price).toLocaleString()}</p>
+        </div>
+      </a>
+    `).join('')
+  }
+
+  loadMarketplace()
+</script>
