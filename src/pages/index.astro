@@ -1,6 +1,17 @@
 ---
 import Layout from '../layouts/Layout.astro'
 import Footer from '../components/Footer.astro'
+
+const SUPPORT_WHATSAPP = '254712837514'
+const SUPPORT_EMAIL = 'quotelensapp@gmail.com'
+
+// Approximate only — not a live rate. Shown so international
+// visitors have a rough sense of cost; KSh is the actual billed
+// amount in all cases.
+const USD_RATE = 130
+function approxUsd(kshAmount) {
+  return Math.round(kshAmount / USD_RATE)
+}
 ---
 <Layout>
 
@@ -11,6 +22,7 @@ import Footer from '../components/Footer.astro'
       <div class="nav-links">
         <a href="/market">Marketplace</a>
         <a class="nav-hide-sm" href="#pricing">Pricing</a>
+        <a class="nav-hide-sm" href="#help">Help</a>
         <a class="nav-hide-sm" href="/admin">Sign In</a>
         <a class="nav-cta" href="#pricing">Get Started</a>
       </div>
@@ -187,6 +199,7 @@ import Footer from '../components/Footer.astro'
         <div class="price-card">
           <p class="plan-name">QuoteLens Starter</p>
           <p class="price">KSh 2,500<span>/month</span></p>
+          <p class="price-usd">≈ ${approxUsd(2500)} USD/month</p>
           <p class="plan-tag">Perfect for businesses getting started.</p>
           <ul>
             <li>Your own quote page</li>
@@ -202,6 +215,7 @@ import Footer from '../components/Footer.astro'
         <div class="price-card">
           <p class="plan-name">QuoteLens Growth</p>
           <p class="price">KSh 5,500<span>/month</span></p>
+          <p class="price-usd">≈ ${approxUsd(5500)} USD/month</p>
           <p class="plan-tag">Everything in Starter, plus:</p>
           <ul>
             <li>AI measurements — customers photograph, QuoteLens estimates</li>
@@ -215,7 +229,7 @@ import Footer from '../components/Footer.astro'
         Less than the cost of one unnecessary site visit.
       </p>
       <p class="trust-strip">
-        Pay with M-Pesa · Cancel anytime
+        Pay with M-Pesa · Prices billed in KSh · Cancel anytime
       </p>
     </section>
   </div>
@@ -276,7 +290,35 @@ import Footer from '../components/Footer.astro'
     </section>
   </div>
 
-  <!-- ── 10. FINAL CTA ── (dark) ────────────────────────── -->
+  <!-- ── 10. HELP ── (tint) ─────────────────────────────── -->
+  <div class="band band-tint">
+    <section id="help" style="text-align:center;">
+      <p class="eyebrow">Need a hand?</p>
+      <h2>We're here if something isn't working.</h2>
+      <p style="margin-top:14px; max-width:480px; margin-left:auto; margin-right:auto; color:var(--ink-faint);">
+        Questions about signing up, your quote page, or a payment —
+        reach out directly.
+      </p>
+
+      <div class="help-row">
+        <a
+          class="help-card"
+          href={`https://wa.me/${SUPPORT_WHATSAPP}`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <span class="help-label">WhatsApp</span>
+          <span class="help-value">+{SUPPORT_WHATSAPP}</span>
+        </a>
+        <a class="help-card" href={`mailto:${SUPPORT_EMAIL}`}>
+          <span class="help-label">Email</span>
+          <span class="help-value">{SUPPORT_EMAIL}</span>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <!-- ── 11. FINAL CTA ── (dark) ────────────────────────── -->
   <div class="final-band">
     <p>Every great customer conversation<br />starts before WhatsApp.</p>
     <p style="margin-top:14px; font-size:1.05rem; font-weight:400; color:#cfc9bf;">
@@ -464,6 +506,12 @@ import Footer from '../components/Footer.astro'
   }
   .price { font-size: 2.2rem; font-weight: 800; color: var(--ink); text-align: center; margin-top: 4px; }
   .price span { font-size: 1rem; font-weight: 600; color: var(--ink-faint); }
+  .price-usd {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    margin-top: 2px;
+  }
   .plan-tag {
     text-align: center;
     font-size: 0.88rem;
@@ -506,6 +554,39 @@ import Footer from '../components/Footer.astro'
   }
   .faq-list details[open] summary::after { content: "−"; }
   .faq-list details p { margin-top: 10px; font-size: 0.97rem; }
+
+  .help-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+    margin-top: 30px;
+  }
+  .help-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 22px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 220px;
+    transition: border-color 0.15s ease;
+  }
+  .help-card:hover { border-color: var(--gold); }
+  .help-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--gold-dark);
+  }
+  .help-value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
 
   .final-band {
     background: var(--ink);

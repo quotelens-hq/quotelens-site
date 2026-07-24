@@ -113,6 +113,7 @@ import Footer from '../components/Footer.astro'
       .from('tenant_config')
       .select('tenant_id, business_name, currency_symbol, marketplace_listing')
       .eq('subscription_status', 'active')
+      .eq('marketplace_listed', true)
       .not('marketplace_listing', 'is', null)
 
     if (error) {
