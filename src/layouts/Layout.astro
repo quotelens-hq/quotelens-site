@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css'
 import CookieConsent from '../components/CookieConsent.astro'
+
 const props = Astro.props
 const title = props.title ? props.title : 'QuoteLens — "How much?" finally has an answer.'
 const description = props.description ? props.description : 'Instant quoting for fabricators and installers — curtains, doors, gates, kitchens. Your customers measure, choose materials, and get a real price in minutes — turning every ad click into a qualified lead.'
@@ -25,5 +26,6 @@ const url = 'https://quote-lens.app'
   </head>
   <body>
     <slot />
+    <CookieConsent />
   </body>
 </html>
