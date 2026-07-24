@@ -1,0 +1,108 @@
+---
+const GA_MEASUREMENT_ID = 'G-XDM5753YRK'
+---
+<div id="cookie-consent-banner" class="cookie-banner" style="display:none;">
+  <p class="cookie-text">
+    We use analytics cookies to understand how visitors use QuoteLens.
+    See our <a href="/cookies">Cookie Policy</a>.
+  </p>
+  <div class="cookie-actions">
+    <button id="cookie-decline" class="cookie-btn cookie-btn-ghost">Decline</button>
+    <button id="cookie-accept" class="cookie-btn cookie-btn-primary">Accept</button>
+  </div>
+</div>
+
+<style>
+  .cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2000;
+    background: var(--ink, #1a1916);
+    color: #fff;
+    padding: 16px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    box-shadow: 0 -4px 16px rgba(0,0,0,0.15);
+  }
+  .cookie-text {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #d8d4cc;
+    max-width: 520px;
+  }
+  .cookie-text a { color: var(--gold, #b8862a); }
+  .cookie-actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .cookie-btn {
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    border: none;
+  }
+  .cookie-btn-primary {
+    background: var(--gold, #b8862a);
+    color: #1a1916;
+  }
+  .cookie-btn-ghost {
+    background: transparent;
+    color: #fff;
+    border: 1px solid #555;
+  }
+</style>
+
+<script define:vars={{ GA_MEASUREMENT_ID }}>
+  const STORAGE_KEY = 'quotelens_cookie_consent'
+
+  function loadGoogleAnalytics(measurementId) {
+    const script = document.createElement('script')
+    script.async = true
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`
+    document.head.appendChild(script)
+
+    window.dataLayer = window.dataLayer || []
+    function gtag() { window.dataLayer.push(arguments) }
+    window.gtag = gtag
+    gtag('js', new Date())
+    gtag('config', measurementId)
+  }
+
+  function initConsent() {
+    const banner = document.getElementById('cookie-consent-banner')
+    const existing = localStorage.getItem(STORAGE_KEY)
+
+    if (existing === 'accepted') {
+      loadGoogleAnalytics(GA_MEASUREMENT_ID)
+      return
+    }
+
+    if (existing === 'declined') {
+      return
+    }
+
+    // No choice made yet — show the banner.
+    banner.style.display = 'flex'
+
+    document.getElementById('cookie-accept').addEventListener('click', () => {
+      localStorage.setItem(STORAGE_KEY, 'accepted')
+      banner.style.display = 'none'
+      loadGoogleAnalytics(GA_MEASUREMENT_ID)
+    })
+
+    document.getElementById('cookie-decline').addEventListener('click', () => {
+      localStorage.setItem(STORAGE_KEY, 'declined')
+      banner.style.display = 'none'
+    })
+  }
+
+  initConsent()
+</script>
