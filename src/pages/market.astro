@@ -81,6 +81,11 @@ import Footer from '../components/Footer.astro'
     color: var(--gold-dark);
     margin: 0 0 4px;
   }
+  .market-card-dimension {
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    margin: 0 0 6px;
+  }
   .market-card-title {
     font-weight: 700;
     font-size: 0.95rem;
@@ -105,6 +110,20 @@ import Footer from '../components/Footer.astro'
 
   const APP_DOMAIN = 'quote-lens.app'
 
+  // Raw measured values are stored in millimetres (see MeasureScreen
+  // MEASUREMENT_INPUTS) — converted to metres here for display,
+  // matching the "2.7m of curtain" style already used elsewhere in
+  // the product. Labelled generically as "width × height" per what
+  // was asked for; note that for non-window templates (e.g. kitchen
+  // island) arg1/arg2 may not literally mean width/height in trade
+  // terms — this is a display simplification, not template-aware.
+  function formatDimension(dimension) {
+    if (!dimension || dimension.arg1 == null || dimension.arg2 == null) return null
+    const widthM = (Number(dimension.arg1) / 1000).toFixed(2)
+    const heightM = (Number(dimension.arg2) / 1000).toFixed(2)
+    return `${widthM}m × ${heightM}m`
+  }
+
   async function loadMarketplace() {
     const statusEl = document.getElementById('market-status')
     const gridEl = document.getElementById('market-grid')
@@ -123,12 +142,17 @@ import Footer from '../components/Footer.astro'
     }
 
     // Flatten every tenant's cards into one list, tagging each with
-    // its own business name / tenant link / currency — a card knows
-    // nothing about its neighbours, only its own business.
+    // its own business name / tenant link / currency / dimension —
+    // a card knows nothing about its neighbours, only its own
+    // business. dimension is per-LISTING (one measured opening per
+    // walk), not per-card, so every card from the same tenant walk
+    // carries the same dimension value.
     const allCards = []
     ;(tenants || []).forEach((tenant) => {
       const listing = tenant.marketplace_listing
       if (!listing?.cards?.length) return
+
+      const dimensionLabel = formatDimension(listing.dimension)
 
       listing.cards.forEach((card) => {
         // Cards with no image are excluded entirely — no
@@ -142,7 +166,8 @@ import Footer from '../components/Footer.astro'
           material: card.material?.label || '',
           spec: card.spec?.label || '',
           price: card.price,
-          imageUrl: card.imageUrl
+          imageUrl: card.imageUrl,
+          dimensionLabel
         })
       })
     })
@@ -159,6 +184,7 @@ import Footer from '../components/Footer.astro'
         <img src="${card.imageUrl}" alt="${card.material} ${card.spec}" loading="lazy" />
         <div class="market-card-body">
           <p class="market-card-business">${card.businessName}</p>
+          ${card.dimensionLabel ? `<p class="market-card-dimension">${card.dimensionLabel}</p>` : ''}
           <p class="market-card-title">${card.material}</p>
           <p class="market-card-spec">${card.spec}</p>
           <p class="market-card-price">${card.currencySymbol} ${Number(card.price).toLocaleString()}</p>
