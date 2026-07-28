@@ -39,7 +39,17 @@ import Footer from '../components/Footer.astro'
 </Layout>
 
 <style>
-  .market-grid {
+  /* :global() is required here — these classes are applied to
+     markup injected at RUNTIME via innerHTML in the script below,
+     not present in this file's template at build time. Astro
+     scopes styles by adding a hidden attribute to elements that
+     exist in the compiled template; anything created later via
+     innerHTML never receives that attribute, so a normal (scoped)
+     rule here would silently never match it — no error, the CSS
+     class names are still there, the rule just never applies. This
+     was the real cause of images showing at their raw, uncropped
+     aspect ratio instead of the intended square crop. */
+  :global(.market-grid) {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 16px;
@@ -47,7 +57,7 @@ import Footer from '../components/Footer.astro'
     margin: 0 auto;
   }
 
-  .market-card {
+  :global(.market-card) {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: var(--radius);
@@ -57,23 +67,23 @@ import Footer from '../components/Footer.astro'
     flex-direction: column;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
-  .market-card:hover {
+  :global(.market-card:hover) {
     transform: translateY(-2px);
     box-shadow: 0 6px 18px rgba(0,0,0,0.08);
   }
 
-  .market-card img {
+  :global(.market-card img) {
     width: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
     display: block;
   }
 
-  .market-card-body {
+  :global(.market-card-body) {
     padding: 12px;
     text-align: center;
   }
-  .market-card-business {
+  :global(.market-card-business) {
     font-size: 0.72rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -81,23 +91,23 @@ import Footer from '../components/Footer.astro'
     color: var(--gold-dark);
     margin: 0 0 4px;
   }
-  .market-card-dimension {
+  :global(.market-card-dimension) {
     font-size: 0.72rem;
     color: var(--ink-faint);
     margin: 0 0 6px;
   }
-  .market-card-title {
+  :global(.market-card-title) {
     font-weight: 700;
     font-size: 0.95rem;
     color: var(--ink);
     margin: 0 0 2px;
   }
-  .market-card-spec {
+  :global(.market-card-spec) {
     font-size: 0.85rem;
     color: var(--ink-soft);
     margin: 0 0 8px;
   }
-  .market-card-price {
+  :global(.market-card-price) {
     font-weight: 800;
     font-size: 1.05rem;
     color: var(--gold-dark);
@@ -203,4 +213,5 @@ import Footer from '../components/Footer.astro'
 
   loadMarketplace()
 </script>
+
 
