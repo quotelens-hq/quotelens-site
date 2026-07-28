@@ -144,30 +144,38 @@ import Footer from '../components/Footer.astro'
     // Flatten every tenant's cards into one list, tagging each with
     // its own business name / tenant link / currency / dimension —
     // a card knows nothing about its neighbours, only its own
-    // business. dimension is per-LISTING (one measured opening per
-    // walk), not per-card, so every card from the same tenant walk
-    // carries the same dimension value.
+    // business. marketplace_listing is keyed by template ID (a
+    // tenant offering curtains AND blinds has both as separate
+    // slots), so this iterates every template's listing per
+    // tenant rather than assuming a single flat listing object.
+    // dimension is per-LISTING (one measured opening per walk, per
+    // template), so every card from the same template's walk
+    // carries that template's dimension value.
     const allCards = []
     ;(tenants || []).forEach((tenant) => {
-      const listing = tenant.marketplace_listing
-      if (!listing?.cards?.length) return
+      const listingsByTemplate = tenant.marketplace_listing
+      if (!listingsByTemplate || typeof listingsByTemplate !== 'object') return
 
-      const dimensionLabel = formatDimension(listing.dimension)
+      Object.values(listingsByTemplate).forEach((listing) => {
+        if (!listing?.cards?.length) return
 
-      listing.cards.forEach((card) => {
-        // Cards with no image are excluded entirely — no
-        // "photo coming soon" placeholder shown publicly.
-        if (!card.imageUrl) return
+        const dimensionLabel = formatDimension(listing.dimension)
 
-        allCards.push({
-          tenantId: tenant.tenant_id,
-          businessName: tenant.business_name,
-          currencySymbol: tenant.currency_symbol || '',
-          material: card.material?.label || '',
-          spec: card.spec?.label || '',
-          price: card.price,
-          imageUrl: card.imageUrl,
-          dimensionLabel
+        listing.cards.forEach((card) => {
+          // Cards with no image are excluded entirely — no
+          // "photo coming soon" placeholder shown publicly.
+          if (!card.imageUrl) return
+
+          allCards.push({
+            tenantId: tenant.tenant_id,
+            businessName: tenant.business_name,
+            currencySymbol: tenant.currency_symbol || '',
+            material: card.material?.label || '',
+            spec: card.spec?.label || '',
+            price: card.price,
+            imageUrl: card.imageUrl,
+            dimensionLabel
+          })
         })
       })
     })
@@ -195,3 +203,4 @@ import Footer from '../components/Footer.astro'
 
   loadMarketplace()
 </script>
+
