@@ -31,6 +31,11 @@ import Footer from '../components/Footer.astro'
       <div id="market-status" style="text-align:center; color:var(--ink-faint); padding: 20px 0;">
         Loading products...
       </div>
+      <div id="showroom-notice" style="display:none; max-width:640px; margin:0 auto 20px; text-align:center; font-size:0.85rem; color:var(--ink-faint); background:var(--card); border:1px solid var(--border); border-radius:8px; padding:10px 16px;">
+        Listings marked <strong>DEMO</strong> are from QuoteLens' own Showroom tenant — shown to
+        illustrate how a real business's listing looks. Their products, images, and prices are for
+        demonstration only, not real offers.
+      </div>
       <div id="market-grid" class="market-grid"></div>
     </section>
   </div>
@@ -90,6 +95,19 @@ import Footer from '../components/Footer.astro'
     letter-spacing: 0.04em;
     color: var(--gold-dark);
     margin: 0 0 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  :global(.market-card-demo-tag) {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: #fff;
+    background: var(--ink-faint);
+    padding: 2px 6px;
+    border-radius: 4px;
   }
   :global(.market-card-dimension) {
     font-size: 0.72rem;
@@ -134,9 +152,15 @@ import Footer from '../components/Footer.astro'
     return `${widthM}m × ${heightM}m`
   }
 
+  // Hardcoded, not config-driven — this is QuoteLens' own demo
+  // tenant, not a real business, so it's identified by its fixed
+  // slug rather than any flag a real tenant could accidentally set.
+  const SHOWROOM_TENANT_ID = 'showroom'
+
   async function loadMarketplace() {
     const statusEl = document.getElementById('market-status')
     const gridEl = document.getElementById('market-grid')
+    const showroomNoticeEl = document.getElementById('showroom-notice')
 
     const { data: tenants, error } = await supabase
       .from('tenant_config')
@@ -162,9 +186,13 @@ import Footer from '../components/Footer.astro'
     // template), so every card from the same template's walk
     // carries that template's dimension value.
     const allCards = []
+    let hasShowroomCards = false
+
     ;(tenants || []).forEach((tenant) => {
       const listingsByTemplate = tenant.marketplace_listing
       if (!listingsByTemplate || typeof listingsByTemplate !== 'object') return
+
+      const isShowroom = tenant.tenant_id === SHOWROOM_TENANT_ID
 
       Object.values(listingsByTemplate).forEach((listing) => {
         if (!listing?.cards?.length) return
@@ -176,6 +204,8 @@ import Footer from '../components/Footer.astro'
           // "photo coming soon" placeholder shown publicly.
           if (!card.imageUrl) return
 
+          if (isShowroom) hasShowroomCards = true
+
           allCards.push({
             tenantId: tenant.tenant_id,
             businessName: tenant.business_name,
@@ -184,7 +214,8 @@ import Footer from '../components/Footer.astro'
             spec: card.spec?.label || '',
             price: card.price,
             imageUrl: card.imageUrl,
-            dimensionLabel
+            dimensionLabel,
+            isShowroom
           })
         })
       })
@@ -197,11 +228,17 @@ import Footer from '../components/Footer.astro'
 
     statusEl.remove()
 
+    if (hasShowroomCards) {
+      showroomNoticeEl.style.display = 'block'
+    }
+
     gridEl.innerHTML = allCards.map((card) => `
       <a class="market-card" href="https://${APP_DOMAIN}/t/${card.tenantId}">
         <img src="${card.imageUrl}" alt="${card.material} ${card.spec}" loading="lazy" />
         <div class="market-card-body">
-          <p class="market-card-business">${card.businessName}</p>
+          <p class="market-card-business">
+            ${card.businessName}${card.isShowroom ? '<span class="market-card-demo-tag">DEMO</span>' : ''}
+          </p>
           ${card.dimensionLabel ? `<p class="market-card-dimension">${card.dimensionLabel}</p>` : ''}
           <p class="market-card-title">${card.material}</p>
           <p class="market-card-spec">${card.spec}</p>
@@ -213,5 +250,6 @@ import Footer from '../components/Footer.astro'
 
   loadMarketplace()
 </script>
+
 
 
