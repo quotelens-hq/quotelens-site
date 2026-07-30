@@ -164,7 +164,7 @@ import Footer from '../components/Footer.astro'
 
     const { data: tenants, error } = await supabase
       .from('tenant_config')
-      .select('tenant_id, business_name, currency_symbol, marketplace_listing')
+      .select('tenant_id, business_name, currency_symbol, marketplace_listing, plan_tier')
       .eq('subscription_status', 'active')
       .eq('marketplace_listed', true)
       .not('marketplace_listing', 'is', null)
@@ -193,6 +193,7 @@ import Footer from '../components/Footer.astro'
       if (!listingsByTemplate || typeof listingsByTemplate !== 'object') return
 
       const isShowroom = tenant.tenant_id === SHOWROOM_TENANT_ID
+      const isGrowth = tenant.plan_tier === 'growth'
 
       Object.values(listingsByTemplate).forEach((listing) => {
         if (!listing?.cards?.length) return
@@ -215,11 +216,19 @@ import Footer from '../components/Footer.astro'
             price: card.price,
             imageUrl: card.imageUrl,
             dimensionLabel,
-            isShowroom
+            isShowroom,
+            isGrowth
           })
         })
       })
     })
+
+    // Growth-tier tenants surface first — their paid "priority
+    // Marketplace listing" benefit. A stable sort (only comparing
+    // isGrowth) means relative order WITHIN each group is untouched,
+    // so this doesn't reshuffle anything beyond the growth/non-growth
+    // split itself.
+    allCards.sort((a, b) => (b.isGrowth ? 1 : 0) - (a.isGrowth ? 1 : 0))
 
     if (allCards.length === 0) {
       statusEl.textContent = 'No products listed yet — check back soon.'
@@ -250,6 +259,3 @@ import Footer from '../components/Footer.astro'
 
   loadMarketplace()
 </script>
-
-
-
