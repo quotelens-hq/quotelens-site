@@ -5,13 +5,30 @@ import Footer from '../components/Footer.astro'
 const SUPPORT_WHATSAPP = '254712837514'
 const SUPPORT_EMAIL = 'quotelensapp@gmail.com'
 
-// Approximate only — not a live rate. Shown so international
-// visitors have a rough sense of cost; KSh is the actual billed
-// amount in all cases.
 const USD_RATE = 130
 function approxUsd(kshAmount) {
   return Math.round(kshAmount / USD_RATE)
 }
+
+// Used to build the sidebar's category filter buttons. Not rendered
+// as cards themselves anymore — the real product grid below is the
+// actual browsing surface now that /market no longer exists as a
+// separate page.
+const CATEGORY_META = {
+  cakes:                { group: 'Food' },
+  flowers:               { group: 'Flowers' },
+  womens_dresses:         { group: 'Fashion' },
+  plantation_shutters:    { group: 'Home Improvement' },
+  curtains:               { group: 'Home Improvement' },
+  wooden_doors:           { group: 'Home Improvement' },
+  steel_doors:            { group: 'Home Improvement' },
+  gates:                  { group: 'Home Improvement' },
+  garage_doors:           { group: 'Home Improvement' },
+  kitchen_island:         { group: 'Furniture' },
+  blinds:                 { group: 'Home Improvement' }
+}
+
+const CATEGORY_GROUPS = [...new Set(Object.values(CATEGORY_META).map(c => c.group))]
 ---
 <Layout>
 
@@ -20,180 +37,180 @@ function approxUsd(kshAmount) {
     <div class="nav-inner">
       <a class="nav-brand" href="/">QuoteLens</a>
       <div class="nav-links">
-        <a href="/market">Marketplace</a>
+        <a href="#marketplace-home">Marketplace</a>
+        <a class="nav-hide-sm" href="#how">How It Works</a>
         <a class="nav-hide-sm" href="#pricing">Pricing</a>
+        <a class="nav-hide-sm" href="#community">Community</a>
         <a class="nav-hide-sm" href="#help">Help</a>
-     <a href="/admin">Sign In</a>
-        <a class="nav-cta" href="#pricing">Get Started</a>
+        <a href="/admin">Sign In</a>
+        <a class="nav-cta" href="/join">Publish Catalogue</a>
       </div>
     </div>
   </nav>
 
-  <!-- ── 1. HERO ── (paper) ─────────────────────────────── -->
+  <!-- ── 1. HERO (minimal) ── (paper) ───────────────────── -->
   <div class="band band-paper">
-    <section id="promise" style="text-align:center; padding-top: 86px;">
-      <p class="eyebrow">QuoteLens</p>
-      <h1>"How much?"<br />finally has an answer.</h1>
-      <p style="margin-top:18px; font-size:1.2rem; max-width:580px; margin-left:auto; margin-right:auto;">
-        Photo. Measurements. Products. Instant estimate.
+    <section id="promise" style="text-align:center; padding-top: 70px;">
+      <p class="eyebrow-badge">Interactive Product Catalogue Infrastructure</p>
+      <h1>Let Your Customers<br />Buy with Confidence.</h1>
+      <p style="margin-top:16px; font-size:1.15rem; max-width:560px; margin-left:auto; margin-right:auto;">
+        Turn your products into interactive shopping experiences.
       </p>
       <p style="margin-top:10px; max-width:520px; margin-left:auto; margin-right:auto; color:var(--ink-faint);">
-        An instant estimate before ten WhatsApp messages
-        or one long phone call.
-      </p>
-      <p style="margin-top:14px; max-width:520px; margin-left:auto; margin-right:auto; font-weight:600; color:var(--ink);">
-        Advertising gets attention. QuoteLens manages what comes next.
+        Configure your products once. Customers browse specifications, compare
+        options, and enquire with confidence.
       </p>
 
-      <div style="margin-top:34px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
-        <a class="btn btn-primary" href="#pricing">Get Started</a>
-        <a class="btn btn-ghost" href="/market">Browse Marketplace</a>
+      <div style="margin-top:30px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
+        <a class="btn btn-primary" href="/join">Publish Catalogue</a>
+        <a class="btn btn-ghost" href="#marketplace-home">Experience Live Demo</a>
+      </div>
+
+      <p style="margin-top:18px; font-size:0.85rem; color:var(--ink-faint);">
+        Built for businesses selling products that require customer specifications before purchase.
+      </p>
+    </section>
+  </div>
+
+  <!-- ── 2. MARKETPLACE — this IS the homepage. Real listings,
+       no separate page. Sidebar filters the actual live grid
+       below, not a navigation target. ────────────────────── -->
+  <div class="band band-white">
+    <section id="marketplace-home">
+      <div class="catalogue-layout">
+        <aside class="catalogue-sidebar">
+          <input
+            id="catalogue-search"
+            class="catalogue-search"
+            type="text"
+            placeholder="Search custom products"
+          />
+
+          <p class="catalogue-sidebar-title">Browse Categories</p>
+          <div class="catalogue-category-list">
+            <button class="catalogue-cat-filter active" data-group="all">All</button>
+            {CATEGORY_GROUPS.map((group) => (
+              <button class="catalogue-cat-filter" data-group={group}>{group}</button>
+            ))}
+          </div>
+
+          <div class="catalogue-tour-box">
+            <p class="catalogue-tour-title">✨ New to QuoteLens?</p>
+            <p class="catalogue-tour-text">
+              Browse a real listing below and walk a quote yourself — that's the
+              60-second tour.
+            </p>
+          </div>
+
+          <div class="catalogue-community-box">
+            <p class="catalogue-tour-title">Help Shape QuoteLens</p>
+            <p class="catalogue-tour-text">
+              Tell us if this should exist. One participant wins KSh 30,000.
+            </p>
+            <a class="btn btn-ghost" href="#community" style="width:100%; text-align:center; margin-top:10px;">
+              Leave Your Opinion
+            </a>
+          </div>
+        </aside>
+
+        <div>
+          <div id="market-status" style="text-align:center; color:var(--ink-faint); padding: 20px 0;">
+            Loading products...
+          </div>
+          <div id="showroom-notice" style="display:none; max-width:640px; margin:0 auto 16px; text-align:center; font-size:0.85rem; color:var(--ink-faint); background:var(--card); border:1px solid var(--border); border-radius:8px; padding:10px 16px;">
+            Listings marked <strong>DEMO</strong> are from QuoteLens' own Showroom tenant — shown to
+            illustrate how a real business's listing looks. Their products, images, and prices are for
+            demonstration only, not real offers.
+          </div>
+          <div id="market-grid" class="market-grid"></div>
+        </div>
       </div>
     </section>
   </div>
 
-  <!-- ── 2. THE PROBLEM ── (tint) ───────────────────────── -->
+  <!-- ── 3. COMMUNITY VALIDATION ── (tint) ──────────────── -->
   <div class="band band-tint">
-    <section id="problem" style="text-align:center;">
-      <p class="eyebrow">The Problem</p>
-      <h2>Advertising is just the beginning.</h2>
+    <section id="community" style="text-align:center;">
+      <p class="eyebrow">Community Validation Program</p>
+      <h2>Help Decide Whether QuoteLens Should Exist</h2>
       <p style="margin-top:14px; max-width:560px; margin-left:auto; margin-right:auto;">
-        Getting enquiries isn't the challenge. Managing what happens after
-        the click is. Every advert attracts a mix of people — and without
-        a system, every enquiry starts the same way.
+        We're building a new way to buy and sell custom products. Experience it,
+        challenge it, and tell us what you think.
       </p>
 
-      <ul class="chaos-list">
-        <li>"How much?"</li>
-        <li>"What options do you have?"</li>
-        <li>"Can you visit the site?"</li>
-        <li>"Can you send more photos?"</li>
-      </ul>
+      <div class="community-stats" id="community-stats">
+        <span class="community-stat-pill" id="stat-opinions">— opinions submitted</span>
+        <span class="community-stat-pill" id="stat-quotes">— quotes completed across QuoteLens</span>
+      </div>
 
-      <p style="margin-top:28px; font-weight:600; color:var(--ink);">
-        QuoteLens changes where the conversation begins.
-      </p>
+      <div class="community-columns">
+        <div class="community-form-card">
+          <p class="community-form-title">Leave your opinion</p>
+          <p style="font-size:0.9rem; margin-bottom:10px;">Was QuoteLens useful?</p>
+          <div class="star-input" id="star-input">
+            <span data-star="1">★</span>
+            <span data-star="2">★</span>
+            <span data-star="3">★</span>
+            <span data-star="4">★</span>
+            <span data-star="5">★</span>
+          </div>
+          <input
+            id="opinion-name"
+            type="text"
+            placeholder="Your name (optional)"
+            style="margin-top:14px;"
+          />
+          <textarea
+            id="opinion-text"
+            placeholder="What would make QuoteLens more useful for buyers or businesses?"
+            rows="4"
+            style="width:100%; margin-top:10px; padding:12px; border:1px solid var(--border); border-radius:8px; font-family:inherit; font-size:0.95rem; resize:vertical; box-sizing:border-box;"
+          ></textarea>
+          <button id="submit-opinion" class="btn btn-primary" style="width:100%; margin-top:12px;">
+            Submit Opinion
+          </button>
+          <p id="opinion-status" style="font-size:0.82rem; color:var(--ink-faint); margin-top:8px; min-height:1.2em;"></p>
+          <p style="font-size:0.8rem; color:var(--ink-faint); margin-top:6px;">
+            One participant will receive KSh 30,000 at the end of the testing period.
+          </p>
+        </div>
+
+        <div class="community-opinions-card">
+          <p class="community-form-title">✨ Recent community opinions</p>
+          <div id="opinions-list" class="opinions-list">
+            <p style="font-size:0.85rem; color:var(--ink-faint);">Loading...</p>
+          </div>
+        </div>
+      </div>
     </section>
   </div>
 
-  <!-- ── 3. THE DIFFERENCE ── (white) ───────────────────── -->
+  <!-- ── 4. BUSINESS VALUE ── (white) ───────────────────── -->
   <div class="band band-white">
-    <section id="difference" style="text-align:center;">
-      <p class="eyebrow">The Difference</p>
-      <h2>Every customer arrives prepared.</h2>
-      <p style="margin-top:14px; max-width:520px; margin-left:auto; margin-right:auto;">
-        Before a customer reaches your business, they've already done the work.
-      </p>
+    <section style="text-align:center;">
+      <h2>What businesses receive</h2>
 
-      <div class="prepared-list">
-        <p>✓ Explored your products</p>
-        <p>✓ Confirmed their measurements</p>
-        <p>✓ Received an instant estimate</p>
-        <p>✓ Compared product options</p>
-        <p>✓ Chosen what suits them best</p>
-      </div>
-
-      <p style="margin-top:26px; font-size:1.1rem; font-weight:600; color:var(--ink);">
-        When the message finally arrives, the conversation is different.<br />
-        You're no longer explaining the basics. You're discussing the order.
-      </p>
-    </section>
-  </div>
-
-  <!-- ── 4. HOW IT WORKS ── (tint) ──────────────────────── -->
-  <div class="band band-tint">
-    <section id="how" style="text-align:center;">
-      <p class="eyebrow">How It Works</p>
-
-      <div class="journey">
-        <div class="journey-step">Customer discovers your business</div>
-        <div class="journey-arrow">↓</div>
-        <div class="journey-step">Opens your QuoteLens page</div>
-        <div class="journey-arrow">↓</div>
-        <div class="journey-step">Configures their quote — no messages needed</div>
-        <div class="journey-arrow">↓</div>
-        <div class="journey-step">Details captured automatically, nothing for you to type</div>
-        <div class="journey-arrow">↓</div>
-        <div class="journey-step gold">A prepared customer, delivered to WhatsApp &amp; email</div>
-      </div>
-
-      <p class="timer">⏱ Average journey — 4 minutes</p>
-    </section>
-  </div>
-
-  <!-- ── 5. BUILT FOR CUSTOM PRODUCTS ── (white) ────────── -->
-  <div class="band band-white">
-    <section id="industries" style="text-align:center;">
-      <h2>Built for custom products.</h2>
-
-      <div class="industry-grid">
-        <div>Curtains</div>
-        <div>Blinds</div>
-        <div>Wooden Doors</div>
-        <div>Steel Doors</div>
-        <div>Gates</div>
-        <div>Garage Doors</div>
-        <div>Kitchen Islands</div>
-        <div>Plantation Shutters</div>
-        <div class="more">+ More</div>
-      </div>
-
-      <p style="margin-top:26px; font-weight:600; color:var(--ink);">
-        If your product starts with "What size?" — QuoteLens can sell it.
-      </p>
-    </section>
-  </div>
-
-  <!-- ── 6. ONE LINK ── (tint) ──────────────────────────── -->
-  <div class="band band-tint">
-    <section id="onelink" style="text-align:center;">
-      <h2>One link.<br />Every customer.</h2>
-
-      <div class="channel-row">
-        <span>Instagram</span>
-        <span>Facebook</span>
-        <span>TikTok</span>
-        <span>WhatsApp</span>
-        <span>Google Business</span>
-        <span>Jiji</span>
-        <span>QR Code</span>
-      </div>
-
-      <p class="funnel-arrow">↓</p>
-      <p class="funnel-node">Your QuoteLens page</p>
-      <p class="funnel-arrow">↓</p>
-      <p class="funnel-line">
-        Every customer follows the same professional journey.
-      </p>
-      <p class="funnel-arrow">↓</p>
-      <p class="funnel-node gold">A prepared customer, delivered</p>
-    </section>
-  </div>
-
-  <!-- ── 7. MARKETPLACE ── (white) ──────────────────────── -->
-  <div class="band band-white">
-    <section id="marketplace" style="text-align:center;">
-      <p class="eyebrow">Marketplace</p>
-      <h2>Made-to-measure products<br />are finally shoppable.</h2>
-      <p style="margin-top:14px; max-width:520px; margin-left:auto; margin-right:auto;">
-        Browse products from businesses using QuoteLens.
-      </p>
-
-      <div class="shop-steps">
-        <span>Choose a product</span>
-        <span class="shop-arrow">→</span>
-        <span>Configure it to your measurements</span>
-        <span class="shop-arrow">→</span>
-        <span>Receive an instant estimate</span>
-      </div>
-
-      <div style="margin-top:30px;">
-        <a class="btn btn-ghost" href="/market">Browse Marketplace</a>
+      <div class="value-cards">
+        <div class="value-card">
+          <p class="value-card-icon">📤</p>
+          <p class="value-card-title">Publish Once</p>
+          <p class="value-card-text">Configure products, specifications and pricing one time.</p>
+        </div>
+        <div class="value-card">
+          <p class="value-card-icon">✨</p>
+          <p class="value-card-title">Customers Self-Serve</p>
+          <p class="value-card-text">Buyers explore products and answer the buying questions themselves.</p>
+        </div>
+        <div class="value-card">
+          <p class="value-card-icon">✓</p>
+          <p class="value-card-title">Receive Prepared Enquiries</p>
+          <p class="value-card-text">Spend less time explaining and more time delivering orders.</p>
+        </div>
       </div>
     </section>
   </div>
 
-  <!-- ── 8. PRICING ── (tint) ───────────────────────────── -->
+  <!-- ── 5. PRICING ── (tint) ───────────────────────────── -->
   <div class="band band-tint">
     <section id="pricing" style="text-align:center;">
       <p class="eyebrow">Pricing</p>
@@ -246,7 +263,7 @@ function approxUsd(kshAmount) {
     </section>
   </div>
 
-  <!-- ── 9. FAQ ── (white) ──────────────────────────────── -->
+  <!-- ── 6. FAQ ── (white) ──────────────────────────────── -->
   <div class="band band-white">
     <section id="faq">
       <h2 style="text-align:center;">Frequently asked questions</h2>
@@ -289,20 +306,20 @@ function approxUsd(kshAmount) {
         </details>
         <details>
           <summary>Can I try it before paying?</summary>
-          <p>Yes — as a customer. Browse the Marketplace and walk a quote
-          journey yourself. What you experience there is exactly what your
-          customers will experience on your page.</p>
+          <p>Yes — as a customer. Browse a real listing on this page and
+          walk a quote journey yourself. What you experience there is exactly
+          what your customers will experience on your page.</p>
         </details>
         <details>
           <summary>What businesses is QuoteLens for?</summary>
-          <p>Any business pricing custom work — anything that starts with
-          "what size?" Curtains, doors, gates, kitchens, and more.</p>
+          <p>Any business selling made-to-measure or made-to-order products —
+          curtains, doors, gates, kitchens, cakes, flowers, dresses, and more.</p>
         </details>
       </div>
     </section>
   </div>
 
-  <!-- ── 10. HELP ── (tint) ─────────────────────────────── -->
+  <!-- ── 7. HELP ── (tint) ─────────────────────────────── -->
   <div class="band band-tint">
     <section id="help" style="text-align:center;">
       <p class="eyebrow">Need a hand?</p>
@@ -330,16 +347,15 @@ function approxUsd(kshAmount) {
     </section>
   </div>
 
-  <!-- ── 11. FINAL CTA ── (dark) ────────────────────────── -->
+  <!-- ── 8. FINAL CTA ── (dark) ─────────────────────────── -->
   <div class="final-band">
-    <p>Every great customer conversation<br />starts before WhatsApp.</p>
+    <p>Ready to publish products<br />customers can actually shop?</p>
     <p style="margin-top:14px; font-size:1.05rem; font-weight:400; color:#cfc9bf;">
-      QuoteLens prepares every customer before they reach your business.<br />
-      When the message finally arrives, it's the right conversation.
+      Join the businesses building the future of custom shopping.
     </p>
     <div style="margin-top:26px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
-      <a class="btn btn-primary" href="#pricing">Get Started</a>
-      <a class="btn btn-ghost-dark" href="/market">Browse Marketplace</a>
+      <a class="btn btn-primary" href="/join">Publish Your Catalogue</a>
+      <a class="btn btn-ghost-dark" href="#marketplace-home">Experience the Live Marketplace</a>
     </div>
   </div>
 
@@ -347,149 +363,489 @@ function approxUsd(kshAmount) {
 
 </Layout>
 
-<style>
-  .chaos-list {
-    list-style: none;
-    margin: 30px auto 0;
-    max-width: 420px;
-    text-align: left;
-  }
-  .chaos-list li {
-    background: #f4f2ee;
-    border: 1px solid #e4e0d8;
-    border-radius: 10px;
-    padding: 12px 18px;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: var(--ink-soft);
-    font-size: 0.98rem;
+<script>
+  import { supabase } from '../utils/supabase.js'
+
+  const APP_DOMAIN = 'quote-lens.app'
+  const SHOWROOM_TENANT_ID = 'showroom'
+
+  const CATEGORY_META = {
+    cakes:               { group: 'Food' },
+    flowers:              { group: 'Flowers' },
+    womens_dresses:        { group: 'Fashion' },
+    plantation_shutters:   { group: 'Home Improvement' },
+    curtains:              { group: 'Home Improvement' },
+    wooden_doors:          { group: 'Home Improvement' },
+    steel_doors:           { group: 'Home Improvement' },
+    gates:                 { group: 'Home Improvement' },
+    garage_doors:          { group: 'Home Improvement' },
+    kitchen_island:        { group: 'Furniture' },
+    blinds:                { group: 'Home Improvement' }
   }
 
-  .prepared-list {
-    margin: 26px auto 0;
-    max-width: 340px;
+  function formatDimension(dimension) {
+    if (!dimension || dimension.arg1 == null || dimension.arg2 == null) return null
+    const widthM = (Number(dimension.arg1) / 1000).toFixed(2)
+    const heightM = (Number(dimension.arg2) / 1000).toFixed(2)
+    return `${widthM}m × ${heightM}m`
   }
-  .prepared-list p {
+
+  let allCards = []
+
+  async function loadMarketplace() {
+    const statusEl = document.getElementById('market-status')
+    const showroomNoticeEl = document.getElementById('showroom-notice')
+
+    const { data: tenants, error } = await supabase
+      .from('tenant_config')
+      .select('tenant_id, business_name, currency_symbol, marketplace_listing, plan_tier')
+      .eq('subscription_status', 'active')
+      .eq('marketplace_listed', true)
+      .not('marketplace_listing', 'is', null)
+
+    if (error) {
+      statusEl.textContent = 'Could not load the marketplace right now.'
+      console.error(error)
+      return
+    }
+
+    let hasShowroomCards = false
+
+    ;(tenants || []).forEach((tenant) => {
+      const listingsByTemplate = tenant.marketplace_listing
+      if (!listingsByTemplate || typeof listingsByTemplate !== 'object') return
+
+      const isShowroom = tenant.tenant_id === SHOWROOM_TENANT_ID
+      const isGrowth = tenant.plan_tier === 'growth'
+
+      // Iterate with the template id (the object key) preserved,
+      // so each card can be filtered by category on this page —
+      // market.astro never needed this since it had no on-page
+      // category filter, only a query-param link from elsewhere.
+      Object.entries(listingsByTemplate).forEach(([templateId, listing]) => {
+        if (!listing?.cards?.length) return
+
+        const dimensionLabel = formatDimension(listing.dimension)
+        const group = CATEGORY_META[templateId]?.group || 'Other'
+
+        listing.cards.forEach((card) => {
+          if (!card.imageUrl) return
+
+          if (isShowroom) hasShowroomCards = true
+
+          allCards.push({
+            tenantId: tenant.tenant_id,
+            businessName: tenant.business_name,
+            currencySymbol: tenant.currency_symbol || '',
+            material: card.material?.label || '',
+            spec: card.spec?.label || '',
+            price: card.price,
+            imageUrl: card.imageUrl,
+            dimensionLabel,
+            isShowroom,
+            isGrowth,
+            templateId,
+            group
+          })
+        })
+      })
+    })
+
+    allCards.sort((a, b) => (b.isGrowth ? 1 : 0) - (a.isGrowth ? 1 : 0))
+
+    if (allCards.length === 0) {
+      statusEl.textContent = 'No products listed yet — check back soon.'
+      return
+    }
+
+    statusEl.remove()
+
+    if (hasShowroomCards) {
+      showroomNoticeEl.style.display = 'block'
+    }
+
+    renderCards(allCards)
+  }
+
+  function renderCards(cards) {
+    const gridEl = document.getElementById('market-grid')
+
+    if (cards.length === 0) {
+      gridEl.innerHTML = `<p style="text-align:center; color:var(--ink-faint); padding:20px 0;">
+        No listings in this category yet — check back soon.
+      </p>`
+      return
+    }
+
+    gridEl.innerHTML = cards.map((card) => `
+      <a class="market-card" href="https://${APP_DOMAIN}/t/${card.tenantId}">
+        <img src="${card.imageUrl}" alt="${card.material} ${card.spec}" loading="lazy" />
+        <div class="market-card-body">
+          <p class="market-card-business">
+            ${card.businessName}${card.isShowroom ? '<span class="market-card-demo-tag">DEMO</span>' : ''}
+          </p>
+          ${card.dimensionLabel ? `<p class="market-card-dimension">${card.dimensionLabel}</p>` : ''}
+          <p class="market-card-title">${card.material}</p>
+          <p class="market-card-spec">${card.spec}</p>
+          <p class="market-card-price">${card.currencySymbol} ${Number(card.price).toLocaleString()}</p>
+        </div>
+      </a>
+    `).join('')
+  }
+
+  // ── Sidebar filtering — filters the REAL grid loaded above,
+  // never navigates anywhere. This is the actual "merge" of what
+  // used to be a separate /market page's query-param filtering. ──
+  const searchInput = document.getElementById('catalogue-search')
+  const filterButtons = document.querySelectorAll('.catalogue-cat-filter')
+  let activeGroup = 'all'
+
+  function applyCatalogueFilter() {
+    const term = (searchInput?.value || '').toLowerCase().trim()
+    const filtered = allCards.filter((card) => {
+      const matchesGroup = activeGroup === 'all' || card.group === activeGroup
+      const matchesSearch = !term ||
+        card.material.toLowerCase().includes(term) ||
+        card.spec.toLowerCase().includes(term) ||
+        card.businessName.toLowerCase().includes(term)
+      return matchesGroup && matchesSearch
+    })
+    renderCards(filtered)
+  }
+
+  searchInput?.addEventListener('input', applyCatalogueFilter)
+  filterButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      activeGroup = btn.dataset.group
+      filterButtons.forEach((b) => b.classList.remove('active'))
+      btn.classList.add('active')
+      applyCatalogueFilter()
+    })
+  })
+
+  loadMarketplace()
+
+  // ── Community Validation — real data only. "People tried
+  // QuoteLens" and "businesses waiting to join" aren't tracked
+  // anywhere in the schema, so rather than inventing them, this
+  // shows two genuinely measurable stats instead. ────────────
+  let selectedRating = 0
+  const starEls = document.querySelectorAll('#star-input span')
+
+  starEls.forEach((star) => {
+    star.addEventListener('click', () => {
+      selectedRating = Number(star.dataset.star)
+      starEls.forEach((s) => {
+        s.classList.toggle('filled', Number(s.dataset.star) <= selectedRating)
+      })
+    })
+  })
+
+  async function loadCommunityStats() {
+    const { count: opinionCount } = await supabase
+      .from('community_opinions')
+      .select('id', { count: 'exact', head: true })
+
+    const statOpinions = document.getElementById('stat-opinions')
+    if (statOpinions) {
+      statOpinions.textContent = `${opinionCount ?? 0} opinion${opinionCount === 1 ? '' : 's'} submitted`
+    }
+
+    const { data: tenants } = await supabase
+      .from('tenant_config')
+      .select('completed_quotes')
+
+    const totalQuotes = (tenants || []).reduce((sum, t) => sum + (t.completed_quotes || 0), 0)
+    const statQuotes = document.getElementById('stat-quotes')
+    if (statQuotes) {
+      statQuotes.textContent = `${totalQuotes} quote${totalQuotes === 1 ? '' : 's'} completed across QuoteLens`
+    }
+  }
+
+  async function loadRecentOpinions() {
+    const listEl = document.getElementById('opinions-list')
+    if (!listEl) return
+
+    const { data, error } = await supabase
+      .from('community_opinions')
+      .select('name, rating, feedback_text, created_at')
+      .order('created_at', { ascending: false })
+      .limit(6)
+
+    if (error || !data || data.length === 0) {
+      listEl.innerHTML = `<p style="font-size:0.85rem; color:var(--ink-faint);">
+        No opinions yet — be the first to share yours.
+      </p>`
+      return
+    }
+
+    listEl.innerHTML = data.map((o) => {
+      const displayName = o.name?.trim() || 'Anonymous'
+      const stars = '★'.repeat(o.rating) + '☆'.repeat(5 - o.rating)
+      const text = o.feedback_text ? `<p class="opinion-text">"${escapeHtml(o.feedback_text)}"</p>` : ''
+      return `
+        <div class="opinion-card">
+          <div class="opinion-header">
+            <span class="opinion-name">${escapeHtml(displayName)}</span>
+            <span class="opinion-stars">${stars}</span>
+          </div>
+          ${text}
+        </div>
+      `
+    }).join('')
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div')
+    div.textContent = str
+    return div.innerHTML
+  }
+
+  document.getElementById('submit-opinion')?.addEventListener('click', async () => {
+    const statusEl = document.getElementById('opinion-status')
+    const nameInput = document.getElementById('opinion-name')
+    const textInput = document.getElementById('opinion-text')
+
+    if (selectedRating === 0) {
+      statusEl.textContent = 'Please select a star rating first.'
+      statusEl.style.color = '#c0392b'
+      return
+    }
+
+    statusEl.textContent = 'Submitting...'
+    statusEl.style.color = 'var(--ink-faint)'
+
+    const { error } = await supabase.from('community_opinions').insert({
+      rating: selectedRating,
+      feedback_text: textInput.value.trim() || null,
+      name: nameInput.value.trim() || null
+    })
+
+    if (error) {
+      statusEl.textContent = 'Something went wrong — please try again.'
+      statusEl.style.color = '#c0392b'
+      return
+    }
+
+    statusEl.textContent = 'Thank you — your opinion has been submitted.'
+    statusEl.style.color = '#0f6e56'
+    textInput.value = ''
+    nameInput.value = ''
+    selectedRating = 0
+    starEls.forEach((s) => s.classList.remove('filled'))
+
+    loadCommunityStats()
+    loadRecentOpinions()
+  })
+
+  loadCommunityStats()
+  loadRecentOpinions()
+</script>
+
+<style>
+  .eyebrow-badge {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--gold-dark);
     background: var(--gold-pale);
     border: 1px solid var(--gold);
-    border-radius: 10px;
-    padding: 12px 18px;
-    margin-bottom: 8px;
-    font-weight: 700;
-    color: var(--gold-dark);
-    font-size: 1rem;
+    border-radius: 999px;
+    padding: 6px 16px;
+    margin-bottom: 18px;
   }
 
-  .journey {
-    margin: 40px auto 0;
-    max-width: 400px;
+  .catalogue-layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+  @media (max-width: 780px) {
+    .catalogue-layout { grid-template-columns: 1fr; }
+  }
+
+  .catalogue-search {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    margin-bottom: 18px;
+    box-sizing: border-box;
+  }
+  .catalogue-sidebar-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-faint);
+    margin-bottom: 8px;
+  }
+  .catalogue-category-list {
     display: flex;
     flex-direction: column;
+    gap: 4px;
+    margin-bottom: 20px;
+  }
+  .catalogue-cat-filter {
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+  .catalogue-cat-filter.active,
+  .catalogue-cat-filter:hover {
+    background: var(--gold-pale);
+    color: var(--gold-dark);
+    font-weight: 600;
+  }
+  .catalogue-tour-box, .catalogue-community-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 14px;
+  }
+  .catalogue-tour-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .catalogue-tour-text {
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    line-height: 1.5;
+  }
+
+  /* market-grid/market-card use :global() for the same reason
+     market.astro's did — these classes are applied to markup
+     injected at RUNTIME via innerHTML, not present at build time,
+     so Astro's scoped-style attribute never reaches them. A normal
+     rule here would silently never match. */
+  :global(.market-grid) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  :global(.market-card) {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  :global(.market-card:hover) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  }
+  :global(.market-card img) {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+  }
+  :global(.market-card-body) { padding: 12px; text-align: center; }
+  :global(.market-card-business) {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--gold-dark);
+    margin: 0 0 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 6px;
   }
-  .journey-step {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 12px 18px;
-    font-weight: 600;
-    font-size: 0.98rem;
-  }
-  .journey-step.gold {
-    background: var(--gold-pale);
-    border-color: var(--gold);
-    color: var(--gold-dark);
-  }
-  .journey-arrow { color: var(--gold); font-weight: 700; }
-  .timer {
-    margin-top: 24px;
-    font-size: 1.1rem;
+  :global(.market-card-demo-tag) {
+    font-size: 0.62rem;
     font-weight: 700;
-    color: var(--gold-dark);
+    letter-spacing: 0.03em;
+    color: #fff;
+    background: var(--ink-faint);
+    padding: 2px 6px;
+    border-radius: 4px;
   }
+  :global(.market-card-dimension) { font-size: 0.72rem; color: var(--ink-faint); margin: 0 0 6px; }
+  :global(.market-card-title) { font-weight: 700; font-size: 0.95rem; color: var(--ink); margin: 0 0 2px; }
+  :global(.market-card-spec) { font-size: 0.85rem; color: var(--ink-soft); margin: 0 0 8px; }
+  :global(.market-card-price) { font-weight: 800; font-size: 1.05rem; color: var(--gold-dark); margin: 0; }
 
-  .industry-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 10px;
-    margin-top: 36px;
-  }
-  .industry-grid div {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 16px 10px;
-    font-weight: 600;
-    font-size: 0.95rem;
-  }
-  .industry-grid .more {
-    background: var(--gold-pale);
-    border-color: var(--gold);
-    color: var(--gold-dark);
-  }
-
-  .channel-row {
+  /* ── Community Validation ── */
+  .community-stats {
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+    gap: 10px;
     justify-content: center;
-    margin-top: 34px;
+    flex-wrap: wrap;
+    margin-top: 20px;
   }
-  .channel-row span {
+  .community-stat-pill {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 999px;
-    padding: 8px 16px;
-    font-size: 0.88rem;
+    padding: 6px 16px;
+    font-size: 0.82rem;
     font-weight: 600;
     color: var(--ink-soft);
   }
-  .funnel-arrow {
-    color: var(--gold);
-    font-weight: 700;
-    margin: 10px 0;
-    font-size: 1.2rem;
+  .community-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 32px;
+    text-align: left;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
   }
-  .funnel-node {
-    display: inline-block;
+  @media (max-width: 700px) {
+    .community-columns { grid-template-columns: 1fr; }
+  }
+  .community-form-card, .community-opinions-card {
     background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 12px 26px;
-    font-weight: 700;
-    color: var(--ink);
+    border-radius: var(--radius);
+    padding: 22px;
   }
-  .funnel-node.gold {
-    background: var(--gold-pale);
-    border-color: var(--gold);
-    color: var(--gold-dark);
-  }
-  .funnel-line { color: var(--ink-soft); font-size: 1rem; }
+  .community-form-title { font-weight: 700; color: var(--ink); margin-bottom: 10px; }
+  .star-input { font-size: 1.6rem; color: #ddd; cursor: pointer; }
+  .star-input span { margin-right: 4px; transition: color 0.1s ease; }
+  .star-input span.filled { color: var(--gold); }
+  .opinions-list { display: flex; flex-direction: column; gap: 12px; max-height: 340px; overflow-y: auto; }
+  .opinion-card { border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+  .opinion-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+  .opinion-name { font-weight: 700; font-size: 0.88rem; color: var(--ink); }
+  .opinion-stars { color: var(--gold); font-size: 0.85rem; }
+  .opinion-text { font-size: 0.85rem; color: var(--ink-soft); font-style: italic; margin: 0; }
 
-  .shop-steps {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px;
+  /* ── Business Value ── */
+  .value-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 32px;
+    max-width: 820px;
+    margin-left: auto;
+    margin-right: auto;
   }
-  .shop-steps span {
+  .value-card {
     background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 12px 18px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    color: var(--ink);
+    border-radius: var(--radius);
+    padding: 22px 18px;
   }
-  .shop-steps .shop-arrow {
-    background: none;
-    border: none;
-    color: var(--gold);
-    font-weight: 700;
-    padding: 0;
-  }
+  .value-card-icon { font-size: 1.6rem; margin-bottom: 8px; }
+  .value-card-title { font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+  .value-card-text { font-size: 0.88rem; color: var(--ink-faint); line-height: 1.5; }
 
   .plans {
     display: grid;
@@ -518,62 +874,22 @@ function approxUsd(kshAmount) {
   }
   .price { font-size: 2.2rem; font-weight: 800; color: var(--ink); text-align: center; margin-top: 4px; }
   .price span { font-size: 1rem; font-weight: 600; color: var(--ink-faint); }
-  .price-usd {
-    text-align: center;
-    font-size: 0.85rem;
-    color: var(--ink-faint);
-    margin-top: 2px;
-  }
-  .plan-tag {
-    text-align: center;
-    font-size: 0.88rem;
-    color: var(--ink-faint);
-    margin-top: 4px;
-  }
+  .price-usd { text-align: center; font-size: 0.85rem; color: var(--ink-faint); margin-top: 2px; }
+  .plan-tag { text-align: center; font-size: 0.88rem; color: var(--ink-faint); margin-top: 4px; }
   .price-card ul { list-style: none; margin: 18px 0 22px; padding: 0; }
-  .price-card li {
-    padding: 7px 0;
-    color: var(--ink-soft);
-    border-bottom: 1px solid var(--border);
-    font-size: 0.95rem;
-  }
+  .price-card li { padding: 7px 0; color: var(--ink-soft); border-bottom: 1px solid var(--border); font-size: 0.95rem; }
   .price-card li::before { content: "✓ "; color: var(--gold); font-weight: 700; }
-
-  .trust-strip {
-    margin-top: 22px;
-    font-size: 0.88rem;
-    color: var(--ink-faint);
-  }
+  .trust-strip { margin-top: 22px; font-size: 0.88rem; color: var(--ink-faint); }
 
   .faq-list { max-width: 680px; margin: 32px auto 0; }
-  .faq-list details {
-    border-bottom: 1px solid var(--border);
-    padding: 16px 0;
-  }
-  .faq-list summary {
-    font-weight: 700;
-    color: var(--ink);
-    cursor: pointer;
-    font-size: 1rem;
-    list-style: none;
-  }
+  .faq-list details { border-bottom: 1px solid var(--border); padding: 16px 0; }
+  .faq-list summary { font-weight: 700; color: var(--ink); cursor: pointer; font-size: 1rem; list-style: none; }
   .faq-list summary::-webkit-details-marker { display: none; }
-  .faq-list summary::after {
-    content: "+";
-    float: right;
-    color: var(--gold);
-    font-weight: 700;
-  }
+  .faq-list summary::after { content: "+"; float: right; color: var(--gold); font-weight: 700; }
   .faq-list details[open] summary::after { content: "−"; }
   .faq-list details p { margin-top: 10px; font-size: 0.97rem; }
 
-  .help-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 14px;
-    justify-content: center;
-    margin-top: 30px;
-  }
+  .help-row { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 30px; }
   .help-card {
     background: var(--card);
     border: 1px solid var(--border);
@@ -587,30 +903,11 @@ function approxUsd(kshAmount) {
     transition: border-color 0.15s ease;
   }
   .help-card:hover { border-color: var(--gold); }
-  .help-label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--gold-dark);
-  }
-  .help-value {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--ink);
-  }
+  .help-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--gold-dark); }
+  .help-value { font-size: 0.95rem; font-weight: 600; color: var(--ink); }
 
-  .final-band {
-    background: var(--ink);
-    text-align: center;
-    padding: 74px 20px;
-    margin-top: 0;
-  }
-  .final-band p {
-    color: #fff;
-    font-size: clamp(1.2rem, 3.5vw, 1.7rem);
-    font-weight: 700;
-  }
+  .final-band { background: var(--ink); text-align: center; padding: 74px 20px; margin-top: 0; }
+  .final-band p { color: #fff; font-size: clamp(1.2rem, 3.5vw, 1.7rem); font-weight: 700; }
   .btn-ghost-dark {
     display: inline-block;
     padding: 15px 30px;
@@ -624,4 +921,5 @@ function approxUsd(kshAmount) {
   }
   .btn-ghost-dark:hover { border-color: var(--gold); color: var(--gold-pale); }
 </style>
+
 
