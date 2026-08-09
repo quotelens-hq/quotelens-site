@@ -1,0 +1,494 @@
+---
+import type {
+  CatalogueExperience,
+  CatalogueImage,
+} from "../../data/catalogues";
+
+export interface Props {
+  title: string;
+  image?: string;
+  images?: CatalogueImage[];
+  shortDescription: string;
+  experience: CatalogueExperience;
+  publishUrl: string;
+  comingSoon?: boolean;
+}
+
+const {
+  title,
+  image = "",
+  images = [],
+  shortDescription,
+  experience,
+  publishUrl,
+  comingSoon = false,
+} = Astro.props;
+
+const previewImages =
+  images.length > 0
+    ? images.slice(0, 4)
+    : image
+      ? [{ src: image, label: title }]
+      : [];
+---
+
+<article
+  class="catalogue-card"
+  style={`--accent:${experience.color};`}
+  data-catalogue-card
+>
+  <!-- PRODUCT PREVIEW -->
+
+  {
+    previewImages.length > 0 ? (
+      <div class="preview-stage">
+        {
+          previewImages.map((item, index) => (
+            <img
+              src={item.src}
+              alt={`${title} — ${item.label}`}
+              class:list={[
+                "preview-image",
+                { active: index === 0 },
+              ]}
+              data-preview-image={index}
+              loading={index === 0 ? "eager" : "lazy"}
+            />
+          ))
+        }
+
+        <div class="preview-overlay"></div>
+
+        <div class="preview-label">
+          <span class="preview-dot"></span>
+
+          <span data-preview-label>
+            {previewImages[0].label}
+          </span>
+        </div>
+      </div>
+    ) : (
+      <div class="preview-empty">
+        <span>{experience.icon}</span>
+      </div>
+    )
+  }
+
+  <!-- EXPERIENCE -->
+
+  <div class="experience-badge">
+    <span class="badge-icon">
+      {experience.icon}
+    </span>
+
+    <span>
+      {experience.title}
+    </span>
+  </div>
+
+  <h3>
+    {title}
+  </h3>
+
+  <p class="description">
+    {shortDescription}
+  </p>
+
+  <div class="divider"></div>
+
+  <ul class="flow">
+    {
+      experience.steps.map((step) => (
+        <li>
+          <span class="check">
+            ✓
+          </span>
+
+          <span>
+            {step}
+          </span>
+        </li>
+      ))
+    }
+  </ul>
+
+  <!-- PUBLISH GATE -->
+
+  {
+    comingSoon ? (
+      <button
+        type="button"
+        class="catalogue-cta disabled"
+        disabled
+      >
+        <span>
+          Coming Soon
+        </span>
+
+        <span class="arrow">
+          →
+        </span>
+      </button>
+    ) : (
+      <a
+        href={publishUrl}
+        class="catalogue-cta"
+      >
+        <span>
+          Publish This Catalogue
+        </span>
+
+        <span class="arrow">
+          →
+        </span>
+      </a>
+    )
+  }
+</article>
+
+<script>
+  document
+    .querySelectorAll("[data-catalogue-card]")
+    .forEach((card) => {
+      const images =
+        card.querySelectorAll(
+          "[data-preview-image]"
+        );
+
+      const options =
+        card.querySelectorAll(
+          "[data-preview-option]"
+        );
+
+      const label =
+        card.querySelector(
+          "[data-preview-label]"
+        );
+
+      if (!images.length) return;
+
+      function activate(index) {
+        images.forEach((image, i) => {
+          image.classList.toggle(
+            "active",
+            i === index
+          );
+        });
+
+        options.forEach((option, i) => {
+          option.classList.toggle(
+            "active",
+            i === index
+          );
+        });
+
+        const selected =
+          options[index]?.textContent?.trim();
+
+        if (label && selected) {
+          label.textContent = selected;
+        }
+      }
+
+      options.forEach((option, index) => {
+        option.addEventListener(
+          "click",
+          () => activate(index)
+        );
+      });
+    });
+</script>
+
+<style>
+  .catalogue-card {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+
+    padding: 22px;
+
+    background: #fff;
+
+    border: 1px solid #e6e1d9;
+
+    border-radius: 18px;
+
+    box-shadow:
+      0 8px 30px
+      rgba(26, 25, 22, 0.045);
+
+    transition:
+      transform 180ms ease,
+      box-shadow 180ms ease,
+      border-color 180ms ease;
+  }
+
+  .catalogue-card:hover {
+    transform: translateY(-3px);
+
+    border-color:
+      color-mix(
+        in srgb,
+        var(--accent) 35%,
+        #e6e1d9
+      );
+
+    box-shadow:
+      0 18px 45px
+      rgba(26, 25, 22, 0.08);
+  }
+
+  .preview-stage {
+    position: relative;
+
+    overflow: hidden;
+
+    aspect-ratio: 4 / 3;
+
+    margin-bottom: 20px;
+
+    background: #f1ede6;
+
+    border-radius: 12px;
+  }
+
+  .preview-image {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    opacity: 0;
+
+    transition:
+      opacity 300ms ease,
+      transform 500ms ease;
+
+    transform: scale(1.02);
+  }
+
+  .preview-image.active {
+    opacity: 1;
+
+    transform: scale(1);
+  }
+
+  .preview-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+      linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.48),
+        transparent 45%
+      );
+  }
+
+  .preview-label {
+    position: absolute;
+
+    left: 16px;
+    bottom: 14px;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    color: #fff;
+
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .preview-dot {
+    width: 7px;
+    height: 7px;
+
+    background: var(--accent);
+
+    border-radius: 50%;
+  }
+
+  .preview-empty {
+    display: grid;
+    place-items: center;
+
+    aspect-ratio: 4 / 3;
+
+    margin-bottom: 20px;
+
+    background: #f4f1ea;
+
+    border-radius: 12px;
+
+    color: var(--accent);
+
+    font-size: 42px;
+  }
+
+  .experience-badge {
+    display: inline-flex;
+
+    align-items: center;
+    gap: 8px;
+
+    width: fit-content;
+
+    margin-bottom: 14px;
+    padding: 7px 10px;
+
+    color: var(--accent);
+
+    background:
+      color-mix(
+        in srgb,
+        var(--accent) 9%,
+        white
+      );
+
+    border-radius: 999px;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: .03em;
+  }
+
+  .badge-icon {
+    font-size: 14px;
+  }
+
+  .catalogue-card h3 {
+    margin: 0;
+
+    color: #1a1916;
+
+    font-size: 24px;
+
+    line-height: 1.1;
+
+    letter-spacing: -.025em;
+  }
+
+  .description {
+    margin: 12px 0 0;
+
+    color: #756e65;
+
+    font-size: 14px;
+
+    line-height: 1.65;
+  }
+
+  .divider {
+    height: 1px;
+
+    margin: 20px 0;
+
+    background: #e8e3dc;
+  }
+
+  .flow {
+    display: grid;
+
+    gap: 10px;
+
+    margin: 0 0 22px;
+    padding: 0;
+
+    list-style: none;
+  }
+
+  .flow li {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    color: #514b44;
+
+    font-size: 13px;
+  }
+
+  .check {
+    display: grid;
+    place-items: center;
+
+    width: 20px;
+    height: 20px;
+
+    flex: 0 0 20px;
+
+    color: var(--accent);
+
+    background:
+      color-mix(
+        in srgb,
+        var(--accent) 10%,
+        white
+      );
+
+    border-radius: 50%;
+
+    font-size: 11px;
+    font-weight: 900;
+  }
+
+  .catalogue-cta {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+
+    margin-top: auto;
+    padding: 14px 16px;
+
+    color: #fff;
+
+    background: #1a1916;
+
+    border: 1px solid #1a1916;
+    border-radius: 9px;
+
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    transition:
+      background 180ms ease,
+      transform 180ms ease;
+  }
+
+  .catalogue-cta:hover {
+    background: var(--accent);
+
+    transform: translateY(-1px);
+  }
+
+  .catalogue-cta.disabled {
+    color: #999;
+
+    background: #eeeae4;
+
+    border-color: #ddd7ce;
+
+    cursor: not-allowed;
+  }
+
+  .arrow {
+    font-size: 18px;
+  }
+</style>
