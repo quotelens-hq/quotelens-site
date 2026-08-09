@@ -983,24 +983,14 @@ const featuredCatalogues = catalogues.filter(
     <script>
       import { supabase } from '../utils/supabase.js'
 
-      // Maps a real templateId to a display category + accent color
-      // for the injected cards — same category set the rest of this
-      // page already uses (Food/Fashion/Home Improvement/Furniture/
-      // Automotive), so real cards visually match the static ones.
-      const TEMPLATE_DISPLAY = {
-        cakes:                { category: 'Food',              icon: '🎂', accent: '#F97316' },
-        flowers:               { category: 'Food',              icon: '💐', accent: '#10B981' },
-        womens_dresses:         { category: 'Fashion',           icon: '👗', accent: '#8B5CF6' },
-        vehicle_parts:          { category: 'Automotive',        icon: '🔧', accent: '#DC2626' },
-        plantation_shutters:    { category: 'Home Improvement',  icon: '🪟', accent: '#2563EB' },
-        curtains:               { category: 'Home Improvement',  icon: '🪟', accent: '#0EA5E9' },
-        wooden_doors:           { category: 'Home Improvement',  icon: '🚪', accent: '#92400E' },
-        steel_doors:            { category: 'Home Improvement',  icon: '🛡️', accent: '#475569' },
-        gates:                  { category: 'Home Improvement',  icon: '🚪', accent: '#64748B' },
-        garage_doors:           { category: 'Home Improvement',  icon: '🚗', accent: '#334155' },
-        kitchen_island:         { category: 'Furniture',         icon: '🍽️', accent: '#EAB308' },
-        blinds:                 { category: 'Home Improvement',  icon: '🪟', accent: '#0EA5E9' }
+      function formatDimension(dimension) {
+        if (!dimension || dimension.arg1 == null || dimension.arg2 == null) return null
+        const widthM = (Number(dimension.arg1) / 1000).toFixed(2)
+        const heightM = (Number(dimension.arg2) / 1000).toFixed(2)
+        return `${widthM}m × ${heightM}m`
       }
+
+      const SHOWROOM_TENANT_ID = 'showroom'
 
       async function loadRealMarketplace() {
         const statusEl = document.getElementById('marketplace-status')
@@ -1009,7 +999,7 @@ const featuredCatalogues = catalogues.filter(
 
         const { data: tenants, error } = await supabase
           .from('tenant_config')
-          .select('tenant_id, business_name, marketplace_listing')
+          .select('tenant_id, business_name, currency_symbol, marketplace_listing')
           .eq('subscription_status', 'active')
           .eq('marketplace_listed', true)
           .not('marketplace_listing', 'is', null)
@@ -1020,28 +1010,37 @@ const featuredCatalogues = catalogues.filter(
           return
         }
 
-        // Flatten every tenant's per-template listings into one flat
-        // list of real cards — one card per (tenant, template) pair
-        // that has at least one real product card configured.
+        // Flatten into ONE card per real, individually configured
+        // product — not a per-business summary. Each product's own
+        // photo, material, spec, and price render directly, the same
+        // way the real quote flow itself would show them.
         const realCards = []
 
         ;(tenants || []).forEach((tenant) => {
           const listingsByTemplate = tenant.marketplace_listing
           if (!listingsByTemplate || typeof listingsByTemplate !== 'object') return
 
+          const isShowroom = tenant.tenant_id === SHOWROOM_TENANT_ID
+
           Object.entries(listingsByTemplate).forEach(([templateId, listing]) => {
             if (!listing?.cards?.length) return
 
-            const display = TEMPLATE_DISPLAY[templateId] || { category: 'Other', icon: '📦', accent: '#706a62' }
+            const dimensionLabel = formatDimension(listing.dimension)
 
-            realCards.push({
-              businessName: tenant.business_name,
-              tenantId: tenant.tenant_id,
-              templateId,
-              category: display.category,
-              icon: display.icon,
-              accent: display.accent,
-              productCount: listing.cards.length
+            listing.cards.forEach((card) => {
+              if (!card.imageUrl) return
+
+              realCards.push({
+                tenantId: tenant.tenant_id,
+                businessName: tenant.business_name,
+                currencySymbol: tenant.currency_symbol || 'KSh',
+                material: card.material?.label || '',
+                spec: card.spec?.label || '',
+                price: card.price,
+                imageUrl: card.imageUrl,
+                dimensionLabel,
+                isShowroom
+              })
             })
           })
         })
@@ -1054,21 +1053,21 @@ const featuredCatalogues = catalogues.filter(
         }
 
         gridEl.innerHTML = realCards.map((card) => `
-          <article class="marketplace-card" data-search-text="${(card.businessName + ' ' + card.category).toLowerCase()}">
-            <div class="marketplace-image" style="--accent:${card.accent};">
-              <span>${card.icon}</span>
-              <small>${card.category}</small>
+          <a class="marketplace-card" href="https://quote-lens.app/t/${card.tenantId}"
+             data-search-text="${(card.businessName + ' ' + card.material + ' ' + card.spec).toLowerCase()}">
+            <div class="marketplace-image">
+              <img src="${card.imageUrl}" alt="${card.material} ${card.spec}" loading="lazy" />
             </div>
             <div class="marketplace-card-body">
-              <span class="marketplace-business">${card.businessName}</span>
-              <h3>${card.productCount} product${card.productCount === 1 ? '' : 's'} published</h3>
-              <p>Real, published catalogue from this business — browse and enquire directly.</p>
-              <a href="https://quote-lens.app/t/${card.tenantId}" class="marketplace-action" style="--accent:${card.accent};">
-                <span>View catalogue</span>
-                <span>→</span>
-              </a>
+              <span class="marketplace-business">
+                ${card.businessName}${card.isShowroom ? ' <span class="demo-tag">DEMO</span>' : ''}
+              </span>
+              ${card.dimensionLabel ? `<p class="marketplace-dimension">${card.dimensionLabel}</p>` : ''}
+              <h3>${card.material}</h3>
+              <p>${card.spec}</p>
+              <p class="marketplace-price">${card.currencySymbol} ${Number(card.price).toLocaleString()}</p>
             </div>
-          </article>
+          </a>
         `).join('')
 
         // Real cards just replaced the empty grid — re-apply
@@ -2875,6 +2874,8 @@ const featuredCatalogues = catalogues.filter(
 
       .marketplace-card {
 
+        display: block;
+
         overflow: hidden;
 
         border:
@@ -2883,6 +2884,10 @@ const featuredCatalogues = catalogues.filter(
         border-radius: 16px;
 
         background: #fff;
+
+        text-decoration: none;
+
+        color: inherit;
 
         transition:
           transform .2s ease,
@@ -2904,43 +2909,24 @@ const featuredCatalogues = catalogues.filter(
 
       .marketplace-image {
 
-        height: 180px;
+        height: 200px;
 
-        display: grid;
+        overflow: hidden;
 
-        place-items: center;
-
-        background:
-          linear-gradient(
-            135deg,
-            #eee9e1,
-            #dcd5ca
-          );
+        background: #eee9e1;
 
       }
 
 
-      .marketplace-image > span {
+      .marketplace-image img {
 
-        font-size: 48px;
+        width: 100%;
 
-      }
+        height: 100%;
 
+        object-fit: cover;
 
-      .marketplace-image small {
-
-        position: absolute;
-
-        margin:
-          130px 0 0 14px;
-
-        color: var(--accent);
-
-        font-size: 9px;
-
-        font-weight: 800;
-
-        letter-spacing: .1em;
+        display: block;
 
       }
 
@@ -2954,6 +2940,12 @@ const featuredCatalogues = catalogues.filter(
 
       .marketplace-business {
 
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 6px;
+
         color: var(--soft);
 
         font-size: 9px;
@@ -2961,6 +2953,37 @@ const featuredCatalogues = catalogues.filter(
         font-weight: 800;
 
         letter-spacing: .07em;
+        text-transform: uppercase;
+
+      }
+
+
+      .demo-tag {
+
+        font-size: 8px;
+
+        font-weight: 800;
+
+        letter-spacing: .03em;
+
+        color: #fff;
+
+        background: var(--soft);
+
+        padding: 2px 6px;
+
+        border-radius: 4px;
+
+      }
+
+
+      .marketplace-dimension {
+
+        margin: 6px 0 0;
+
+        color: var(--muted);
+
+        font-size: 11px;
 
       }
 
@@ -2968,7 +2991,7 @@ const featuredCatalogues = catalogues.filter(
       .marketplace-card h3 {
 
         margin:
-          10px 0 7px;
+          10px 0 5px;
 
         font-size: 20px;
 
@@ -2979,15 +3002,26 @@ const featuredCatalogues = catalogues.filter(
 
       .marketplace-card p {
 
-        min-height: 45px;
-
         margin: 0;
 
         color: var(--muted);
 
-        font-size: 11px;
+        font-size: 12px;
 
         line-height: 1.6;
+
+      }
+
+
+      .marketplace-price {
+
+        margin-top: 10px !important;
+
+        color: var(--gold) !important;
+
+        font-size: 16px !important;
+
+        font-weight: 800 !important;
 
       }
 
