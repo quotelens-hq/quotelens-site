@@ -1,2469 +1,667 @@
 ---
-import Layout from "../layouts/Layout.astro";
 import { catalogues } from "../data/catalogues";
+
+const categories = [
+  "All",
+  "Food",
+  "Fashion",
+  "Home Improvement",
+  "Furniture",
+  "Automotive",
+];
 ---
 
-<Layout
-  title="QuoteLens — Specification-driven buying"
-  description="QuoteLens brings specification-driven buying to the fragmented world of custom and made-to-order products."
->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QuoteLens — Specification-driven buying for custom products</title>
+    <meta name="description" content="QuoteLens brings specification-driven buying to the fragmented world of custom and made-to-order products." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  </head>
 
-  <div class="site">
+  <body>
 
     <!-- =====================================================
-         HEADER
+         NAVIGATION — unchanged, full width, same as before
     ====================================================== -->
 
     <header class="site-header">
-
-      <a href="/" class="brand">
-        <span class="brand-mark">Q</span>
-        <span class="brand-name">QuoteLens</span>
-      </a>
-
-      <nav class="main-nav">
-
-        <a href="#catalogues">
-          Catalogues
+      <div class="nav-inner">
+        <a href="/" class="brand" aria-label="QuoteLens home">
+          <span class="brand-mark">Q</span>
+          <span>QuoteLens</span>
         </a>
-
-        <a href="#how-it-works">
-          How it works
-        </a>
-
-        <a href="#marketplace">
-          Marketplace
-        </a>
-
-      </nav>
-
-      <div class="header-actions">
-
-        <a
-          href="/signin"
-          class="signin-link"
-        >
-          Sign in
-        </a>
-
-        <a
-          href="/join"
-          class="publish-button"
-        >
-          Publish your catalogue
-        </a>
-
+        <nav class="desktop-nav">
+          <a href="#catalogues">Catalogues</a>
+          <a href="#how-it-works">How it works</a>
+          <a href="#marketplace">Marketplace</a>
+        </nav>
+        <div class="nav-actions">
+          <a href="/admin" class="signin-link">Sign in</a>
+          <a href="/join" class="nav-cta">Publish your catalogue</a>
+        </div>
       </div>
-
     </header>
 
 
-    <!-- =====================================================
-         MAIN EXPERIENCE
-    ====================================================== -->
+    <main>
 
-    <main class="main-layout">
+      <!-- =====================================================
+           TWO-COLUMN LAYOUT — the whole page, per the sketch.
+           Left: every section's headline/pitch, condensed into
+           stacked boxes. Right: catalogue cards, then the real
+           marketplace search + grid. Not repeated per-section —
+           one continuous split for the entire page.
+      ====================================================== -->
 
-      <!-- ===================================================
-           LEFT EDITORIAL PANEL
-      ==================================================== -->
+      <div class="two-col-layout">
 
-      <aside class="editorial-panel">
+        <!-- ── LEFT COLUMN ── -->
+        <div class="left-col">
 
-        <div class="editorial-inner">
-
-          <div class="eyebrow">
-            Specification-driven buying
+          <!-- Hero pitch — kept as full content, not boxed,
+               matches the sketch's unboxed top item -->
+          <div class="hero-pitch">
+            <div class="eyebrow">
+              <span class="eyebrow-dot"></span>
+              Specification-driven buying
+            </div>
+            <h1>
+              Know what
+              <span>you want.</span>
+              <strong>Know what it costs.</strong>
+            </h1>
+            <p class="hero-description">
+              QuoteLens brings specification-driven buying to the
+              fragmented world of custom and made-to-order products.
+            </p>
+            <div class="hero-actions">
+              <a href="#catalogues" class="button button-dark">
+                <span>Explore products</span>
+                <span>→</span>
+              </a>
+              <a href="/join" class="button button-light">
+                Publish your catalogue
+              </a>
+            </div>
           </div>
 
-          <h1>
-            Know what
-            <br />
-            <span>you want.</span>
-
-            <strong>
-              Know what it
-              <br />
-              costs.
-            </strong>
-          </h1>
-
-          <p class="hero-description">
-            QuoteLens brings specification-driven buying
-            to the fragmented world of custom and
-            made-to-order products.
-          </p>
-
-          <div class="hero-actions">
-
-            <a
-              href="#catalogues"
-              class="primary-button"
-            >
-              <span>Explore products</span>
-              <span>→</span>
-            </a>
-
-            <a
-              href="/join"
-              class="secondary-button"
-            >
-              Publish your catalogue
-            </a>
-
+          <!-- Box 1 — condensed Thesis content -->
+          <div class="pitch-box">
+            <h3>Specification-driven buying</h3>
+            <p>
+              Custom buying traditionally starts with an explanation
+              and ends with a conversation about price. QuoteLens
+              flips that: Specify → Discover → Compare → Enquire.
+            </p>
           </div>
 
-          <p class="hero-note">
-            Built for products that require customer
-            specifications before purchase.
-          </p>
+          <!-- Box 2 — condensed How It Works content -->
+          <div class="pitch-box">
+            <h3>Buying custom products shouldn't feel complicated.</h3>
+            <p>
+              Discover a business. Configure your requirements.
+              Compare what fits. Send a prepared enquiry.
+            </p>
+          </div>
+
+          <!-- Box 3 — condensed Business content -->
+          <div class="pitch-box dark">
+            <h3>Turn your products into structured buying.</h3>
+            <p>
+              Configure once. Customers arrive with useful
+              specifications already attached — spend less time
+              explaining, more time delivering.
+            </p>
+            <a href="/join" class="button button-dark small">
+              Publish your catalogue <span>→</span>
+            </a>
+          </div>
+
+          <!-- Box 4 — condensed Community content -->
+          <div class="pitch-box">
+            <h3>Community Validation</h3>
+            <p>Was QuoteLens useful? Tell us what you think.</p>
+            <a href="/community" class="box-link">Share your experience →</a>
+          </div>
 
         </div>
 
-      </aside>
 
-
-      <!-- ===================================================
-           RIGHT CONTENT
-      ==================================================== -->
-
-      <div class="content-panel">
-
-
-        <!-- =================================================
-             CUSTOMER JOURNEY INTRO
-        ================================================== -->
-
-        <section class="journey-section">
-
-          <div class="journey-window">
-
-            <div class="window-top">
-
-              <div class="window-dots">
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-
-              <span class="window-label">
-                QuoteLens
-              </span>
-
-            </div>
-
-
-            <div class="journey-content">
-
-              <div class="journey-eyebrow">
-                Customer journey
-              </div>
-
-              <h2>
-                Find something
-                <br />
-                that fits.
-              </h2>
-
-
-              <div class="journey-steps">
-
-                <div>
-                  <small>01</small>
-                  <span>Discover</span>
-                </div>
-
-                <div>
-                  <small>02</small>
-                  <span>Configure</span>
-                </div>
-
-                <div>
-                  <small>03</small>
-                  <span>Compare</span>
-                </div>
-
-                <div>
-                  <small>04</small>
-                  <span>Enquire</span>
-                </div>
-
-              </div>
-
-
-              <div class="journey-product">
-
-                <div class="journey-product-icon">
-                  🪟
-                </div>
-
-                <div class="journey-product-copy">
-
-                  <small>
-                    Home Improvement
-                  </small>
-
-                  <strong>
-                    Plantation Shutters
-                  </strong>
-
-                  <span>
-                    Configure your options
-                  </span>
-
-                </div>
-
-                <span class="journey-arrow">
-                  →
-                </span>
-
-              </div>
-
-
-              <div class="journey-specs">
-
-                <div>
-                  <small>Dimension</small>
-                  <strong>1,500 × 1,200</strong>
-                </div>
-
-                <div>
-                  <small>Material</small>
-                  <strong>Cypress</strong>
-                </div>
-
-                <div>
-                  <small>Finish</small>
-                  <strong>Painted</strong>
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </section>
-
-
-        <!-- =================================================
-             IDEA
-        ================================================== -->
-
-        <section class="idea-section">
-
-          <div class="section-label">
-            The QuoteLens idea
-          </div>
-
-          <h2>
-            Specification-driven buying
-            <span>
-              for products that don't come off a shelf.
-            </span>
-          </h2>
-
-          <p class="section-lead">
-            Custom buying traditionally starts with an
-            explanation and ends with a conversation about price.
-          </p>
-
-
-          <div class="comparison">
-
-            <div class="comparison-card">
-
-              <span class="comparison-number">
-                Traditional custom buying
-              </span>
-
-              <div class="comparison-flow">
-                Explain
-                <span>→</span>
-                Measure
-                <span>→</span>
-                Discuss
-                <span>→</span>
-                Quote
-                <span>→</span>
-                Revise
-              </div>
-
-            </div>
-
-
-            <div class="comparison-card featured">
-
-              <span class="comparison-number">
-                QuoteLens
-              </span>
-
-              <div class="comparison-flow">
-                Specify
-                <span>→</span>
-                Discover
-                <span>→</span>
-                Compare
-                <span>→</span>
-                Enquire
-              </div>
-
-            </div>
-
-          </div>
-
-        </section>
-
-
-        <!-- =================================================
-             CATALOGUES
-        ================================================== -->
-
-        <section
-          id="catalogues"
-          class="catalogues-section"
-        >
-
-          <div class="section-heading">
-
-            <div>
-
-              <div class="section-label">
-                Explore catalogues
-              </div>
-
-              <h2>
-                Start with what
-                <br />
-                you're looking for.
-              </h2>
-
-            </div>
-
-            <p>
-              Interactive catalogues turn complicated
-              custom products into guided buying experiences.
-            </p>
-
-          </div>
-
-
-          <!--
-            IMPORTANT:
-            No new catalogue functionality is introduced here.
-
-            The existing catalogue registry remains the source
-            of truth and each catalogue keeps its existing
-            demoUrl / join URL.
-          -->
-
-          <div class="catalogue-grid">
-
-            {
-              catalogues.map((catalogue, index) => (
-
-                <a
-                  href={catalogue.demoUrl}
-                  class="catalogue-card"
-                  style={`--accent:${catalogue.experience.color};`}
-                >
-
-                  <div class="catalogue-card-top">
-
-                    <span class="catalogue-number">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-
-                    <span class="catalogue-category">
-                      {catalogue.category}
-                    </span>
-
-                  </div>
-
-
-                  <div class="catalogue-image">
-
+        <!-- ── RIGHT COLUMN ── -->
+        <div class="right-col">
+
+          <!-- Catalogue cards — real data, compact grid -->
+          <div id="catalogues" class="right-block">
+            <p class="right-block-label">EXPLORE CATALOGUES</p>
+            <div class="catalogue-grid-compact">
+              {
+                catalogues.slice(0, 6).map((catalogue) => (
+                  <a href={catalogue.publishUrl} class="mini-catalogue-card">
                     {
                       catalogue.image ? (
-                        <img
-                          src={catalogue.image}
-                          alt={catalogue.title}
-                          loading="lazy"
-                        />
+                        <img src={catalogue.image} alt={catalogue.title} loading="lazy" />
                       ) : (
-                        <div class="catalogue-placeholder">
-                          <span>
-                            {catalogue.experience.icon}
-                          </span>
+                        <div class="mini-image-placeholder">
+                          <span>{catalogue.experience.icon}</span>
                         </div>
                       )
                     }
-
-                    <div class="catalogue-accent">
-                      {catalogue.experience.title}
+                    <div class="mini-card-body">
+                      <span style={`color:${catalogue.experience.color};`}>
+                        {catalogue.category}
+                      </span>
+                      <strong>{catalogue.title}</strong>
                     </div>
-
-                  </div>
-
-
-                  <div class="catalogue-card-body">
-
-                    <div>
-
-                      <h3>
-                        {catalogue.title}
-                      </h3>
-
-                      <p>
-                        {catalogue.shortDescription}
-                      </p>
-
-                    </div>
-
-                    <span class="catalogue-explore">
-                      Explore
-                      <span>→</span>
-                    </span>
-
-                  </div>
-
-                </a>
-
-              ))
-            }
-
+                  </a>
+                ))
+              }
+            </div>
+            <a href="#catalogues" class="box-link">See all catalogues →</a>
           </div>
 
-        </section>
+          <!-- Marketplace — real search + real, capped preview.
+               Full pagination lives on /marketplace, linked below. -->
+          <div id="marketplace" class="right-block">
+            <p class="right-block-label">FIND SOMETHING THAT FITS</p>
+            <h3>your specification</h3>
 
-
-        <!-- =================================================
-             HOW IT WORKS
-        ================================================== -->
-
-        <section
-          id="how-it-works"
-          class="how-section"
-        >
-
-          <div class="section-heading centered">
-
-            <div class="section-label">
-              How it works
+            <div class="mini-search">
+              <span>⌕</span>
+              <input
+                type="search"
+                id="mini-marketplace-search"
+                placeholder="Search marketplace..."
+              />
             </div>
 
-            <h2>
-              Buying custom products
-              <br />
-              shouldn't feel complicated.
-            </h2>
-
-            <p>
-              QuoteLens helps customers move from
-              uncertainty to a prepared enquiry.
-            </p>
-
-          </div>
-
-
-          <div class="steps-grid">
-
-            <article class="step-card">
-
-              <span class="step-icon">
-                ⌕
-              </span>
-
-              <span class="step-number">
-                01
-              </span>
-
-              <h3>
-                Discover
-              </h3>
-
-              <p>
-                Find a product or business that
-                offers what you're looking for.
-              </p>
-
-            </article>
-
-
-            <article class="step-card">
-
-              <span class="step-icon">
-                ◇
-              </span>
-
-              <span class="step-number">
-                02
-              </span>
-
-              <h3>
-                Configure
-              </h3>
-
-              <p>
-                Give the information needed to
-                understand your requirements.
-              </p>
-
-            </article>
-
-
-            <article class="step-card">
-
-              <span class="step-icon">
-                ≋
-              </span>
-
-              <span class="step-number">
-                03
-              </span>
-
-              <h3>
-                Compare
-              </h3>
-
-              <p>
-                Browse the products and options
-                that match what you told us.
-              </p>
-
-            </article>
-
-
-            <article class="step-card">
-
-              <span class="step-icon">
-                →
-              </span>
-
-              <span class="step-number">
-                04
-              </span>
-
-              <h3>
-                Enquire
-              </h3>
-
-              <p>
-                Choose what you want and send the
-                business a prepared enquiry.
-              </p>
-
-            </article>
-
-          </div>
-
-        </section>
-
-
-        <!-- =================================================
-             MARKETPLACE
-        ================================================== -->
-
-        <section
-          id="marketplace"
-          class="marketplace-section"
-        >
-
-          <div class="section-heading">
-
-            <div>
-
-              <div class="section-label">
-                Marketplace
-              </div>
-
-              <h2>
-                Find something
-                <br />
-                that fits.
-              </h2>
-
+            <div id="marketplace-status" class="marketplace-status">
+              Loading published catalogues...
+            </div>
+            <div id="marketplace-empty" class="marketplace-empty" style="display:none;">
+              No businesses have published a catalogue yet.
+              <a href="/join">Publish your catalogue →</a>
             </div>
 
-            <div class="marketplace-heading-side">
+            <div class="mini-marketplace-grid" data-marketplace-grid></div>
 
-              <p>
-                Browse products published by businesses
-                and enter the buying experience directly.
-              </p>
-
-              <a href="/marketplace">
-                Browse marketplace
-                <span>→</span>
-              </a>
-
-            </div>
-
-          </div>
-
-
-          <div class="marketplace-preview">
-
-            <article class="marketplace-item">
-
-              <div class="marketplace-item-icon">
-                🪟
-              </div>
-
-              <div class="marketplace-item-content">
-
-                <span>
-                  Home Improvement
-                </span>
-
-                <small>
-                  Kui's Plantation Shutters
-                </small>
-
-                <h3>
-                  Plantation Shutters
-                </h3>
-
-                <p>
-                  Configure your window requirements
-                  and compare available options.
-                </p>
-
-              </div>
-
-              <a href="/marketplace">
-                Configure product
-                <span>→</span>
-              </a>
-
-            </article>
-
-
-            <article class="marketplace-item">
-
-              <div class="marketplace-item-icon">
-                🔧
-              </div>
-
-              <div class="marketplace-item-content">
-
-                <span>
-                  Automotive
-                </span>
-
-                <small>
-                  Published business catalogue
-                </small>
-
-                <h3>
-                  Vehicle Parts
-                </h3>
-
-                <p>
-                  Match a vehicle, model and part
-                  before starting the conversation.
-                </p>
-
-              </div>
-
-              <a href="/marketplace">
-                Match a part
-                <span>→</span>
-              </a>
-
-            </article>
-
-
-            <article class="marketplace-item">
-
-              <div class="marketplace-item-icon">
-                🎂
-              </div>
-
-              <div class="marketplace-item-content">
-
-                <span>
-                  Food
-                </span>
-
-                <small>
-                  Published business catalogue
-                </small>
-
-                <h3>
-                  Custom Cakes
-                </h3>
-
-                <p>
-                  Choose an occasion, explore designs
-                  and prepare your enquiry.
-                </p>
-
-              </div>
-
-              <a href="/marketplace">
-                Explore options
-                <span>→</span>
-              </a>
-
-            </article>
-
-          </div>
-
-        </section>
-
-
-        <!-- =================================================
-             BUSINESS SECTION
-        ================================================== -->
-
-        <section class="business-section">
-
-          <div class="business-intro">
-
-            <div class="section-label">
-              For businesses
-            </div>
-
-            <h2>
-              Turn your products
-              <span>
-                into structured
-                buying experiences.
-              </span>
-            </h2>
-
-            <p>
-              Configure your products once. Give customers
-              a better way to tell you what they need.
-            </p>
-
-            <a
-              href="/join"
-              class="business-button"
-            >
-              Publish your catalogue
-              <span>→</span>
+            <a href="/marketplace" class="box-link">
+              Browse the full marketplace →
             </a>
-
           </div>
 
-
-          <div class="business-points">
-
-            <article>
-
-              <span>01</span>
-
-              <h3>
-                Structured enquiries
-              </h3>
-
-              <p>
-                Customers arrive with useful
-                specifications already attached.
-              </p>
-
-            </article>
-
-
-            <article>
-
-              <span>02</span>
-
-              <h3>
-                Searchable products
-              </h3>
-
-              <p>
-                Your catalogue becomes discoverable
-                through the QuoteLens marketplace.
-              </p>
-
-            </article>
-
-
-            <article>
-
-              <span>03</span>
-
-              <h3>
-                Better conversations
-              </h3>
-
-              <p>
-                Spend less time figuring out what
-                the customer is actually asking for.
-              </p>
-
-            </article>
-
-          </div>
-
-        </section>
-
-
-        <!-- =================================================
-             COMMUNITY
-        ================================================== -->
-
-        <section class="community-section">
-
-          <div class="section-label">
-            Community validation
-          </div>
-
-          <h2>
-            We're building this
-            <br />
-            with the people who will use it.
-          </h2>
-
-          <p>
-            QuoteLens is exploring what happens when
-            specification-driven buying comes to the
-            fragmented world of custom and made-to-order
-            products.
-          </p>
-
-          <div class="community-actions">
-
-            <div class="community-question">
-              <strong>
-                Was QuoteLens useful?
-              </strong>
-
-              <span>
-                Tell us what you think.
-              </span>
-            </div>
-
-            <a href="/community">
-              Share your experience
-              <span>→</span>
-            </a>
-
-          </div>
-
-        </section>
-
-
-        <!-- =================================================
-             FINAL CTA
-        ================================================== -->
-
-        <section class="final-cta">
-
-          <div class="section-label">
-            QuoteLens
-          </div>
-
-          <h2>
-            Make the next enquiry
-            <br />
-            a better one.
-          </h2>
-
-          <p>
-            Tell us what you need. Discover what fits.
-            Start the right conversation.
-          </p>
-
-          <div class="final-actions">
-
-            <a
-              href="#catalogues"
-              class="primary-button"
-            >
-              Explore products
-              <span>→</span>
-            </a>
-
-            <a
-              href="/join"
-              class="secondary-button"
-            >
-              Publish your catalogue
-            </a>
-
-          </div>
-
-        </section>
-
-
-        <!-- =================================================
-             FOOTER
-        ================================================== -->
-
-        <footer class="footer">
-
-          <div class="footer-brand">
-
-            <a href="/" class="brand">
-
-              <span class="brand-mark">
-                Q
-              </span>
-
-              <span>
-                QuoteLens
-              </span>
-
-            </a>
-
-            <p>
-              Specification-driven buying for
-              custom and made-to-order products.
-            </p>
-
-          </div>
-
-
-          <div class="footer-column">
-
-            <strong>
-              Explore
-            </strong>
-
-            <a href="#catalogues">
-              Catalogues
-            </a>
-
-            <a href="#how-it-works">
-              How it works
-            </a>
-
-            <a href="#marketplace">
-              Marketplace
-            </a>
-
-          </div>
-
-
-          <div class="footer-column">
-
-            <strong>
-              For businesses
-            </strong>
-
-            <a href="/join">
-              Publish
-            </a>
-
-            <a href="/signin">
-              Sign in
-            </a>
-
-          </div>
-
-
-          <div class="footer-column">
-
-            <strong>
-              Community
-            </strong>
-
-            <a href="/community">
-              Community
-            </a>
-
-            <a href="/help">
-              Help
-            </a>
-
-          </div>
-
-
-          <div class="footer-bottom">
-
-            <span>
-              © 2026 QuoteLens
-            </span>
-
-            <span>
-              Built for better buying
-            </span>
-
-          </div>
-
-        </footer>
+        </div>
 
       </div>
 
     </main>
 
-  </div>
 
-
-  <!-- =======================================================
-       STYLES
-  ======================================================== -->
-
-  <style>
-
-    :global(*) {
-      box-sizing: border-box;
-    }
-
-    :global(html) {
-      scroll-behavior: smooth;
-    }
-
-    :global(body) {
-      margin: 0;
-      background: #f5f2ec;
-      color: #191816;
-      font-family:
-        Inter,
-        ui-sans-serif,
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-    }
-
-    :global(a) {
-      color: inherit;
-    }
-
-
-    /* =====================================================
-       HEADER
-    ====================================================== */
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-
-      height: 72px;
-
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
-
-      padding: 0 5vw;
-
-      border-bottom: 1px solid #ded9d0;
-
-      background: rgba(245, 242, 236, 0.94);
-
-      backdrop-filter: blur(14px);
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-
-      text-decoration: none;
-
-      font-weight: 800;
-      letter-spacing: -0.025em;
-    }
-
-    .brand-mark {
-      width: 31px;
-      height: 31px;
-
-      display: grid;
-      place-items: center;
-
-      border-radius: 8px;
-
-      background: #191816;
-      color: white;
-
-      font-size: 13px;
-      font-weight: 900;
-    }
-
-    .brand-name {
-      font-size: 17px;
-    }
-
-    .main-nav {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-    }
-
-    .main-nav a,
-    .signin-link {
-      color: #6d6962;
-
-      text-decoration: none;
-
-      font-size: 13px;
-      font-weight: 600;
-
-      transition:
-        color 160ms ease;
-    }
-
-    .main-nav a:hover,
-    .signin-link:hover {
-      color: #191816;
-    }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 22px;
-    }
-
-    .publish-button {
-      padding: 12px 19px;
-
-      border-radius: 999px;
-
-      background: #191816;
-      color: white;
-
-      text-decoration: none;
-
-      font-size: 12px;
-      font-weight: 750;
-    }
-
-
-    /* =====================================================
-       MAIN LAYOUT
-    ====================================================== */
-
-    .main-layout {
-      display: grid;
-      grid-template-columns: minmax(330px, 0.82fr) minmax(0, 1.8fr);
-      align-items: start;
-    }
-
-    .editorial-panel {
-      position: sticky;
-      top: 72px;
-
-      height: calc(100vh - 72px);
-
-      border-right: 1px solid #ded9d0;
-
-      background:
-        radial-gradient(
-          circle at 0% 20%,
-          rgba(184, 134, 42, 0.10),
-          transparent 35%
-        ),
-        #f5f2ec;
-    }
-
-    .editorial-inner {
-      min-height: 100%;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-
-      padding:
-        70px
-        clamp(34px, 5vw, 80px);
-    }
-
-    .eyebrow,
-    .section-label {
-      color: #b27c1e;
-
-      font-size: 11px;
-      font-weight: 850;
-
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-    }
-
-    .editorial-inner .eyebrow {
-      margin-bottom: 28px;
-    }
-
-    .editorial-inner h1 {
-      margin: 0;
-
-      font-size: clamp(54px, 5.2vw, 82px);
-      line-height: 0.9;
-
-      letter-spacing: -0.065em;
-    }
-
-    .editorial-inner h1 span {
-      color: #777269;
-    }
-
-    .editorial-inner h1 strong {
-      display: block;
-
-      margin-top: 3px;
-
-      color: #191816;
-
-      font-weight: inherit;
-    }
-
-    .hero-description {
-      max-width: 500px;
-
-      margin: 34px 0 27px;
-
-      color: #666159;
-
-      font-size: 16px;
-      line-height: 1.7;
-    }
-
-    .hero-actions,
-    .final-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .primary-button,
-    .secondary-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 20px;
-
-      min-height: 48px;
-
-      padding: 0 20px;
-
-      border-radius: 999px;
-
-      text-decoration: none;
-
-      font-size: 13px;
-      font-weight: 750;
-    }
-
-    .primary-button {
-      background: #191816;
-      color: white;
-    }
-
-    .secondary-button {
-      border: 1px solid #d8d1c7;
-      color: #191816;
-      background: transparent;
-    }
-
-    .hero-note {
-      margin-top: 28px;
-
-      color: #8c857b;
-
-      font-size: 11px;
-    }
-
-
-    /* =====================================================
-       CONTENT
-    ====================================================== */
-
-    .content-panel {
-      min-width: 0;
-      overflow: hidden;
-    }
-
-    section {
-      scroll-margin-top: 100px;
-    }
-
-
-    /* =====================================================
-       CUSTOMER JOURNEY
-    ====================================================== */
-
-    .journey-section {
-      padding: 65px 5vw 55px;
-    }
-
-    .journey-window {
-      overflow: hidden;
-
-      border: 1px solid #ddd7cd;
-      border-radius: 20px;
-
-      background: #fffdfa;
-
-      box-shadow:
-        0 25px 70px rgba(35, 31, 25, 0.08);
-    }
-
-    .window-top {
-      height: 44px;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      padding: 0 18px;
-
-      border-bottom: 1px solid #e8e2d8;
-    }
-
-    .window-dots {
-      display: flex;
-      gap: 5px;
-    }
-
-    .window-dots span {
-      width: 6px;
-      height: 6px;
-
-      border-radius: 50%;
-
-      background: #d7d1c7;
-    }
-
-    .window-label {
-      color: #9a948a;
-
-      font-size: 10px;
-      font-weight: 700;
-    }
-
-    .journey-content {
-      padding: 43px;
-    }
-
-    .journey-eyebrow {
-      color: #8c857b;
-
-      font-size: 10px;
-      font-weight: 800;
-
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .journey-content h2 {
-      margin: 13px 0 30px;
-
-      font-size: clamp(34px, 4vw, 56px);
-      line-height: 0.94;
-
-      letter-spacing: -0.055em;
-    }
-
-    .journey-steps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-
-      margin-bottom: 28px;
-    }
-
-    .journey-steps div {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-
-      padding-right: 15px;
-
-      border-top: 1px solid #ddd7cd;
-      padding-top: 10px;
-    }
-
-    .journey-steps small {
-      color: #a39b91;
-
-      font-size: 9px;
-    }
-
-    .journey-steps span {
-      font-size: 10px;
-      font-weight: 750;
-    }
-
-    .journey-product {
-      display: flex;
-      align-items: center;
-
-      padding: 15px;
-
-      border: 1px solid #e4ded5;
-      border-radius: 15px;
-
-      background: #fff;
-    }
-
-    .journey-product-icon {
-      width: 60px;
-      height: 60px;
-
-      display: grid;
-      place-items: center;
-
-      margin-right: 15px;
-
-      border-radius: 12px;
-
-      background: #e7e1d7;
-
-      font-size: 25px;
-    }
-
-    .journey-product-copy {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-
-    .journey-product-copy small {
-      color: #b27c1e;
-
-      font-size: 9px;
-      font-weight: 850;
-
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .journey-product-copy strong {
-      font-size: 15px;
-    }
-
-    .journey-product-copy span {
-      color: #8b857d;
-      font-size: 11px;
-    }
-
-    .journey-arrow {
-      margin-left: auto;
-      font-size: 18px;
-    }
-
-    .journey-specs {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-
-      margin-top: 14px;
-
-      border-top: 1px solid #e4ded5;
-    }
-
-    .journey-specs div {
-      padding: 15px 0;
-    }
-
-    .journey-specs div + div {
-      padding-left: 18px;
-      border-left: 1px solid #e4ded5;
-    }
-
-    .journey-specs small {
-      display: block;
-
-      margin-bottom: 4px;
-
-      color: #999187;
-
-      font-size: 9px;
-      font-weight: 750;
-
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .journey-specs strong {
-      font-size: 12px;
-    }
-
-
-    /* =====================================================
-       IDEA
-    ====================================================== */
-
-    .idea-section {
-      padding: 95px 5vw;
-
-      background: #ebe7df;
-    }
-
-    .idea-section h2 {
-      max-width: 800px;
-
-      margin: 18px 0 25px;
-
-      font-size: clamp(42px, 5vw, 70px);
-      line-height: 0.94;
-
-      letter-spacing: -0.06em;
-    }
-
-    .idea-section h2 span {
-      color: #817a71;
-    }
-
-    .section-lead {
-      max-width: 680px;
-
-      color: #706960;
-
-      font-size: 16px;
-      line-height: 1.7;
-    }
-
-    .comparison {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-
-      margin-top: 48px;
-
-      border: 1px solid #d6d0c6;
-    }
-
-    .comparison-card {
-      padding: 30px;
-    }
-
-    .comparison-card + .comparison-card {
-      border-left: 1px solid #d6d0c6;
-    }
-
-    .comparison-card.featured {
-      background: #fffdfa;
-    }
-
-    .comparison-number {
-      display: block;
-
-      margin-bottom: 20px;
-
-      color: #8a8278;
-
-      font-size: 10px;
-      font-weight: 800;
-
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    .comparison-flow {
-      font-size: 17px;
-      line-height: 1.8;
-    }
-
-    .comparison-flow span {
-      color: #b27c1e;
-      margin: 0 6px;
-    }
-
-
-    /* =====================================================
-       CATALOGUES
-    ====================================================== */
-
-    .catalogues-section {
-      padding: 100px 5vw;
-    }
-
-    .section-heading {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-
-      gap: 40px;
-
-      margin-bottom: 45px;
-    }
-
-    .section-heading h2 {
-      margin: 17px 0 0;
-
-      font-size: clamp(43px, 4.7vw, 68px);
-      line-height: 0.93;
-
-      letter-spacing: -0.06em;
-    }
-
-    .section-heading > p {
-      max-width: 330px;
-
-      margin: 0 0 3px;
-
-      color: #716b63;
-
-      font-size: 14px;
-      line-height: 1.65;
-    }
-
-    .catalogue-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .catalogue-card {
-      overflow: hidden;
-
-      display: flex;
-      flex-direction: column;
-
-      min-width: 0;
-
-      border: 1px solid #ddd7cd;
-      border-radius: 18px;
-
-      background: #fffdfa;
-
-      text-decoration: none;
-
-      transition:
-        transform 180ms ease,
-        box-shadow 180ms ease;
-    }
-
-    .catalogue-card:hover {
-      transform: translateY(-4px);
-
-      box-shadow:
-        0 20px 50px rgba(30, 27, 22, 0.09);
-    }
-
-    .catalogue-card-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      padding: 16px 18px 12px;
-    }
-
-    .catalogue-number {
-      color: #9a9389;
-
-      font-size: 10px;
-      font-weight: 800;
-    }
-
-    .catalogue-category {
-      color: var(--accent);
-
-      font-size: 9px;
-      font-weight: 850;
-
-      text-transform: uppercase;
-      letter-spacing: 0.09em;
-    }
-
-    .catalogue-image {
-      position: relative;
-
-      height: 235px;
-
-      overflow: hidden;
-
-      background: #e6e0d6;
-    }
-
-    .catalogue-image img {
-      width: 100%;
-      height: 100%;
-
-      object-fit: cover;
-
-      display: block;
-
-      transition: transform 300ms ease;
-    }
-
-    .catalogue-card:hover .catalogue-image img {
-      transform: scale(1.035);
-    }
-
-    .catalogue-placeholder {
-      width: 100%;
-      height: 100%;
-
-      display: grid;
-      place-items: center;
-
-      background:
-        radial-gradient(
-          circle at 20% 20%,
-          color-mix(
-            in srgb,
-            var(--accent) 20%,
-            transparent
-          ),
-          transparent 55%
-        ),
-        #e6e0d6;
-    }
-
-    .catalogue-placeholder span {
-      font-size: 45px;
-    }
-
-    .catalogue-accent {
-      position: absolute;
-      left: 15px;
-      bottom: 15px;
-
-      padding: 9px 13px;
-
-      border-radius: 999px;
-
-      background: var(--accent);
-      color: white;
-
-      font-size: 10px;
-      font-weight: 800;
-    }
-
-    .catalogue-card-body {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-
-      gap: 20px;
-
-      padding: 22px;
-    }
-
-    .catalogue-card-body h3 {
-      margin: 0 0 8px;
-
-      font-size: 21px;
-
-      letter-spacing: -0.035em;
-    }
-
-    .catalogue-card-body p {
-      max-width: 300px;
-
-      margin: 0;
-
-      color: #777168;
-
-      font-size: 12px;
-      line-height: 1.55;
-    }
-
-    .catalogue-explore {
-      flex-shrink: 0;
-
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-
-      color: #191816;
-
-      font-size: 11px;
-      font-weight: 800;
-    }
-
-
-    /* =====================================================
-       HOW IT WORKS
-    ====================================================== */
-
-    .how-section {
-      padding: 105px 5vw;
-
-      background: #ebe7df;
-    }
-
-    .centered {
-      display: block;
-
-      max-width: 800px;
-
-      margin-left: auto;
-      margin-right: auto;
-
-      text-align: center;
-    }
-
-    .centered h2 {
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .centered > p {
-      max-width: 550px;
-
-      margin: 30px auto 0;
-    }
-
-    .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-
-      margin-top: 60px;
-
-      border: 1px solid #d5cfc5;
-    }
-
-    .step-card {
-      min-height: 280px;
-
-      padding: 28px;
-
-      position: relative;
-    }
-
-    .step-card + .step-card {
-      border-left: 1px solid #d5cfc5;
-    }
-
-    .step-icon {
-      width: 48px;
-      height: 48px;
-
-      display: grid;
-      place-items: center;
-
-      border: 1px solid #d6d0c6;
-      border-radius: 13px;
-
-      background: #fffdfa;
-
-      font-size: 18px;
-    }
-
-    .step-number {
-      position: absolute;
-      right: 25px;
-      top: 30px;
-
-      color: #9a9389;
-
-      font-size: 10px;
-      font-weight: 800;
-    }
-
-    .step-card h3 {
-      margin: 58px 0 10px;
-
-      font-size: 20px;
-
-      letter-spacing: -0.03em;
-    }
-
-    .step-card p {
-      margin: 0;
-
-      color: #756f67;
-
-      font-size: 12px;
-      line-height: 1.6;
-    }
-
-
-    /* =====================================================
-       MARKETPLACE
-    ====================================================== */
-
-    .marketplace-section {
-      padding: 105px 5vw;
-    }
-
-    .marketplace-heading-side {
-      max-width: 330px;
-    }
-
-    .marketplace-heading-side p {
-      margin: 0 0 20px;
-
-      color: #716b63;
-
-      font-size: 14px;
-      line-height: 1.65;
-    }
-
-    .marketplace-heading-side a {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-
-      color: #191816;
-
-      font-size: 12px;
-      font-weight: 800;
-
-      text-decoration: none;
-    }
-
-    .marketplace-preview {
-      display: grid;
-      gap: 12px;
-    }
-
-    .marketplace-item {
-      display: grid;
-      grid-template-columns: 70px 1fr auto;
-      align-items: center;
-
-      gap: 22px;
-
-      padding: 20px;
-
-      border: 1px solid #ddd7cd;
-      border-radius: 16px;
-
-      background: #fffdfa;
-    }
-
-    .marketplace-item-icon {
-      width: 70px;
-      height: 70px;
-
-      display: grid;
-      place-items: center;
-
-      border-radius: 13px;
-
-      background: #e9e3d9;
-
-      font-size: 27px;
-    }
-
-    .marketplace-item-content > span {
-      display: block;
-
-      margin-bottom: 5px;
-
-      color: #b27c1e;
-
-      font-size: 9px;
-      font-weight: 850;
-
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .marketplace-item-content small {
-      display: block;
-
-      margin-bottom: 5px;
-
-      color: #8d867d;
-
-      font-size: 10px;
-    }
-
-    .marketplace-item-content h3 {
-      margin: 0 0 6px;
-
-      font-size: 20px;
-
-      letter-spacing: -0.03em;
-    }
-
-    .marketplace-item-content p {
-      max-width: 520px;
-
-      margin: 0;
-
-      color: #777168;
-
-      font-size: 12px;
-      line-height: 1.55;
-    }
-
-    .marketplace-item > a {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-
-      padding: 10px 0;
-
-      color: #191816;
-
-      font-size: 11px;
-      font-weight: 800;
-
-      text-decoration: none;
-    }
-
-
-    /* =====================================================
-       BUSINESS
-    ====================================================== */
-
-    .business-section {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-
-      padding: 105px 5vw;
-
-      background: #191816;
-      color: #f5f2ec;
-    }
-
-    .business-intro {
-      padding-right: 70px;
-    }
-
-    .business-section .section-label {
-      color: #c79636;
-    }
-
-    .business-intro h2 {
-      margin: 20px 0 25px;
-
-      font-size: clamp(42px, 4.5vw, 65px);
-      line-height: 0.95;
-
-      letter-spacing: -0.06em;
-    }
-
-    .business-intro h2 span {
-      color: #77736c;
-    }
-
-    .business-intro > p {
-      max-width: 500px;
-
-      color: #aaa59d;
-
-      font-size: 14px;
-      line-height: 1.7;
-    }
-
-    .business-button {
-      display: inline-flex;
-      align-items: center;
-      gap: 15px;
-
-      margin-top: 28px;
-
-      padding: 14px 19px;
-
-      border-radius: 999px;
-
-      background: #f5f2ec;
-      color: #191816;
-
-      text-decoration: none;
-
-      font-size: 12px;
-      font-weight: 800;
-    }
-
-    .business-points {
-      display: grid;
-      gap: 0;
-
-      border-top: 1px solid #3b3935;
-    }
-
-    .business-points article {
-      padding: 25px 0;
-
-      border-bottom: 1px solid #3b3935;
-    }
-
-    .business-points span {
-      color: #77736c;
-
-      font-size: 10px;
-      font-weight: 800;
-    }
-
-    .business-points h3 {
-      margin: 15px 0 7px;
-
-      font-size: 18px;
-    }
-
-    .business-points p {
-      max-width: 430px;
-
-      margin: 0;
-
-      color: #aaa59d;
-
-      font-size: 12px;
-      line-height: 1.6;
-    }
-
-
-    /* =====================================================
-       COMMUNITY
-    ====================================================== */
-
-    .community-section {
-      padding: 105px 5vw;
-
-      text-align: center;
-
-      background: #f5f2ec;
-    }
-
-    .community-section h2 {
-      margin: 20px auto;
-
-      max-width: 850px;
-
-      font-size: clamp(43px, 5vw, 70px);
-      line-height: 0.95;
-
-      letter-spacing: -0.06em;
-    }
-
-    .community-section > p {
-      max-width: 650px;
-
-      margin: 0 auto;
-
-      color: #716b63;
-
-      font-size: 15px;
-      line-height: 1.7;
-    }
-
-    .community-actions {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      gap: 40px;
-
-      margin-top: 40px;
-    }
-
-    .community-question {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-
-      text-align: left;
-    }
-
-    .community-question strong {
-      font-size: 13px;
-    }
-
-    .community-question span {
-      color: #827b72;
-
-      font-size: 11px;
-    }
-
-    .community-actions > a {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-
-      padding: 13px 18px;
-
-      border: 1px solid #d7d0c6;
-      border-radius: 999px;
-
-      text-decoration: none;
-
-      font-size: 11px;
-      font-weight: 800;
-    }
-
-
-    /* =====================================================
-       FINAL CTA
-    ====================================================== */
-
-    .final-cta {
-      padding: 120px 5vw;
-
-      background:
-        radial-gradient(
-          circle at 80% 20%,
-          rgba(184, 134, 42, 0.13),
-          transparent 35%
-        ),
-        #ebe7df;
-    }
-
-    .final-cta h2 {
-      margin: 20px 0;
-
-      font-size: clamp(50px, 6vw, 85px);
-      line-height: 0.9;
-
-      letter-spacing: -0.065em;
-    }
-
-    .final-cta > p {
-      max-width: 550px;
-
-      margin: 0 0 30px;
-
-      color: #716b63;
-
-      font-size: 15px;
-      line-height: 1.7;
-    }
-
-
-    /* =====================================================
-       FOOTER
-    ====================================================== */
-
-    .footer {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-
-      gap: 50px;
-
-      padding: 65px 5vw 30px;
-
-      background: #191816;
-      color: #f5f2ec;
-    }
-
-    .footer-brand p {
-      max-width: 300px;
-
-      margin-top: 18px;
-
-      color: #8d8982;
-
-      font-size: 12px;
-      line-height: 1.6;
-    }
-
-    .footer-column {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 11px;
-    }
-
-    .footer-column strong {
-      margin-bottom: 8px;
-
-      color: #f5f2ec;
-
-      font-size: 10px;
-
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    .footer-column a {
-      color: #8d8982;
-
-      font-size: 12px;
-
-      text-decoration: none;
-    }
-
-    .footer-column a:hover {
-      color: #f5f2ec;
-    }
-
-    .footer-bottom {
-      grid-column: 1 / -1;
-
-      display: flex;
-      justify-content: space-between;
-
-      padding-top: 25px;
-
-      border-top: 1px solid #34322f;
-
-      color: #6f6b65;
-
-      font-size: 10px;
-    }
-
-
-    /* =====================================================
-       RESPONSIVE
-    ====================================================== */
-
-    @media (max-width: 1050px) {
-
+    <!-- =====================================================
+         FOOTER — unchanged, full width
+    ====================================================== -->
+
+    <footer class="site-footer">
+      <div class="section-container">
+        <div class="footer-main">
+          <div class="footer-brand">
+            <a href="/" class="brand footer-logo">
+              <span class="brand-mark">Q</span>
+              <span>QuoteLens</span>
+            </a>
+            <p>Specification-driven buying for custom and made-to-order products.</p>
+          </div>
+          <div class="footer-links">
+            <div>
+              <span>EXPLORE</span>
+              <a href="#catalogues">Catalogues</a>
+              <a href="#how-it-works">How it works</a>
+              <a href="/marketplace">Marketplace</a>
+            </div>
+            <div>
+              <span>FOR BUSINESSES</span>
+              <a href="/join">Publish</a>
+              <a href="/admin">Sign in</a>
+              <a href="/pricing">Pricing</a>
+            </div>
+            <div>
+              <span>COMMUNITY</span>
+              <a href="/community">Community</a>
+              <a href="/help">Help</a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>© {new Date().getFullYear()} QuoteLens</span>
+          <span>Built for better buying conversations.</span>
+        </div>
+      </div>
+    </footer>
+
+
+    <!-- =====================================================
+         REAL MARKETPLACE DATA — capped preview here (6 real
+         cards), full set lives on /marketplace.
+    ====================================================== -->
+
+    <script>
+      import { supabase } from '../utils/supabase.js'
+
+      const PREVIEW_LIMIT = 6
+
+      const CATEGORY_META = {
+        cakes:                { category: 'Food',              icon: '🎂' },
+        flowers:               { category: 'Food',              icon: '💐' },
+        womens_dresses:         { category: 'Fashion',           icon: '👗' },
+        vehicle_parts:          { category: 'Automotive',        icon: '🔧' },
+        plantation_shutters:    { category: 'Home Improvement',  icon: '🪟' },
+        curtains:               { category: 'Home Improvement',  icon: '🪟' },
+        wooden_doors:           { category: 'Home Improvement',  icon: '🚪' },
+        steel_doors:            { category: 'Home Improvement',  icon: '🛡️' },
+        gates:                  { category: 'Home Improvement',  icon: '🚪' },
+        garage_doors:           { category: 'Home Improvement',  icon: '🚗' },
+        kitchen_island:         { category: 'Furniture',         icon: '🍽️' },
+        blinds:                 { category: 'Home Improvement',  icon: '🪟' }
+      }
+
+      const SHOWROOM_TENANT_ID = 'showroom'
+      let allRealCards = []
+
+      async function loadMarketplacePreview() {
+        const statusEl = document.getElementById('marketplace-status')
+        const emptyEl  = document.getElementById('marketplace-empty')
+        const gridEl   = document.querySelector('[data-marketplace-grid]')
+
+        // Fetching everything is the current honest limitation —
+        // the JSONB-per-tenant model means we can't ask the
+        // database for "just 6 cards" directly. This is fine at
+        // today's real scale; a proper products table would be
+        // needed for true server-side pagination at real volume.
+        const { data: tenants, error } = await supabase
+          .from('tenant_config')
+          .select('tenant_id, business_name, currency_symbol, marketplace_listing')
+          .eq('subscription_status', 'active')
+          .eq('marketplace_listed', true)
+          .not('marketplace_listing', 'is', null)
+
+        if (error) {
+          statusEl.textContent = 'Could not load published catalogues right now.'
+          console.error(error)
+          return
+        }
+
+        ;(tenants || []).forEach((tenant) => {
+          const listingsByTemplate = tenant.marketplace_listing
+          if (!listingsByTemplate || typeof listingsByTemplate !== 'object') return
+          const isShowroom = tenant.tenant_id === SHOWROOM_TENANT_ID
+
+          Object.entries(listingsByTemplate).forEach(([templateId, listing]) => {
+            if (!listing?.cards?.length) return
+            const meta = CATEGORY_META[templateId] || { category: 'Other', icon: '📦' }
+
+            listing.cards.forEach((card) => {
+              if (!card.imageUrl) return
+              allRealCards.push({
+                tenantId: tenant.tenant_id,
+                businessName: tenant.business_name,
+                currencySymbol: tenant.currency_symbol || 'KSh',
+                material: card.material?.label || '',
+                spec: card.spec?.label || '',
+                price: card.price,
+                imageUrl: card.imageUrl,
+                category: meta.category,
+                icon: meta.icon,
+                isShowroom,
+                searchText: (tenant.business_name + ' ' + (card.material?.label || '') + ' ' + (card.spec?.label || '')).toLowerCase()
+              })
+            })
+          })
+        })
+
+        statusEl.style.display = 'none'
+
+        if (allRealCards.length === 0) {
+          emptyEl.style.display = 'block'
+          return
+        }
+
+        renderPreview(allRealCards.slice(0, PREVIEW_LIMIT))
+      }
+
+      function renderPreview(cards) {
+        const gridEl = document.querySelector('[data-marketplace-grid]')
+        if (cards.length === 0) {
+          gridEl.innerHTML = `<p style="font-size:12px; color:#756e65;">No matches — try a different search.</p>`
+          return
+        }
+        gridEl.innerHTML = cards.map((card) => `
+          <a href="https://quote-lens.app/t/${card.tenantId}" class="mini-market-card">
+            <img src="${card.imageUrl}" alt="${card.material}" loading="lazy" />
+            <div>
+              <span class="mini-market-business">${card.businessName}${card.isShowroom ? ' · DEMO' : ''}</span>
+              <strong>${card.material}</strong>
+              <span class="mini-market-price">${card.currencySymbol} ${Number(card.price).toLocaleString()}</span>
+            </div>
+          </a>
+        `).join('')
+      }
+
+      document.getElementById('mini-marketplace-search')?.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim()
+        const filtered = query
+          ? allRealCards.filter(c => c.searchText.includes(query))
+          : allRealCards.slice(0, PREVIEW_LIMIT)
+        renderPreview(filtered)
+      })
+
+      loadMarketplacePreview()
+    </script>
+
+
+    <!-- =====================================================
+         STYLES
+    ====================================================== -->
+
+    <style>
+
+      :global(*) { box-sizing: border-box; }
+      :global(html) { scroll-behavior: smooth; }
+      :global(body) {
+        margin: 0;
+        background: #f7f4ed;
+        color: #181714;
+        font-family: "Manrope", sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      :global(a) { color: inherit; text-decoration: none; }
+      :global(button), :global(input) { font: inherit; }
+      :global(button) { cursor: pointer; }
+
+      .section-container {
+        width: min(1180px, calc(100% - 80px));
+        margin: 0 auto;
+      }
+
+      /* ── NAV (unchanged) ── */
       .site-header {
-        grid-template-columns: auto 1fr auto;
+        position: sticky; top: 0; z-index: 50;
+        background: rgba(247, 244, 237, 0.92);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(24, 23, 20, 0.09);
       }
-
-      .main-nav {
-        gap: 18px;
+      .nav-inner {
+        width: min(1180px, calc(100% - 80px));
+        height: 70px; margin: 0 auto;
+        display: flex; align-items: center; justify-content: space-between; gap: 30px;
       }
-
-      .main-layout {
-        grid-template-columns: minmax(280px, 0.75fr) minmax(0, 1.5fr);
+      .brand { display: inline-flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 800; letter-spacing: -0.04em; }
+      .brand-mark {
+        width: 30px; height: 30px; display: grid; place-items: center;
+        border-radius: 8px; background: #181714; color: #fff; font-size: 13px; font-weight: 800;
       }
-
-      .catalogue-grid {
-        grid-template-columns: 1fr;
+      .desktop-nav { display: flex; align-items: center; gap: 34px; margin-left: auto; margin-right: auto; }
+      .desktop-nav a, .signin-link { color: #68645d; font-size: 13px; font-weight: 600; transition: color 0.2s ease; }
+      .desktop-nav a:hover, .signin-link:hover { color: #181714; }
+      .nav-actions { display: flex; align-items: center; gap: 20px; }
+      .nav-cta {
+        padding: 12px 18px; border-radius: 999px; background: #181714; color: white;
+        font-size: 12px; font-weight: 800; transition: transform 0.2s ease, background 0.2s ease;
       }
+      .nav-cta:hover { transform: translateY(-1px); background: #2b2924; }
 
-      .steps-grid {
-        grid-template-columns: repeat(2, 1fr);
+      .eyebrow {
+        display: flex; align-items: center; gap: 9px;
+        color: #b27c19; font-size: 11px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase;
       }
+      .eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: #b27c19; }
 
-      .step-card:nth-child(3) {
-        border-left: 0;
-        border-top: 1px solid #d5cfc5;
+      .button {
+        min-height: 44px; padding: 0 18px; display: inline-flex; align-items: center; justify-content: center;
+        gap: 14px; border-radius: 999px; font-size: 13px; font-weight: 800;
+        transition: transform 0.2s ease, background 0.2s ease;
       }
+      .button:hover { transform: translateY(-2px); }
+      .button-dark { background: #181714; color: white; }
+      .button-dark:hover { background: #292823; }
+      .button-light { border: 1px solid #d9d2c5; background: transparent; }
+      .button.small { min-height: 38px; padding: 0 14px; font-size: 12px; gap: 10px; margin-top: 14px; }
 
-      .step-card:nth-child(4) {
-        border-top: 1px solid #d5cfc5;
-      }
-
-      .business-section {
-        grid-template-columns: 1fr;
-        gap: 60px;
-      }
-
-      .business-intro {
-        padding-right: 0;
-      }
-    }
-
-
-    @media (max-width: 760px) {
-
-      .site-header {
-        height: 64px;
-
-        display: flex;
-        justify-content: space-between;
-
-        padding: 0 20px;
-      }
-
-      .main-nav {
-        display: none;
-      }
-
-      .signin-link {
-        display: none;
-      }
-
-      .publish-button {
-        padding: 10px 14px;
-        font-size: 11px;
-      }
-
-      .main-layout {
-        display: block;
-      }
-
-      .editorial-panel {
-        position: relative;
-        top: auto;
-
-        height: auto;
-
-        border-right: 0;
-        border-bottom: 1px solid #ded9d0;
-      }
-
-      .editorial-inner {
-        min-height: auto;
-
-        padding: 80px 25px 70px;
-      }
-
-      .editorial-inner h1 {
-        font-size: 56px;
-      }
-
-      .journey-section,
-      .idea-section,
-      .catalogues-section,
-      .how-section,
-      .marketplace-section,
-      .business-section,
-      .community-section,
-      .final-cta {
-        padding-left: 25px;
-        padding-right: 25px;
-      }
-
-      .journey-content {
-        padding: 25px;
-      }
-
-      .journey-steps {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-      }
-
-      .journey-specs {
-        grid-template-columns: 1fr;
-      }
-
-      .journey-specs div + div {
-        padding-left: 0;
-        border-left: 0;
-        border-top: 1px solid #e4ded5;
-      }
-
-      .comparison {
-        grid-template-columns: 1fr;
-      }
-
-      .comparison-card + .comparison-card {
-        border-left: 0;
-        border-top: 1px solid #d6d0c6;
-      }
-
-      .section-heading {
-        display: block;
-      }
-
-      .section-heading > p {
-        margin-top: 22px;
-      }
-
-      .catalogue-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .steps-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .step-card + .step-card {
-        border-left: 0;
-        border-top: 1px solid #d5cfc5;
-      }
-
-      .marketplace-item {
-        grid-template-columns: 55px 1fr;
-      }
-
-      .marketplace-item-icon {
-        width: 55px;
-        height: 55px;
-      }
-
-      .marketplace-item > a {
-        grid-column: 2;
-      }
-
-      .community-actions {
-        flex-direction: column;
-        gap: 20px;
-      }
-
-      .footer {
+      /* ── TWO-COLUMN LAYOUT ── */
+      .two-col-layout {
+        width: min(1180px, calc(100% - 80px));
+        margin: 0 auto;
+        display: grid;
         grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        padding: 70px 0 120px;
+        align-items: start;
       }
 
-      .footer-brand {
-        grid-column: 1 / -1;
-      }
-
-      .footer-bottom {
-        grid-column: 1 / -1;
+      .left-col, .right-col {
+        display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 28px;
       }
-    }
 
-  </style>
+      /* Hero pitch — unboxed top item */
+      .hero-pitch h1 {
+        margin: 20px 0 18px;
+        font-size: clamp(38px, 4.2vw, 56px);
+        line-height: 0.98;
+        letter-spacing: -0.05em;
+        font-weight: 800;
+      }
+      .hero-pitch h1 span { display: block; }
+      .hero-pitch h1 strong { display: block; color: #817b72; font-weight: 800; }
+      .hero-description {
+        max-width: 460px; margin: 0; color: #655f57;
+        font-size: 15px; line-height: 1.7; letter-spacing: -0.01em;
+      }
+      .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
 
-</Layout>
+      /* Left-column condensed boxes */
+      .pitch-box {
+        padding: 26px 24px;
+        border: 1px solid #e0d9cf;
+        border-radius: 18px;
+        background: #fff;
+      }
+      .pitch-box.dark {
+        background: #181714;
+        color: #fff;
+        border-color: #181714;
+      }
+      .pitch-box.dark p { color: #aaa69f; }
+      .pitch-box h3 {
+        margin: 0 0 10px;
+        font-size: 20px;
+        letter-spacing: -0.03em;
+        line-height: 1.2;
+      }
+      .pitch-box p {
+        margin: 0;
+        color: #736c63;
+        font-size: 13px;
+        line-height: 1.65;
+      }
+      .box-link {
+        display: inline-block;
+        margin-top: 12px;
+        color: #181714;
+        font-size: 12px;
+        font-weight: 800;
+      }
+      .pitch-box.dark .box-link { color: #fff; }
+
+      /* Right column blocks */
+      .right-block {
+        padding: 24px;
+        border: 1px solid #e0d9cf;
+        border-radius: 18px;
+        background: #fffdfa;
+      }
+      .right-block-label {
+        margin: 0 0 6px;
+        color: #b27c19;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+      }
+      .right-block h3 {
+        margin: 0 0 16px;
+        font-size: 20px;
+        letter-spacing: -0.03em;
+      }
+
+      .catalogue-grid-compact {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin: 10px 0 14px;
+      }
+      .mini-catalogue-card {
+        display: block;
+        overflow: hidden;
+        border-radius: 12px;
+        border: 1px solid #e6e0d6;
+        background: #fff;
+        transition: transform 0.2s ease;
+      }
+      .mini-catalogue-card:hover { transform: translateY(-2px); }
+      .mini-catalogue-card img,
+      .mini-image-placeholder {
+        width: 100%;
+        height: 90px;
+        object-fit: cover;
+        display: block;
+      }
+      .mini-image-placeholder {
+        display: grid;
+        place-items: center;
+        background: #f0ebe2;
+        font-size: 26px;
+      }
+      .mini-card-body { padding: 10px 12px; }
+      .mini-card-body span {
+        display: block;
+        font-size: 9px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 3px;
+      }
+      .mini-card-body strong {
+        font-size: 13px;
+        letter-spacing: -0.02em;
+      }
+
+      .mini-search {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 14px;
+        border: 1px solid #ddd6cb;
+        border-radius: 12px;
+        background: #fff;
+        margin-bottom: 14px;
+      }
+      .mini-search span { color: #938b81; font-size: 16px; }
+      .mini-search input {
+        flex: 1; min-width: 0; border: 0; outline: 0;
+        background: transparent; font-size: 13px; color: #181714;
+      }
+
+      .marketplace-status, .marketplace-empty {
+        font-size: 12px;
+        color: #756e65;
+        padding: 10px 0;
+      }
+      .marketplace-empty a {
+        display: block;
+        margin-top: 4px;
+        color: #181714;
+        font-weight: 800;
+      }
+
+      :global(.mini-marketplace-grid) {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        margin-bottom: 14px;
+      }
+      :global(.mini-market-card) {
+        display: block;
+        overflow: hidden;
+        border-radius: 10px;
+        border: 1px solid #e6e0d6;
+        background: #fff;
+        transition: transform 0.2s ease;
+      }
+      :global(.mini-market-card:hover) { transform: translateY(-2px); }
+      :global(.mini-market-card img) {
+        width: 100%;
+        height: 60px;
+        object-fit: cover;
+        display: block;
+      }
+      :global(.mini-market-card > div) { padding: 7px 8px; }
+      :global(.mini-market-business) {
+        display: block;
+        font-size: 7px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #b27c19;
+      }
+      :global(.mini-market-card strong) {
+        display: block;
+        font-size: 10px;
+        margin: 2px 0;
+        color: #181714;
+      }
+      :global(.mini-market-price) {
+        display: block;
+        font-size: 10px;
+        font-weight: 800;
+        color: #181714;
+      }
+
+      /* ── FOOTER (unchanged) ── */
+      .site-footer { padding: 70px 0 25px; background: #181714; color: white; }
+      .footer-main { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; }
+      .footer-logo { color: white; }
+      .footer-brand p { max-width: 310px; margin-top: 20px; color: #77736c; font-size: 12px; line-height: 1.7; }
+      .footer-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+      .footer-links > div { display: flex; flex-direction: column; gap: 12px; }
+      .footer-links span { margin-bottom: 6px; color: #77736c; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; }
+      .footer-links a { color: #c2beb8; font-size: 11px; }
+      .footer-links a:hover { color: white; }
+      .footer-bottom {
+        display: flex; justify-content: space-between; margin-top: 70px; padding-top: 20px;
+        border-top: 1px solid #37352f; color: #68645d; font-size: 9px;
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 900px) {
+        .nav-inner, .two-col-layout, .section-container { width: min(100% - 40px, 700px); }
+        .desktop-nav { display: none; }
+        .two-col-layout { grid-template-columns: 1fr; gap: 40px; padding: 50px 0 80px; }
+        .footer-main { grid-template-columns: 1fr; gap: 40px; }
+      }
+
+      @media (max-width: 600px) {
+        .nav-inner, .two-col-layout, .section-container { width: calc(100% - 30px); }
+        .signin-link { display: none; }
+        .catalogue-grid-compact { grid-template-columns: 1fr; }
+        :global(.mini-marketplace-grid) { grid-template-columns: repeat(2, 1fr); }
+        .footer-links { grid-template-columns: 1fr 1fr; }
+        .footer-bottom { flex-direction: column; gap: 8px; }
+      }
+
+    </style>
+
+  </body>
+</html>
