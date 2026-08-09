@@ -139,7 +139,7 @@ const categories = [
             <p class="right-block-label">EXPLORE CATALOGUES</p>
             <div class="catalogue-grid-compact">
               {
-                catalogues.slice(0, 6).map((catalogue) => (
+                catalogues.slice(0, 3).map((catalogue) => (
                   <a href={catalogue.publishUrl} class="mini-catalogue-card">
                     {
                       catalogue.image ? (
@@ -250,7 +250,7 @@ const categories = [
     <script>
       import { supabase } from '../utils/supabase.js'
 
-      const PREVIEW_LIMIT = 6
+      const PREVIEW_LIMIT = 8
 
       const CATEGORY_META = {
         cakes:                { category: 'Food',              icon: '🎂' },
@@ -435,20 +435,20 @@ const categories = [
         margin: 0 auto;
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 60px;
-        padding: 70px 0 120px;
+        gap: 80px;
+        padding: 90px 0 140px;
         align-items: start;
       }
 
       .left-col, .right-col {
         display: flex;
         flex-direction: column;
-        gap: 28px;
+        gap: 40px;
       }
 
       /* Hero pitch — unboxed top item */
       .hero-pitch h1 {
-        margin: 20px 0 18px;
+        margin: 24px 0 22px;
         font-size: clamp(38px, 4.2vw, 56px);
         line-height: 0.98;
         letter-spacing: -0.05em;
@@ -458,15 +458,15 @@ const categories = [
       .hero-pitch h1 strong { display: block; color: #817b72; font-weight: 800; }
       .hero-description {
         max-width: 460px; margin: 0; color: #655f57;
-        font-size: 15px; line-height: 1.7; letter-spacing: -0.01em;
+        font-size: 15px; line-height: 1.75; letter-spacing: -0.01em;
       }
-      .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+      .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
 
       /* Left-column condensed boxes */
       .pitch-box {
-        padding: 26px 24px;
+        padding: 34px 30px;
         border: 1px solid #e0d9cf;
-        border-radius: 18px;
+        border-radius: 20px;
         background: #fff;
       }
       .pitch-box.dark {
@@ -476,20 +476,20 @@ const categories = [
       }
       .pitch-box.dark p { color: #aaa69f; }
       .pitch-box h3 {
-        margin: 0 0 10px;
-        font-size: 20px;
+        margin: 0 0 12px;
+        font-size: 21px;
         letter-spacing: -0.03em;
-        line-height: 1.2;
+        line-height: 1.25;
       }
       .pitch-box p {
         margin: 0;
         color: #736c63;
-        font-size: 13px;
-        line-height: 1.65;
+        font-size: 13.5px;
+        line-height: 1.75;
       }
       .box-link {
         display: inline-block;
-        margin-top: 12px;
+        margin-top: 16px;
         color: #181714;
         font-size: 12px;
         font-weight: 800;
@@ -498,13 +498,13 @@ const categories = [
 
       /* Right column blocks */
       .right-block {
-        padding: 24px;
+        padding: 32px;
         border: 1px solid #e0d9cf;
-        border-radius: 18px;
+        border-radius: 20px;
         background: #fffdfa;
       }
       .right-block-label {
-        margin: 0 0 6px;
+        margin: 0 0 8px;
         color: #b27c19;
         font-size: 10px;
         font-weight: 800;
@@ -518,23 +518,23 @@ const categories = [
 
       .catalogue-grid-compact {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-        margin: 10px 0 14px;
+        grid-template-columns: 1fr;
+        gap: 18px;
+        margin: 14px 0 18px;
       }
       .mini-catalogue-card {
         display: block;
         overflow: hidden;
-        border-radius: 12px;
+        border-radius: 16px;
         border: 1px solid #e6e0d6;
         background: #fff;
         transition: transform 0.2s ease;
       }
-      .mini-catalogue-card:hover { transform: translateY(-2px); }
+      .mini-catalogue-card:hover { transform: translateY(-3px); }
       .mini-catalogue-card img,
       .mini-image-placeholder {
         width: 100%;
-        height: 90px;
+        height: 240px;
         object-fit: cover;
         display: block;
       }
@@ -542,31 +542,31 @@ const categories = [
         display: grid;
         place-items: center;
         background: #f0ebe2;
-        font-size: 26px;
+        font-size: 44px;
       }
-      .mini-card-body { padding: 10px 12px; }
+      .mini-card-body { padding: 20px 22px; }
       .mini-card-body span {
         display: block;
-        font-size: 9px;
+        font-size: 10px;
         font-weight: 800;
         text-transform: uppercase;
         letter-spacing: 0.08em;
-        margin-bottom: 3px;
+        margin-bottom: 7px;
       }
       .mini-card-body strong {
-        font-size: 13px;
-        letter-spacing: -0.02em;
+        font-size: 20px;
+        letter-spacing: -0.03em;
       }
 
       .mini-search {
         display: flex;
         align-items: center;
         gap: 10px;
-        padding: 12px 14px;
+        padding: 14px 16px;
         border: 1px solid #ddd6cb;
         border-radius: 12px;
         background: #fff;
-        margin-bottom: 14px;
+        margin-bottom: 18px;
       }
       .mini-search span { color: #938b81; font-size: 16px; }
       .mini-search input {
@@ -586,16 +586,19 @@ const categories = [
         font-weight: 800;
       }
 
+      /* Preview cards, 4 shown at 2-per-row rather than 6 at
+         3-per-row — same real data, genuinely more room per card
+         instead of feeling like a token afterthought. */
       :global(.mini-marketplace-grid) {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 8px;
-        margin-bottom: 14px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+        margin-bottom: 18px;
       }
       :global(.mini-market-card) {
         display: block;
         overflow: hidden;
-        border-radius: 10px;
+        border-radius: 14px;
         border: 1px solid #e6e0d6;
         background: #fff;
         transition: transform 0.2s ease;
@@ -603,30 +606,32 @@ const categories = [
       :global(.mini-market-card:hover) { transform: translateY(-2px); }
       :global(.mini-market-card img) {
         width: 100%;
-        height: 60px;
+        height: 130px;
         object-fit: cover;
         display: block;
       }
-      :global(.mini-market-card > div) { padding: 7px 8px; }
+      :global(.mini-market-card > div) { padding: 12px 14px; }
       :global(.mini-market-business) {
         display: block;
-        font-size: 7px;
+        font-size: 8px;
         font-weight: 800;
         text-transform: uppercase;
         letter-spacing: 0.06em;
         color: #b27c19;
+        margin-bottom: 3px;
       }
       :global(.mini-market-card strong) {
         display: block;
-        font-size: 10px;
-        margin: 2px 0;
+        font-size: 13px;
+        margin: 3px 0;
         color: #181714;
       }
       :global(.mini-market-price) {
         display: block;
-        font-size: 10px;
+        font-size: 12px;
         font-weight: 800;
         color: #181714;
+        margin-top: 2px;
       }
 
       /* ── FOOTER (unchanged) ── */
@@ -656,7 +661,7 @@ const categories = [
         .nav-inner, .two-col-layout, .section-container { width: calc(100% - 30px); }
         .signin-link { display: none; }
         .catalogue-grid-compact { grid-template-columns: 1fr; }
-        :global(.mini-marketplace-grid) { grid-template-columns: repeat(2, 1fr); }
+        :global(.mini-marketplace-grid) { grid-template-columns: 1fr; }
         .footer-links { grid-template-columns: 1fr 1fr; }
         .footer-bottom { flex-direction: column; gap: 8px; }
       }
@@ -665,3 +670,4 @@ const categories = [
 
   </body>
 </html>
+
