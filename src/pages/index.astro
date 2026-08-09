@@ -2258,8 +2258,14 @@ const featuredCatalogues = catalogues.filter(
       }
 
 
-      .catalogue-card.hidden,
-      .marketplace-card.hidden {
+      .catalogue-card.hidden {
+
+        display: none;
+
+      }
+
+
+      :global(.marketplace-card.hidden) {
 
         display: none;
 
@@ -2872,7 +2878,17 @@ const featuredCatalogues = catalogues.filter(
       }
 
 
-      .marketplace-card {
+      /* :global() required on every rule below — these classes
+         apply to marketplace cards injected at RUNTIME via
+         innerHTML (loadRealMarketplace's script), not present in
+         the static HTML at build time. Astro's scoped-style
+         attribute never reaches elements that don't exist yet when
+         the build runs, so without :global() none of these rules
+         would ever actually match. Same fix already applied to the
+         earlier merged index.astro version — reapplied here since
+         it was missed when this newer file's markup was written. */
+
+      :global(.marketplace-card) {
 
         display: block;
 
@@ -2896,7 +2912,7 @@ const featuredCatalogues = catalogues.filter(
       }
 
 
-      .marketplace-card:hover {
+      :global(.marketplace-card:hover) {
 
         transform:
           translateY(-3px);
@@ -2907,7 +2923,7 @@ const featuredCatalogues = catalogues.filter(
       }
 
 
-      .marketplace-image {
+      :global(.marketplace-image) {
 
         height: 200px;
 
@@ -2918,7 +2934,7 @@ const featuredCatalogues = catalogues.filter(
       }
 
 
-      .marketplace-image img {
+      :global(.marketplace-image img) {
 
         width: 100%;
 
@@ -2931,14 +2947,14 @@ const featuredCatalogues = catalogues.filter(
       }
 
 
-      .marketplace-card-body {
+      :global(.marketplace-card-body) {
 
         padding: 20px;
 
       }
 
 
-      .marketplace-business {
+      :global(.marketplace-business) {
 
         display: inline-flex;
 
@@ -2958,7 +2974,7 @@ const featuredCatalogues = catalogues.filter(
       }
 
 
-      .demo-tag {
+      :global(.demo-tag) {
 
         font-size: 8px;
 
@@ -2977,7 +2993,7 @@ const featuredCatalogues = catalogues.filter(
       }
 
 
-      .marketplace-dimension {
+      :global(.marketplace-dimension) {
 
         margin: 6px 0 0;
 
@@ -2988,7 +3004,7 @@ const featuredCatalogues = catalogues.filter(
       }
 
 
-      .marketplace-card h3 {
+      :global(.marketplace-card h3) {
 
         margin:
           10px 0 5px;
@@ -2996,11 +3012,12 @@ const featuredCatalogues = catalogues.filter(
         font-size: 20px;
 
         letter-spacing: -.03em;
+        color: var(--ink);
 
       }
 
 
-      .marketplace-card p {
+      :global(.marketplace-card p) {
 
         margin: 0;
 
@@ -3013,7 +3030,7 @@ const featuredCatalogues = catalogues.filter(
       }
 
 
-      .marketplace-price {
+      :global(.marketplace-price) {
 
         margin-top: 10px !important;
 
@@ -3483,4 +3500,5 @@ const featuredCatalogues = catalogues.filter(
 
   </body>
 </html>
+
 
