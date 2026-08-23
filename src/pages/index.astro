@@ -1,6 +1,6 @@
 ---
 import { catalogues } from "../data/catalogues";
-
+ 
 const categories = [
   "All",
   "Food",
@@ -9,7 +9,7 @@ const categories = [
   "Furniture",
   "Automotive",
 ];
-
+ 
 // Plantation Shutters is the priority catalogue right now — it
 // should always be the first tile shown, ahead of the site's
 // default/insertion order. A stable sort (rather than a filter +
@@ -17,18 +17,18 @@ const categories = [
 // order behind it, so this is purely a "float to the top" nudge,
 // not a reshuffle of everything else.
 const PRIORITY_TEMPLATE_ID = "plantation_shutters";
-
+ 
 function isPriorityCatalogue(catalogue) {
   return Boolean(catalogue?.publishUrl?.includes(`template=${PRIORITY_TEMPLATE_ID}`));
 }
-
+ 
 const orderedCatalogues = [...catalogues].sort((a, b) => {
   const aRank = isPriorityCatalogue(a) ? 0 : 1;
   const bRank = isPriorityCatalogue(b) ? 0 : 1;
   return aRank - bRank;
 });
 ---
-
+ 
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -39,13 +39,13 @@ const orderedCatalogues = [...catalogues].sort((a, b) => {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   </head>
-
+ 
   <body>
-
+ 
     <!-- =====================================================
          NAVIGATION — unchanged, full width, same as before
     ====================================================== -->
-
+ 
     <header class="site-header">
       <div class="nav-inner">
         <a href="/" class="brand" aria-label="QuoteLens home">
@@ -63,10 +63,10 @@ const orderedCatalogues = [...catalogues].sort((a, b) => {
         </div>
       </div>
     </header>
-
-
+ 
+ 
     <main>
-
+ 
       <!-- =====================================================
            TWO-COLUMN LAYOUT — the whole page, per the sketch.
            Left: every section's headline/pitch, condensed into
@@ -74,12 +74,12 @@ const orderedCatalogues = [...catalogues].sort((a, b) => {
            marketplace search + grid. Not repeated per-section —
            one continuous split for the entire page.
       ====================================================== -->
-
+ 
       <div class="two-col-layout">
-
+ 
         <!-- ── LEFT COLUMN ── -->
         <div class="left-col">
-
+ 
           <!-- Hero pitch — kept as full content, not boxed,
                matches the sketch's unboxed top item -->
           <div class="hero-pitch">
@@ -106,7 +106,7 @@ const orderedCatalogues = [...catalogues].sort((a, b) => {
               </a>
             </div>
           </div>
-
+ 
           <!-- Box 1 — condensed Thesis content -->
           <div class="pitch-box">
             <h3>Specification-driven buying</h3>
@@ -116,7 +116,7 @@ const orderedCatalogues = [...catalogues].sort((a, b) => {
               flips that: Specify → Discover → Compare → Enquire.
             </p>
           </div>
-
+ 
           <!-- Box 2 — condensed How It Works content -->
           <div class="pitch-box">
             <h3>Buying custom products shouldn't feel complicated.</h3>
@@ -125,7 +125,7 @@ const orderedCatalogues = [...catalogues].sort((a, b) => {
               Compare what fits. Send a prepared enquiry.
             </p>
           </div>
-
+ 
           <!-- Box 3 — condensed Business content -->
           <div class="pitch-box dark">
             <h3>Turn your products into structured buying.</h3>
@@ -138,29 +138,29 @@ const orderedCatalogues = [...catalogues].sort((a, b) => {
               Publish your catalogue <span>→</span>
             </a>
           </div>
-
+ 
           <!-- Box 4 — condensed Community content -->
           <div class="pitch-box">
             <h3>Community Validation</h3>
             <p>Was QuoteLens useful? Tell us what you think.</p>
             <a href="/community" class="box-link">Share your experience →</a>
           </div>
-
+ 
         </div>
-
-
+ 
+ 
         <!-- ── RIGHT COLUMN ── -->
         <div class="right-col">
-
-          <!-- Catalogue cards — real data, compact grid.
-               orderedCatalogues (see frontmatter) puts Plantation
-               Shutters first before this slice, so it's always
-               the first tile shown here. -->
+ 
+          <!-- Catalogue cards — every real catalogue, not a capped
+               preview. orderedCatalogues (see frontmatter) puts
+               Plantation Shutters first, so it's always the first
+               tile shown here. -->
           <div id="catalogues" class="right-block">
             <p class="right-block-label">EXPLORE CATALOGUES</p>
             <div class="catalogue-grid-compact">
               {
-                orderedCatalogues.slice(0, 6).map((catalogue) => (
+                orderedCatalogues.map((catalogue) => (
                   <a href={catalogue.publishUrl} class="mini-catalogue-card">
                     {
                       catalogue.image ? (
@@ -191,15 +191,14 @@ const orderedCatalogues = [...catalogues].sort((a, b) => {
                 ))
               }
             </div>
-            <a href="#catalogues" class="box-link">See all catalogues →</a>
           </div>
-
+ 
           <!-- Marketplace — real search + real, capped preview.
                Full pagination lives on /marketplace, linked below. -->
           <div id="marketplace" class="right-block">
             <p class="right-block-label">FIND SOMETHING THAT FITS</p>
             <h3>your specification</h3>
-
+ 
             <div class="mini-search">
               <span>⌕</span>
               <input
@@ -208,7 +207,7 @@ const orderedCatalogues = [...catalogues].sort((a, b) => {
                 placeholder="Search marketplace..."
               />
             </div>
-
+ 
             <div id="marketplace-status" class="marketplace-status">
               Loading published catalogues...
             </div>
@@ -216,25 +215,25 @@ const orderedCatalogues = [...catalogues].sort((a, b) => {
               No businesses have published a catalogue yet.
               <a href="/join">Publish your catalogue →</a>
             </div>
-
+ 
             <div class="mini-marketplace-grid" data-marketplace-grid></div>
-
+ 
             <a href="/marketplace" class="box-link">
               Browse the full marketplace →
             </a>
           </div>
-
+ 
         </div>
-
+ 
       </div>
-
+ 
     </main>
-
-
+ 
+ 
     <!-- =====================================================
          FOOTER — unchanged, full width
     ====================================================== -->
-
+ 
     <footer class="site-footer">
       <div class="section-container">
         <div class="footer-main">
@@ -271,24 +270,24 @@ const orderedCatalogues = [...catalogues].sort((a, b) => {
         </div>
       </div>
     </footer>
-
-
+ 
+ 
     <!-- =====================================================
          REAL MARKETPLACE DATA — capped preview here (real
          cards, Plantation Shutters surfaced first), full set
          lives on /marketplace.
     ====================================================== -->
-
+ 
     <script>
       import { supabase } from '../utils/supabase.js'
-
-      const PREVIEW_LIMIT = 8
-
+ 
+      const PREVIEW_LIMIT = 30
+ 
       // Plantation Shutters is the priority catalogue right now —
       // its cards should surface first in this preview (and stay
       // first through a search), ahead of every other template.
       const PRIORITY_TEMPLATE_ID = 'plantation_shutters'
-
+ 
       const CATEGORY_META = {
         cakes:                { category: 'Food',              icon: '🎂' },
         flowers:               { category: 'Food',              icon: '💐' },
@@ -303,10 +302,10 @@ const orderedCatalogues = [...catalogues].sort((a, b) => {
         kitchen_island:         { category: 'Furniture',         icon: '🍽️' },
         blinds:                 { category: 'Home Improvement',  icon: '🪟' }
       }
-
+ 
       const SHOWROOM_TENANT_ID = 'showroom'
       let allRealCards = []
-
+ 
       // Stable sort — plantation_shutters cards float to the top,
       // everything else keeps its existing relative order behind
       // them. Applied once, right after allRealCards is built, so
@@ -318,12 +317,12 @@ const orderedCatalogues = [...catalogues].sort((a, b) => {
         const bRank = b.templateId === PRIORITY_TEMPLATE_ID ? 0 : 1
         return aRank - bRank
       }
-
+ 
       async function loadMarketplacePreview() {
         const statusEl = document.getElementById('marketplace-status')
         const emptyEl  = document.getElementById('marketplace-empty')
         const gridEl   = document.querySelector('[data-marketplace-grid]')
-
+ 
         // Fetching everything is the current honest limitation —
         // the JSONB-per-tenant model means we can't ask the
         // database for "just 6 cards" directly. This is fine at
@@ -335,22 +334,22 @@ const orderedCatalogues = [...catalogues].sort((a, b) => {
           .eq('subscription_status', 'active')
           .eq('marketplace_listed', true)
           .not('marketplace_listing', 'is', null)
-
+ 
         if (error) {
           statusEl.textContent = 'Could not load published catalogues right now.'
           console.error(error)
           return
         }
-
+ 
         ;(tenants || []).forEach((tenant) => {
           const listingsByTemplate = tenant.marketplace_listing
           if (!listingsByTemplate || typeof listingsByTemplate !== 'object') return
           const isShowroom = tenant.tenant_id === SHOWROOM_TENANT_ID
-
+ 
           Object.entries(listingsByTemplate).forEach(([templateId, listing]) => {
             if (!listing?.cards?.length) return
             const meta = CATEGORY_META[templateId] || { category: 'Other', icon: '📦' }
-
+ 
             listing.cards.forEach((card) => {
               if (!card.imageUrl) return
               allRealCards.push({
@@ -370,19 +369,19 @@ const orderedCatalogues = [...catalogues].sort((a, b) => {
             })
           })
         })
-
+ 
         allRealCards.sort(byPlantationShuttersFirst)
-
+ 
         statusEl.style.display = 'none'
-
+ 
         if (allRealCards.length === 0) {
           emptyEl.style.display = 'block'
           return
         }
-
+ 
         renderPreview(allRealCards.slice(0, PREVIEW_LIMIT))
       }
-
+ 
       function renderPreview(cards) {
         const gridEl = document.querySelector('[data-marketplace-grid]')
         if (cards.length === 0) {
@@ -400,7 +399,7 @@ const orderedCatalogues = [...catalogues].sort((a, b) => {
           </a>
         `).join('')
       }
-
+ 
       document.getElementById('mini-marketplace-search')?.addEventListener('input', (e) => {
         const query = e.target.value.toLowerCase().trim()
         const filtered = query
@@ -408,31 +407,31 @@ const orderedCatalogues = [...catalogues].sort((a, b) => {
           : allRealCards.slice(0, PREVIEW_LIMIT)
         renderPreview(filtered)
       })
-
+ 
       loadMarketplacePreview()
     </script>
-
-
+ 
+ 
     <!-- =====================================================
          STYLES
     ====================================================== -->
-
+ 
    <style>
   /* =========================================================
      QUOTELENS — PREMIUM VISUAL SYSTEM
      Styling only.
      Existing markup + functionality remain unchanged.
   ========================================================= */
-
+ 
   :global(*) {
     box-sizing: border-box;
   }
-
+ 
   :global(html) {
     scroll-behavior: smooth;
     background: #f5f2eb;
   }
-
+ 
   :global(body) {
     margin: 0;
     background:
@@ -447,960 +446,965 @@ const orderedCatalogues = [...catalogues].sort((a, b) => {
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
-
+ 
   :global(a) {
     color: inherit;
     text-decoration: none;
   }
-
+ 
   :global(button),
   :global(input) {
     font: inherit;
   }
-
+ 
   :global(button) {
     cursor: pointer;
   }
-
+ 
   /* =========================================================
      DESIGN TOKENS
   ========================================================= */
-
+ 
   :global(:root) {
     --ink: #191815;
     --ink-soft: #37342f;
     --muted: #756f66;
     --soft: #969087;
-
+ 
     --paper: #f5f2eb;
     --paper-deep: #eee9df;
     --surface: #fffdfa;
     --white: #ffffff;
-
+ 
     --line: rgba(25, 24, 21, 0.095);
     --line-strong: rgba(25, 24, 21, 0.14);
-
+ 
     --gold: #b8862a;
     --gold-soft: #d4ad65;
-
+ 
     --radius-sm: 12px;
     --radius-md: 18px;
     --radius-lg: 26px;
-
+ 
     --shadow-soft:
       0 12px 35px rgba(35, 30, 24, 0.045);
-
+ 
     --shadow-card:
       0 18px 55px rgba(35, 30, 24, 0.075);
-
+ 
     --container: 1240px;
   }
-
+ 
   /* =========================================================
      GLOBAL CONTAINER
   ========================================================= */
-
+ 
   .section-container,
   .nav-inner {
     width: min(var(--container), calc(100% - 72px));
     margin-inline: auto;
   }
-
+ 
   /* =========================================================
      NAVIGATION
   ========================================================= */
-
+ 
   .site-header {
     position: sticky;
     top: 0;
     z-index: 100;
-
+ 
     background: rgba(245, 242, 235, 0.84);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-
+ 
     border-bottom: 1px solid rgba(25, 24, 21, 0.075);
   }
-
+ 
   .nav-inner {
     min-height: 72px;
-
+ 
     display: flex;
     align-items: center;
     justify-content: space-between;
-
+ 
     gap: 28px;
   }
-
+ 
   .brand {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-
+ 
     font-size: 16px;
     font-weight: 800;
     letter-spacing: -0.045em;
   }
-
+ 
   .brand-mark {
     width: 31px;
     height: 31px;
-
+ 
     display: grid;
     place-items: center;
-
+ 
     border-radius: 9px;
-
+ 
     background: var(--ink);
     color: white;
-
+ 
     font-size: 12px;
     font-weight: 800;
-
+ 
     box-shadow:
       0 4px 12px rgba(25, 24, 21, 0.12);
   }
-
+ 
   .desktop-nav {
     display: flex;
     align-items: center;
     gap: 30px;
-
+ 
     margin-inline: auto;
   }
-
+ 
   .desktop-nav a,
   .signin-link {
     color: #68635b;
-
+ 
     font-size: 12px;
     font-weight: 650;
-
+ 
     transition:
       color 0.2s ease,
       opacity 0.2s ease;
   }
-
+ 
   .desktop-nav a:hover,
   .signin-link:hover {
     color: var(--ink);
   }
-
+ 
   .nav-actions {
     display: flex;
     align-items: center;
     gap: 18px;
   }
-
+ 
   .nav-cta {
     display: inline-flex;
     align-items: center;
-
+ 
     min-height: 40px;
     padding: 0 17px;
-
+ 
     border-radius: 999px;
-
+ 
     background: var(--ink);
     color: white;
-
+ 
     font-size: 11px;
     font-weight: 800;
-
+ 
     box-shadow:
       0 6px 18px rgba(25, 24, 21, 0.11);
-
+ 
     transition:
       transform 0.2s ease,
       box-shadow 0.2s ease,
       background 0.2s ease;
   }
-
+ 
   .nav-cta:hover {
     transform: translateY(-1px);
     background: #292722;
-
+ 
     box-shadow:
       0 9px 24px rgba(25, 24, 21, 0.16);
   }
-
+ 
   /* =========================================================
      MAIN TWO-COLUMN COMPOSITION
   ========================================================= */
-
+ 
   .two-col-layout {
     width: min(1320px, calc(100% - 72px));
     margin-inline: auto;
-
+ 
     display: grid;
+    /* 30% / 70% split — the right column now carries every
+       catalogue plus up to 30 marketplace cards, so it needs the
+       lion's share of the width; fr units keep the ratio exact at
+       wide viewports, the minmax floors just protect against
+       either side getting crushed as the layout narrows. */
     grid-template-columns:
-      minmax(310px, 0.78fr)
-      minmax(500px, 1.22fr);
-
+      minmax(280px, 3fr)
+      minmax(560px, 7fr);
+ 
     gap: 72px;
-
+ 
     padding:
       86px 0
       125px;
-
+ 
     align-items: start;
   }
-
+ 
   .left-col,
   .right-col {
     display: flex;
     flex-direction: column;
     gap: 34px;
   }
-
+ 
   /* =========================================================
      HERO
   ========================================================= */
-
+ 
   .hero-pitch {
     padding:
       14px
       0
       30px;
   }
-
+ 
   .eyebrow,
   .right-block-label {
     display: flex;
     align-items: center;
     gap: 9px;
-
+ 
     color: var(--gold);
-
+ 
     font-size: 9px;
     font-weight: 800;
     letter-spacing: 0.18em;
     text-transform: uppercase;
   }
-
+ 
   .eyebrow-dot {
     width: 6px;
     height: 6px;
-
+ 
     flex: 0 0 auto;
-
+ 
     border-radius: 50%;
     background: var(--gold);
   }
-
+ 
   .hero-pitch h1 {
     max-width: 570px;
-
+ 
     margin:
       25px 0
       23px;
-
+ 
     font-size: clamp(46px, 5vw, 70px);
     line-height: 0.94;
-
+ 
     letter-spacing: -0.065em;
     font-weight: 800;
   }
-
+ 
   .hero-pitch h1 span {
     display: block;
   }
-
+ 
   .hero-pitch h1 strong {
     display: block;
-
+ 
     color: #8c867d;
     font-weight: 800;
   }
-
+ 
   .hero-description {
     max-width: 480px;
-
+ 
     margin: 0;
-
+ 
     color: #686259;
-
+ 
     font-size: 14px;
     line-height: 1.8;
     letter-spacing: -0.01em;
   }
-
+ 
   .hero-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 9px;
-
+ 
     margin-top: 30px;
   }
-
+ 
   .button {
     min-height: 43px;
-
+ 
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 13px;
-
+ 
     padding: 0 17px;
-
+ 
     border-radius: 999px;
-
+ 
     font-size: 11px;
     font-weight: 800;
-
+ 
     transition:
       transform 0.2s ease,
       box-shadow 0.2s ease,
       background 0.2s ease;
   }
-
+ 
   .button:hover {
     transform: translateY(-2px);
   }
-
+ 
   .button-dark {
     background: var(--ink);
     color: white;
-
+ 
     box-shadow:
       0 8px 22px rgba(25, 24, 21, 0.12);
   }
-
+ 
   .button-dark:hover {
     background: #2b2924;
-
+ 
     box-shadow:
       0 12px 28px rgba(25, 24, 21, 0.17);
   }
-
+ 
   .button-light {
     border: 1px solid var(--line-strong);
     background: rgba(255,255,255,0.38);
-
+ 
     color: var(--ink);
   }
-
+ 
   .button-light:hover {
     background: white;
   }
-
+ 
   /* =========================================================
      LEFT INFORMATION CARDS
   ========================================================= */
-
+ 
   .pitch-box {
     padding: 29px 27px;
-
+ 
     border:
       1px solid var(--line);
-
+ 
     border-radius: var(--radius-md);
-
+ 
     background:
       rgba(255, 253, 250, 0.78);
-
+ 
     box-shadow:
       0 8px 28px rgba(35, 30, 24, 0.025);
-
+ 
     transition:
       transform 0.25s ease,
       box-shadow 0.25s ease,
       border-color 0.25s ease;
   }
-
+ 
   .pitch-box:hover {
     transform: translateY(-2px);
-
+ 
     border-color:
       rgba(25, 24, 21, 0.14);
-
+ 
     box-shadow:
       var(--shadow-soft);
   }
-
+ 
   .pitch-box h3 {
     margin: 0 0 11px;
-
+ 
     color: var(--ink);
-
+ 
     font-size: 18px;
     line-height: 1.25;
     letter-spacing: -0.035em;
   }
-
+ 
   .pitch-box p {
     margin: 0;
-
+ 
     color: var(--muted);
-
+ 
     font-size: 12.5px;
     line-height: 1.75;
   }
-
+ 
   .pitch-box.dark {
     background: var(--ink);
     border-color: var(--ink);
-
+ 
     box-shadow:
       0 18px 50px rgba(25, 24, 21, 0.13);
   }
-
+ 
   .pitch-box.dark h3 {
     color: white;
   }
-
+ 
   .pitch-box.dark p {
     color: #aaa59c;
   }
-
+ 
   .box-link {
     display: inline-flex;
     align-items: center;
     gap: 7px;
-
+ 
     margin-top: 15px;
-
+ 
     color: var(--ink);
-
+ 
     font-size: 11px;
     font-weight: 800;
   }
-
+ 
   .pitch-box.dark .box-link {
     color: white;
   }
-
+ 
   /* =========================================================
      RIGHT COLUMN
   ========================================================= */
-
+ 
   .right-block {
     padding: 30px;
-
+ 
     border:
       1px solid var(--line);
-
+ 
     border-radius: var(--radius-lg);
-
+ 
     background:
       rgba(255, 253, 250, 0.88);
-
+ 
     box-shadow:
       var(--shadow-soft);
   }
-
+ 
   .right-block-label {
     margin-bottom: 7px;
   }
-
+ 
   .right-block h3 {
     margin: 0;
-
+ 
     color: var(--ink);
-
+ 
     font-size: 25px;
     line-height: 1.1;
     letter-spacing: -0.045em;
   }
-
+ 
   /* =========================================================
      CATALOGUE GRID
   ========================================================= */
-
+ 
   .catalogue-grid-compact {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+ 
     gap: 14px;
-
+ 
     margin:
       20px 0
       18px;
   }
-
+ 
   .mini-catalogue-card {
     position: relative;
-
+ 
     overflow: hidden;
-
+ 
     display: block;
-
+ 
     border:
       1px solid rgba(25,24,21,0.085);
-
+ 
     border-radius: 18px;
-
+ 
     background: white;
-
+ 
     box-shadow:
       0 5px 18px rgba(35,30,24,0.035);
-
+ 
     transition:
       transform 0.3s cubic-bezier(.2,.8,.2,1),
       box-shadow 0.3s ease,
       border-color 0.3s ease;
   }
-
+ 
   .mini-catalogue-card:hover {
     transform: translateY(-5px);
-
+ 
     border-color:
       rgba(25,24,21,0.15);
-
+ 
     box-shadow:
       0 20px 45px rgba(35,30,24,0.10);
   }
-
+ 
   .mini-catalogue-card img,
   .mini-image-placeholder {
     width: 100%;
     height: 190px;
-
+ 
     display: block;
-
+ 
     object-fit: cover;
   }
-
+ 
   .mini-catalogue-card img {
     transition:
       transform 0.6s cubic-bezier(.2,.8,.2,1);
   }
-
+ 
   .mini-catalogue-card:hover img {
     transform: scale(1.035);
   }
-
+ 
   .mini-image-placeholder {
     display: grid;
     place-items: center;
-
+ 
     background:
       linear-gradient(
         145deg,
         #f1ede5,
         #e8e1d6
       );
-
+ 
     font-size: 42px;
   }
-
+ 
   .mini-card-body {
     padding: 18px 19px 20px;
   }
-
+ 
   .mini-card-body span {
     display: block;
-
+ 
     margin-bottom: 7px;
-
+ 
     font-size: 8px;
     font-weight: 800;
     letter-spacing: 0.12em;
     text-transform: uppercase;
   }
-
+ 
   .mini-card-body strong {
     display: block;
-
+ 
     color: var(--ink);
-
+ 
     font-size: 17px;
     line-height: 1.2;
     letter-spacing: -0.035em;
   }
-
+ 
   /* =========================================================
      MARKETPLACE SEARCH
   ========================================================= */
-
+ 
   .mini-search {
     display: flex;
     align-items: center;
     gap: 11px;
-
+ 
     margin:
       18px 0
       19px;
-
+ 
     padding:
       0 15px;
-
+ 
     min-height: 48px;
-
+ 
     border:
       1px solid rgba(25,24,21,0.11);
-
+ 
     border-radius: 13px;
-
+ 
     background: white;
-
+ 
     box-shadow:
       0 5px 18px rgba(35,30,24,0.035);
-
+ 
     transition:
       border-color 0.2s ease,
       box-shadow 0.2s ease;
   }
-
+ 
   .mini-search:focus-within {
     border-color:
       rgba(184,134,42,0.55);
-
+ 
     box-shadow:
       0 0 0 4px rgba(184,134,42,0.07);
   }
-
+ 
   .mini-search span {
     color: #8d867d;
     font-size: 17px;
   }
-
+ 
   .mini-search input {
     flex: 1;
     min-width: 0;
-
+ 
     border: 0;
     outline: 0;
-
+ 
     background: transparent;
-
+ 
     color: var(--ink);
-
+ 
     font-size: 12px;
   }
-
+ 
   .mini-search input::placeholder {
     color: #aaa39a;
   }
-
+ 
   .marketplace-status,
   .marketplace-empty {
     padding: 12px 0;
-
+ 
     color: var(--muted);
-
+ 
     font-size: 11px;
     line-height: 1.6;
   }
-
+ 
   .marketplace-empty a {
     display: inline-block;
-
+ 
     margin-top: 5px;
-
+ 
     color: var(--gold);
     font-weight: 800;
   }
-
+ 
   /* =========================================================
      RUNTIME MARKETPLACE CARDS
      These MUST remain :global().
   ========================================================= */
-
+ 
   :global(.mini-marketplace-grid) {
     display: grid;
-
+ 
     grid-template-columns:
-      repeat(2, minmax(0, 1fr));
-
+      repeat(3, minmax(0, 1fr));
+ 
     gap: 13px;
-
+ 
     margin-bottom: 18px;
   }
-
+ 
   :global(.mini-market-card) {
     overflow: hidden;
-
+ 
     display: block;
-
+ 
     border:
       1px solid rgba(25,24,21,0.085);
-
+ 
     border-radius: 15px;
-
+ 
     background: white;
-
+ 
     transition:
       transform 0.25s ease,
       box-shadow 0.25s ease;
   }
-
+ 
   :global(.mini-market-card:hover) {
     transform: translateY(-3px);
-
+ 
     box-shadow:
       0 15px 35px rgba(35,30,24,0.085);
   }
-
+ 
   :global(.mini-market-card img) {
     width: 100%;
     height: 145px;
-
+ 
     display: block;
-
+ 
     object-fit: cover;
-
+ 
     transition:
       transform 0.5s ease;
   }
-
+ 
   :global(.mini-market-card:hover img) {
     transform: scale(1.035);
   }
-
+ 
   :global(.mini-market-card > div) {
     padding: 14px 15px 16px;
   }
-
+ 
   :global(.mini-market-business) {
     display: block;
-
+ 
     margin-bottom: 4px;
-
+ 
     color: var(--gold);
-
+ 
     font-size: 7px;
     font-weight: 800;
-
+ 
     letter-spacing: 0.1em;
     text-transform: uppercase;
   }
-
+ 
   :global(.mini-market-card strong) {
     display: block;
-
+ 
     margin: 4px 0;
-
+ 
     color: var(--ink);
-
+ 
     font-size: 13px;
     line-height: 1.25;
     letter-spacing: -0.02em;
   }
-
+ 
   :global(.mini-market-price) {
     display: block;
-
+ 
     margin-top: 6px;
-
+ 
     color: var(--ink);
-
+ 
     font-size: 11px;
     font-weight: 800;
   }
-
+ 
   /* =========================================================
      FOOTER
   ========================================================= */
-
+ 
   .site-footer {
     padding:
       72px 0
       25px;
-
+ 
     background: var(--ink);
     color: white;
   }
-
+ 
   .footer-main {
     display: grid;
-
+ 
     grid-template-columns:
       1fr
       1.4fr;
-
+ 
     gap: 90px;
   }
-
+ 
   .footer-logo {
     color: white;
   }
-
+ 
   .footer-brand p {
     max-width: 320px;
-
+ 
     margin:
       18px 0 0;
-
+ 
     color: #817c73;
-
+ 
     font-size: 11px;
     line-height: 1.75;
   }
-
+ 
   .footer-links {
     display: grid;
-
+ 
     grid-template-columns:
       repeat(3, 1fr);
-
+ 
     gap: 30px;
   }
-
+ 
   .footer-links > div {
     display: flex;
     flex-direction: column;
     gap: 10px;
   }
-
+ 
   .footer-links span {
     margin-bottom: 7px;
-
+ 
     color: #6f6a62;
-
+ 
     font-size: 8px;
     font-weight: 800;
     letter-spacing: 0.14em;
   }
-
+ 
   .footer-links a {
     color: #bdb8b0;
-
+ 
     font-size: 10px;
-
+ 
     transition:
       color 0.2s ease;
   }
-
+ 
   .footer-links a:hover {
     color: white;
   }
-
+ 
   .footer-bottom {
     display: flex;
     justify-content: space-between;
-
+ 
     margin-top: 65px;
     padding-top: 19px;
-
+ 
     border-top:
       1px solid rgba(255,255,255,0.09);
-
+ 
     color: #666159;
-
+ 
     font-size: 8px;
   }
-
+ 
   /* =========================================================
      RESPONSIVE
   ========================================================= */
-
+ 
   @media (max-width: 1000px) {
     .two-col-layout {
       grid-template-columns: 1fr;
-
+ 
       gap: 35px;
-
+ 
       padding:
         60px 0
         90px;
     }
-
+ 
     .left-col {
       max-width: 760px;
     }
-
+ 
     .right-col {
       width: 100%;
     }
-
+ 
     .footer-main {
       grid-template-columns: 1fr;
       gap: 45px;
     }
   }
-
+ 
   @media (max-width: 700px) {
     .nav-inner,
     .two-col-layout,
     .section-container {
       width: calc(100% - 32px);
     }
-
+ 
     .desktop-nav {
       display: none;
     }
-
+ 
     .signin-link {
       display: none;
     }
-
+ 
     .two-col-layout {
       padding-top: 45px;
     }
-
+ 
     .hero-pitch h1 {
       font-size: clamp(42px, 12vw, 58px);
     }
-
+ 
     .hero-actions {
       flex-direction: column;
       align-items: stretch;
     }
-
+ 
     .button {
       width: 100%;
     }
-
+ 
     .right-block {
       padding: 21px;
       border-radius: 20px;
     }
-
+ 
     .catalogue-grid-compact {
       grid-template-columns: 1fr;
     }
-
+ 
     :global(.mini-marketplace-grid) {
       grid-template-columns: 1fr;
     }
-
+ 
     .footer-links {
       grid-template-columns: repeat(2, 1fr);
     }
-
+ 
     .footer-bottom {
       flex-direction: column;
       gap: 8px;
     }
   }
-
+ 
   @media (max-width: 430px) {
     .nav-cta {
       padding-inline: 13px;
       font-size: 10px;
     }
-
+ 
     .hero-pitch {
       padding-top: 0;
     }
-
+ 
     .pitch-box {
       padding: 24px 21px;
     }
-
+ 
     .right-block {
       padding: 18px;
     }
-
+ 
     .footer-links {
       grid-template-columns: 1fr 1fr;
     }
   }
-
+ 
   /* =========================================================
      ACCESSIBILITY
   ========================================================= */
-
+ 
   :global(a:focus-visible),
   :global(button:focus-visible),
   :global(input:focus-visible) {
     outline:
       2px solid var(--gold);
-
+ 
     outline-offset: 3px;
   }
-
+ 
   @media (prefers-reduced-motion: reduce) {
     :global(*) {
       scroll-behavior: auto !important;
@@ -1409,9 +1413,10 @@ const orderedCatalogues = [...catalogues].sort((a, b) => {
     }
   }
 </style>
-
+ 
   </body>
 </html>
+ 
 
 
 
