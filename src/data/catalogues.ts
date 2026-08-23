@@ -1,7 +1,7 @@
 // src/data/catalogues.ts
 
 export type CatalogueCategory =
-  | "Food"
+  | "Occasion"
   | "Fashion"
   | "Home Improvement"
   | "Furniture"
@@ -54,7 +54,7 @@ export const catalogues: Catalogue[] = [
 
     title: "Cakes",
 
-    category: "Food",
+    category: "Occasion",
 
     image: "/images/catalogues/cakes/cakes.jpeg",
 
@@ -98,7 +98,7 @@ export const catalogues: Catalogue[] = [
 
     title: "Flowers",
 
-    category: "Food",
+    category: "Occasion",
 
     image: "/images/catalogues/flowers/flowers.jpeg",
 
