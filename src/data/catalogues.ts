@@ -100,13 +100,14 @@ export const catalogues: Catalogue[] = [
 
     category: "Food",
 
-    // No photo on disk yet under public/images/catalogues/flowers/ —
-    // left empty so the card falls back to the icon placeholder
-    // instead of a broken image. Add a file there and set this
-    // once you have one.
-    image: "",
+    image: "/images/catalogues/flowers/flowers.jpeg",
 
-    images: [],
+    images: [
+      {
+        src: "/images/catalogues/flowers/flowers.jpeg",
+        label: "Flowers",
+      },
+    ],
 
     shortDescription:
       "Browse bouquets by occasion before sending an enquiry.",
@@ -238,10 +239,14 @@ export const catalogues: Catalogue[] = [
 
     category: "Home Improvement",
 
-    // No photo on disk yet under public/images/catalogues/curtains/.
-    image: "",
+    image: "/images/catalogues/curtains/curtains.jpeg",
 
-    images: [],
+    images: [
+      {
+        src: "/images/catalogues/curtains/curtains.jpeg",
+        label: "Curtains",
+      },
+    ],
 
     shortDescription:
       "Interactive shopping for made-to-measure curtains.",
@@ -368,10 +373,14 @@ export const catalogues: Catalogue[] = [
 
     category: "Home Improvement",
 
-    // No photo on disk yet under public/images/catalogues/gates/.
-    image: "",
+    image: "/images/catalogues/gates/gates.jpeg",
 
-    images: [],
+    images: [
+      {
+        src: "/images/catalogues/gates/gates.jpeg",
+        label: "Gates",
+      },
+    ],
 
     shortDescription:
       "Configure sliding and swing gates before requesting a quotation.",
