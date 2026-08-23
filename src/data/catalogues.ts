@@ -569,10 +569,9 @@ export const catalogues: Catalogue[] = [
 
     category: "Furniture",
 
-    // No photo on disk yet under public/images/catalogues/kitchen-island/.
-    image: "",
+       image: "/images/catalogues/kitchen-island/kitchen-island.jpeg",
 
-    images: [],
+   images: [{ src: "/images/catalogues/kitchen-island/kitchen-island.jpeg", label: "Kitchen Islands" }],
 
     shortDescription:
       "Browse layouts and configure your ideal kitchen island.",
