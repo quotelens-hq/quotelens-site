@@ -9,6 +9,24 @@ const categories = [
   "Furniture",
   "Automotive",
 ];
+
+// Plantation Shutters is the priority catalogue right now — it
+// should always be the first tile shown, ahead of the site's
+// default/insertion order. A stable sort (rather than a filter +
+// unshift) keeps every other catalogue in its existing relative
+// order behind it, so this is purely a "float to the top" nudge,
+// not a reshuffle of everything else.
+const PRIORITY_TEMPLATE_ID = "plantation_shutters";
+
+function isPriorityCatalogue(catalogue) {
+  return Boolean(catalogue?.publishUrl?.includes(`template=${PRIORITY_TEMPLATE_ID}`));
+}
+
+const orderedCatalogues = [...catalogues].sort((a, b) => {
+  const aRank = isPriorityCatalogue(a) ? 0 : 1;
+  const bRank = isPriorityCatalogue(b) ? 0 : 1;
+  return aRank - bRank;
+});
 ---
 
 <html lang="en">
@@ -134,12 +152,15 @@ const categories = [
         <!-- ── RIGHT COLUMN ── -->
         <div class="right-col">
 
-          <!-- Catalogue cards — real data, compact grid -->
+          <!-- Catalogue cards — real data, compact grid.
+               orderedCatalogues (see frontmatter) puts Plantation
+               Shutters first before this slice, so it's always
+               the first tile shown here. -->
           <div id="catalogues" class="right-block">
             <p class="right-block-label">EXPLORE CATALOGUES</p>
             <div class="catalogue-grid-compact">
               {
-                catalogues.slice(0, 6).map((catalogue) => (
+                orderedCatalogues.slice(0, 6).map((catalogue) => (
                   <a href={catalogue.publishUrl} class="mini-catalogue-card">
                     {
                       catalogue.image ? (
@@ -253,14 +274,20 @@ const categories = [
 
 
     <!-- =====================================================
-         REAL MARKETPLACE DATA — capped preview here (6 real
-         cards), full set lives on /marketplace.
+         REAL MARKETPLACE DATA — capped preview here (real
+         cards, Plantation Shutters surfaced first), full set
+         lives on /marketplace.
     ====================================================== -->
 
     <script>
       import { supabase } from '../utils/supabase.js'
 
       const PREVIEW_LIMIT = 8
+
+      // Plantation Shutters is the priority catalogue right now —
+      // its cards should surface first in this preview (and stay
+      // first through a search), ahead of every other template.
+      const PRIORITY_TEMPLATE_ID = 'plantation_shutters'
 
       const CATEGORY_META = {
         cakes:                { category: 'Food',              icon: '🎂' },
@@ -279,6 +306,18 @@ const categories = [
 
       const SHOWROOM_TENANT_ID = 'showroom'
       let allRealCards = []
+
+      // Stable sort — plantation_shutters cards float to the top,
+      // everything else keeps its existing relative order behind
+      // them. Applied once, right after allRealCards is built, so
+      // it's already in effect for the initial render AND for
+      // every search-filtered result (search just filters this
+      // already-prioritised array).
+      function byPlantationShuttersFirst(a, b) {
+        const aRank = a.templateId === PRIORITY_TEMPLATE_ID ? 0 : 1
+        const bRank = b.templateId === PRIORITY_TEMPLATE_ID ? 0 : 1
+        return aRank - bRank
+      }
 
       async function loadMarketplacePreview() {
         const statusEl = document.getElementById('marketplace-status')
@@ -316,6 +355,7 @@ const categories = [
               if (!card.imageUrl) return
               allRealCards.push({
                 tenantId: tenant.tenant_id,
+                templateId,
                 businessName: tenant.business_name,
                 currencySymbol: tenant.currency_symbol || 'KSh',
                 material: card.material?.label || '',
@@ -330,6 +370,8 @@ const categories = [
             })
           })
         })
+
+        allRealCards.sort(byPlantationShuttersFirst)
 
         statusEl.style.display = 'none'
 
@@ -1369,6 +1411,6 @@ const categories = [
 </style>
 
   </body>
-</html>
+</html
 
 
