@@ -84,6 +84,8 @@ export const catalogues: Catalogue[] = [
       cta: "Publish This Catalogue",
     },
 
+    // Confirmed against src/solution-templates/cakes in the React
+    // project — matches the catalogue id exactly, no fix needed.
     publishUrl: "/join?template=cakes",
 
     demoUrl: "/market?category=cakes",
@@ -125,107 +127,11 @@ export const catalogues: Catalogue[] = [
       cta: "Publish This Catalogue",
     },
 
+    // Confirmed against src/solution-templates/flowers — matches
+    // the catalogue id exactly, no fix needed.
     publishUrl: "/join?template=flowers",
 
     demoUrl: "/market?category=flowers",
-
-    featured: true,
-  },
-
-  // ==========================================================
-  // FASHION
-  // ==========================================================
-
-  {
-    id: "dresses",
-
-    title: "Women's Dresses",
-
-    category: "Fashion",
-
-    image: "/images/catalogues/dresses/dresses.jpeg",
-
-    images: [
-      {
-        src: "/images/catalogues/dresses/dresses.jpeg",
-        label: "Dresses",
-      },
-    ],
-
-    shortDescription:
-      "Help customers discover their perfect fitting size before ordering.",
-
-    experience: {
-      title: "Fit Matching",
-
-      icon: "👗",
-
-      color: "#8B5CF6",
-
-      steps: [
-        "Capture Fit",
-        "Match Size",
-        "Prepared Enquiry",
-      ],
-
-      cta: "Publish This Catalogue",
-    },
-
-    // ⚠️ Real templateId is "womens_dresses" — genuine mismatch
-    // from this catalogue's own id ("dresses"). This exact
-    // mismatch was the root cause of the homepage's broken link,
-    // when it was built from raw catalogue.id instead of this
-    // field.
-    publishUrl: "/join?template=womens_dresses",
-
-    demoUrl: "/market?category=womens_dresses",
-
-    featured: true,
-  },
-
-  // ==========================================================
-  // AUTOMOTIVE
-  // ==========================================================
-
-  {
-    id: "vehicle-parts",
-
-    title: "Vehicle & Motorcycle Parts",
-
-    category: "Automotive",
-
-    image: "/images/catalogues/vehicle parts/vehicle parts.jpeg",
-
-    images: [
-      {
-        src: "/images/catalogues/vehicle parts/vehicle parts.jpeg",
-        label: "Parts",
-      },
-    ],
-
-    shortDescription:
-      "Customers search by photo or description — matched against your real stock.",
-
-    experience: {
-      title: "Search Matching",
-
-      icon: "🔧",
-
-      color: "#DC2626",
-
-      steps: [
-        "Search or Photograph",
-        "Match Stock",
-        "Prepared Enquiry",
-      ],
-
-      cta: "Publish This Catalogue",
-    },
-
-    // ⚠️ Real templateId uses underscore: "vehicle_parts".
-    publishUrl: "/join?template=vehicle_parts",
-
-    demoUrl: "/market?category=vehicle_parts",
 
     featured: true,
   },
@@ -235,17 +141,62 @@ export const catalogues: Catalogue[] = [
   // ==========================================================
 
   {
+    id: "blinds",
+
+    title: "Blinds",
+
+    category: "Home Improvement",
+
+    image: "/images/catalogues/blinds/blinds.jpeg",
+
+    images: [
+      {
+        src: "/images/catalogues/blinds/blinds.jpeg",
+        label: "Blinds",
+      },
+    ],
+
+    shortDescription:
+      "Interactive shopping for made-to-measure blinds.",
+
+    experience: {
+      title: "Measurement Shopping",
+
+      icon: "🎚️",
+
+      color: "#06B6D4",
+
+      steps: [
+        "Measure Window",
+        "Choose Style",
+        "Instant Estimate",
+      ],
+
+      cta: "Publish This Catalogue",
+    },
+
+    // Confirmed against src/solution-templates/blinds — a real,
+    // already-built configurator (folder dates back to 7/11), so
+    // this ships live rather than as comingSoon.
+    publishUrl: "/join?template=blinds",
+
+    demoUrl: "/market?category=blinds",
+
+    featured: true,
+  },
+
+  {
     id: "plantation-shutters",
 
     title: "Plantation Shutters",
 
     category: "Home Improvement",
 
-    image: "/images/catalogues/plantation shutters/plantation shutters.jpeg",
+    image: "/images/catalogues/plantation-shutters/plantation-shutters.jpeg",
 
     images: [
       {
-        src: "/images/catalogues/plantation shutters/plantation shutters.jpeg",
+        src: "/images/catalogues/plantation-shutters/plantation-shutters.jpeg",
         label: "Shutters",
       },
     ],
@@ -269,11 +220,13 @@ export const catalogues: Catalogue[] = [
       cta: "Publish This Catalogue",
     },
 
-    // ⚠️ Real templateId is "plantation_shutters" (underscore, full
-    // word) — mismatch from this catalogue's own id.
-    publishUrl: "/join?template=plantation_shutters",
+    // FIXED: real template folder is "plantation-shutters"
+    // (hyphenated, matches the catalogue id exactly) — the old
+    // underscore comment/value here was wrong, confirmed against
+    // src/solution-templates/plantation-shutters in the React repo.
+    publishUrl: "/join?template=plantation-shutters",
 
-    demoUrl: "/market?category=plantation_shutters",
+    demoUrl: "/market?category=plantation-shutters",
 
     featured: true,
   },
@@ -309,6 +262,8 @@ export const catalogues: Catalogue[] = [
       cta: "Publish This Catalogue",
     },
 
+    // Confirmed against src/solution-templates/curtains — matches
+    // the catalogue id exactly, no fix needed.
     publishUrl: "/join?template=curtains",
 
     demoUrl: "/market?category=curtains",
@@ -323,11 +278,11 @@ export const catalogues: Catalogue[] = [
 
     category: "Home Improvement",
 
-    image: "/images/catalogues/wooden doors/wooden door.jpeg",
+    image: "/images/catalogues/wooden-doors/wooden-doors.jpeg",
 
     images: [
       {
-        src: "/images/catalogues/wooden doors/wooden door.jpeg",
+        src: "/images/catalogues/wooden-doors/wooden-doors.jpeg",
         label: "Doors",
       },
     ],
@@ -351,10 +306,12 @@ export const catalogues: Catalogue[] = [
       cta: "Publish This Catalogue",
     },
 
-    // ⚠️ Real templateId uses underscore: "wooden_doors".
-    publishUrl: "/join?template=wooden_doors",
+    // FIXED: real template folder is "wooden-doors" (hyphenated,
+    // matches the catalogue id exactly) — confirmed against
+    // src/solution-templates/wooden-doors in the React repo.
+    publishUrl: "/join?template=wooden-doors",
 
-    demoUrl: "/market?category=wooden_doors",
+    demoUrl: "/market?category=wooden-doors",
 
     featured: true,
   },
@@ -366,11 +323,11 @@ export const catalogues: Catalogue[] = [
 
     category: "Home Improvement",
 
-    image: "/images/catalogues/steel doors/steel doors.jpeg",
+    image: "/images/catalogues/steel-doors/steel-doors.jpeg",
 
     images: [
       {
-        src: "/images/catalogues/steel doors/steel doors.jpeg",
+        src: "/images/catalogues/steel-doors/steel-doors.jpeg",
         label: "Doors",
       },
     ],
@@ -394,10 +351,12 @@ export const catalogues: Catalogue[] = [
       cta: "Publish This Catalogue",
     },
 
-    // ⚠️ Real templateId uses underscore: "steel_doors".
-    publishUrl: "/join?template=steel_doors",
+    // FIXED: real template folder is "steel-doors" (hyphenated,
+    // matches the catalogue id exactly) — confirmed against
+    // src/solution-templates/steel-doors in the React repo.
+    publishUrl: "/join?template=steel-doors",
 
-    demoUrl: "/market?category=steel_doors",
+    demoUrl: "/market?category=steel-doors",
 
     featured: true,
   },
@@ -433,6 +392,8 @@ export const catalogues: Catalogue[] = [
       cta: "Publish This Catalogue",
     },
 
+    // Confirmed against src/solution-templates/gates — matches the
+    // catalogue id exactly, no fix needed.
     publishUrl: "/join?template=gates",
 
     demoUrl: "/market?category=gates",
@@ -447,11 +408,11 @@ export const catalogues: Catalogue[] = [
 
     category: "Home Improvement",
 
-    image: "/images/catalogues/garage doors/garage door.jpeg",
+    image: "/images/catalogues/garage-doors/garage-doors.jpeg",
 
     images: [
       {
-        src: "/images/catalogues/garage doors/garage door.jpeg",
+        src: "/images/catalogues/garage-doors/garage-doors.jpeg",
         label: "Doors",
       },
     ],
@@ -475,10 +436,115 @@ export const catalogues: Catalogue[] = [
       cta: "Publish This Catalogue",
     },
 
-    // ⚠️ Real templateId uses underscore: "garage_doors".
-    publishUrl: "/join?template=garage_doors",
+    // FIXED: real template folder is "garage-doors" (hyphenated,
+    // matches the catalogue id exactly) — confirmed against
+    // src/solution-templates/garage-doors in the React repo.
+    publishUrl: "/join?template=garage-doors",
 
-    demoUrl: "/market?category=garage_doors",
+    demoUrl: "/market?category=garage-doors",
+
+    featured: true,
+  },
+
+  // ==========================================================
+  // FASHION
+  // ==========================================================
+
+  {
+    id: "dresses",
+
+    title: "Women's Dresses",
+
+    category: "Fashion",
+
+    image: "/images/catalogues/womens-dresses/womens-dresses.jpeg",
+
+    images: [
+      {
+        src: "/images/catalogues/womens-dresses/womens-dresses.jpeg",
+        label: "Dresses",
+      },
+    ],
+
+    shortDescription:
+      "Help customers discover their perfect fitting size before ordering.",
+
+    experience: {
+      title: "Fit Matching",
+
+      icon: "👗",
+
+      color: "#8B5CF6",
+
+      steps: [
+        "Capture Fit",
+        "Match Size",
+        "Prepared Enquiry",
+      ],
+
+      cta: "Publish This Catalogue",
+    },
+
+    // FIXED: real template folder is "womens-dresses" (hyphenated,
+    // NOT the underscore version this used to point at) — confirmed
+    // against src/solution-templates/womens-dresses in the React
+    // repo. The catalogue's own id ("dresses") intentionally stays
+    // as-is; only the template link needed to change. The image
+    // folder was also renamed from "dresses" to "womens-dresses" to
+    // match — see the rename commands you were given alongside this
+    // file.
+    publishUrl: "/join?template=womens-dresses",
+
+    demoUrl: "/market?category=womens-dresses",
+
+    featured: true,
+  },
+
+  // ==========================================================
+  // AUTOMOTIVE
+  // ==========================================================
+
+  {
+    id: "vehicle-parts",
+
+    title: "Vehicle & Motorcycle Parts",
+
+    category: "Automotive",
+
+    image: "/images/catalogues/vehicle-parts/vehicle-parts.jpeg",
+
+    images: [
+      {
+        src: "/images/catalogues/vehicle-parts/vehicle-parts.jpeg",
+        label: "Parts",
+      },
+    ],
+
+    shortDescription:
+      "Customers search by photo or description — matched against your real stock.",
+
+    experience: {
+      title: "Search Matching",
+
+      icon: "🔧",
+
+      color: "#DC2626",
+
+      steps: [
+        "Search or Photograph",
+        "Match Stock",
+        "Prepared Enquiry",
+      ],
+
+      cta: "Publish This Catalogue",
+    },
+
+    // FIXED: real template folder is "vehicle-parts" (hyphenated,
+    // matches the catalogue id exactly) — confirmed against
+    // src/solution-templates/vehicle-parts in the React repo.
+    publishUrl: "/join?template=vehicle-parts",
+
+    demoUrl: "/market?category=vehicle-parts",
 
     featured: true,
   },
@@ -494,7 +560,7 @@ export const catalogues: Catalogue[] = [
 
     category: "Furniture",
 
-    // No photo on disk yet under public/images/catalogues/kitchen-islands/.
+    // No photo on disk yet under public/images/catalogues/kitchen-island/.
     image: "",
 
     images: [],
@@ -518,13 +584,19 @@ export const catalogues: Catalogue[] = [
       cta: "Publish This Catalogue",
     },
 
-    // ⚠️ Real templateId is SINGULAR: "kitchen_island", not
-    // "kitchen-islands" — the one mismatch that isn't just a
-    // hyphen/underscore swap.
-    publishUrl: "/join?template=kitchen_island",
+    // FIXED: real template folder is "kitchen-island" — SINGULAR
+    // and HYPHENATED, unlike this catalogue's own id
+    // ("kitchen-islands", plural). The earlier underscore version
+    // ("kitchen_island") was wrong on the separator even though it
+    // had correctly guessed the word should be singular. Confirmed
+    // against src/solution-templates/kitchen-island in the React
+    // repo.
+    publishUrl: "/join?template=kitchen-island",
 
-    demoUrl: "/market?category=kitchen_island",
+    demoUrl: "/market?category=kitchen-island",
 
     featured: true,
   },
 ];
+
+

@@ -158,8 +158,13 @@ const categories = [
       // problem at true scale — a dedicated products table (one
       // row per product) would be the real fix for that, later.
 
-      const BATCH_SIZE = 12
+      const BATCH_SIZE = 30
       const SHOWROOM_TENANT_ID = 'showroom'
+
+      // Plantation Shutters is the priority catalogue right now —
+      // its cards should surface first (and stay first through
+      // search/category filtering), ahead of every other template.
+      const PRIORITY_TEMPLATE_ID = 'plantation_shutters'
 
       const CATEGORY_META = {
         cakes:                { category: 'Food',              icon: '🎂' },
@@ -181,6 +186,18 @@ const categories = [
         const widthM = (Number(dimension.arg1) / 1000).toFixed(2)
         const heightM = (Number(dimension.arg2) / 1000).toFixed(2)
         return `${widthM}m × ${heightM}m`
+      }
+
+      // Stable sort — plantation_shutters cards float to the top,
+      // everything else keeps its existing relative order behind
+      // them. Applied once right after allCards is built, so the
+      // initial grid, every search, and every category filter all
+      // inherit the same priority ordering automatically (filter
+      // preserves relative order of an already-sorted array).
+      function byPlantationShuttersFirst(a, b) {
+        const aRank = a.templateId === PRIORITY_TEMPLATE_ID ? 0 : 1
+        const bRank = b.templateId === PRIORITY_TEMPLATE_ID ? 0 : 1
+        return aRank - bRank
       }
 
       let allCards = []
@@ -219,6 +236,7 @@ const categories = [
               if (!card.imageUrl) return
               allCards.push({
                 tenantId: tenant.tenant_id,
+                templateId,
                 businessName: tenant.business_name,
                 currencySymbol: tenant.currency_symbol || 'KSh',
                 material: card.material?.label || '',
@@ -234,6 +252,8 @@ const categories = [
             })
           })
         })
+
+        allCards.sort(byPlantationShuttersFirst)
 
         statusEl.style.display = 'none'
 
