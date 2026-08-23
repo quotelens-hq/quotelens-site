@@ -52,11 +52,10 @@ const orderedCatalogues = [...catalogues].sort((a, b) => {
           <span class="brand-mark">Q</span>
           <span>QuoteLens</span>
         </a>
-        <nav class="desktop-nav">
-          <a href="#catalogues">Catalogues</a>
-          <a href="#how-it-works">How it works</a>
-          <a href="#marketplace">Marketplace</a>
-        </nav>
+        <!-- No middle nav — the whole site is one page now, so
+             "Catalogues" / "How it works" / "Marketplace" links
+             would just scroll to sections already in view. Just
+             the two real destinations remain. -->
         <div class="nav-actions">
           <a href="/admin" class="signin-link">Sign in</a>
           <a href="/join" class="nav-cta">Publish your catalogue</a>
@@ -198,6 +197,10 @@ const orderedCatalogues = [...catalogues].sort((a, b) => {
           <div id="marketplace" class="right-block">
             <p class="right-block-label">FIND SOMETHING THAT FITS</p>
             <h3>your specification</h3>
+            <p class="marketplace-hint">
+              Click any listing below to see how it works — real
+              products, real prices, ready to enquire.
+            </p>
  
             <div class="mini-search">
               <span>⌕</span>
@@ -560,15 +563,6 @@ const orderedCatalogues = [...catalogues].sort((a, b) => {
       0 4px 12px rgba(25, 24, 21, 0.12);
   }
  
-  .desktop-nav {
-    display: flex;
-    align-items: center;
-    gap: 30px;
- 
-    margin-inline: auto;
-  }
- 
-  .desktop-nav a,
   .signin-link {
     color: #68635b;
  
@@ -580,7 +574,6 @@ const orderedCatalogues = [...catalogues].sort((a, b) => {
       opacity 0.2s ease;
   }
  
-  .desktop-nav a:hover,
   .signin-link:hover {
     color: var(--ink);
   }
@@ -905,6 +898,15 @@ const orderedCatalogues = [...catalogues].sort((a, b) => {
     font-size: 25px;
     line-height: 1.1;
     letter-spacing: -0.045em;
+  }
+ 
+  .marketplace-hint {
+    margin: 9px 0 0;
+ 
+    color: var(--muted);
+ 
+    font-size: 12.5px;
+    line-height: 1.6;
   }
  
   /* =========================================================
@@ -1321,10 +1323,6 @@ const orderedCatalogues = [...catalogues].sort((a, b) => {
       width: calc(100% - 32px);
     }
  
-    .desktop-nav {
-      display: none;
-    }
- 
     .signin-link {
       display: none;
     }
@@ -1417,6 +1415,3 @@ const orderedCatalogues = [...catalogues].sort((a, b) => {
   </body>
 </html>
  
-
-
-
