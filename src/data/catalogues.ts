@@ -52,28 +52,16 @@ export const catalogues: Catalogue[] = [
   {
     id: "cakes",
 
-    title: "Birthday Cakes",
+    title: "Cakes",
 
     category: "Food",
 
-    image: "/images/catalogues/cakes/hero.jpeg",
+    image: "/images/catalogues/cakes/cakes.jpeg",
 
     images: [
       {
-        src: "/images/catalogues/cakes/hero.jpeg",
-        label: "Birthday",
-      },
-      {
-        src: "/images/catalogues/cakes/wedding.jpeg",
-        label: "Wedding",
-      },
-      {
-        src: "/images/catalogues/cakes/birthday.jpeg",
-        label: "Celebration",
-      },
-      {
-        src: "/images/catalogues/cakes/anniversary.jpg",
-        label: "Anniversary",
+        src: "/images/catalogues/cakes/cakes.jpeg",
+        label: "Cakes",
       },
     ],
 
@@ -110,30 +98,14 @@ export const catalogues: Catalogue[] = [
 
     category: "Food",
 
-    image: "/images/catalogues/flowers/hero.jpg",
+    // No photo on disk yet under public/images/catalogues/flowers/ —
+    // left empty so the card falls back to the icon placeholder
+    // instead of a broken image. Add a file there and set this
+    // once you have one.
+    image: "",
 
-images: [
-  {
-    src: "/images/catalogues/flowers/hero.jpg",
-    label: "Everyday"
-  },
-  {
-    src: "/images/catalogues/flowers/birthday.jpg",
-    label: "Birthday"
-  },
-  {
-    src: "/images/catalogues/flowers/graduation.jpg",
-    label: "Graduation"
-  },
-  {
-    src: "/images/catalogues/flowers/romance.jpg",
-    label: "Romance"
-  },
-  {
-    src: "/images/catalogues/flowers/sympathy.jpg",
-    label: "Sympathy"
-  }
-],
+    images: [],
+
     shortDescription:
       "Browse bouquets by occasion before sending an enquiry.",
 
@@ -171,9 +143,14 @@ images: [
 
     category: "Fashion",
 
-    image: "",
+    image: "/images/catalogues/dresses/dresses.jpeg",
 
-    images: [],
+    images: [
+      {
+        src: "/images/catalogues/dresses/dresses.jpeg",
+        label: "Dresses",
+      },
+    ],
 
     shortDescription:
       "Help customers discover their perfect fitting size before ordering.",
@@ -217,9 +194,14 @@ images: [
 
     category: "Automotive",
 
-    image: "",
+    image: "/images/catalogues/vehicle parts/vehicle parts.jpeg",
 
-    images: [],
+    images: [
+      {
+        src: "/images/catalogues/vehicle parts/vehicle parts.jpeg",
+        label: "Parts",
+      },
+    ],
 
     shortDescription:
       "Customers search by photo or description — matched against your real stock.",
@@ -259,9 +241,14 @@ images: [
 
     category: "Home Improvement",
 
-    image: "",
+    image: "/images/catalogues/plantation shutters/plantation shutters.jpeg",
 
-    images: [],
+    images: [
+      {
+        src: "/images/catalogues/plantation shutters/plantation shutters.jpeg",
+        label: "Shutters",
+      },
+    ],
 
     shortDescription:
       "Measure your windows and compare shutter options instantly.",
@@ -298,6 +285,7 @@ images: [
 
     category: "Home Improvement",
 
+    // No photo on disk yet under public/images/catalogues/curtains/.
     image: "",
 
     images: [],
@@ -335,9 +323,14 @@ images: [
 
     category: "Home Improvement",
 
-    image: "",
+    image: "/images/catalogues/wooden doors/wooden door.jpeg",
 
-    images: [],
+    images: [
+      {
+        src: "/images/catalogues/wooden doors/wooden door.jpeg",
+        label: "Doors",
+      },
+    ],
 
     shortDescription:
       "Compare custom wooden door options using your measurements.",
@@ -373,9 +366,14 @@ images: [
 
     category: "Home Improvement",
 
-    image: "",
+    image: "/images/catalogues/steel doors/steel doors.jpeg",
 
-    images: [],
+    images: [
+      {
+        src: "/images/catalogues/steel doors/steel doors.jpeg",
+        label: "Doors",
+      },
+    ],
 
     shortDescription:
       "Browse steel security doors and compare available options.",
@@ -411,6 +409,7 @@ images: [
 
     category: "Home Improvement",
 
+    // No photo on disk yet under public/images/catalogues/gates/.
     image: "",
 
     images: [],
@@ -448,9 +447,14 @@ images: [
 
     category: "Home Improvement",
 
-    image: "",
+    image: "/images/catalogues/garage doors/garage door.jpeg",
 
-    images: [],
+    images: [
+      {
+        src: "/images/catalogues/garage doors/garage door.jpeg",
+        label: "Doors",
+      },
+    ],
 
     shortDescription:
       "Explore sectional and roller garage doors interactively.",
@@ -490,6 +494,7 @@ images: [
 
     category: "Furniture",
 
+    // No photo on disk yet under public/images/catalogues/kitchen-islands/.
     image: "",
 
     images: [],
