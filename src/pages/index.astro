@@ -3,7 +3,7 @@ import { catalogues } from "../data/catalogues";
 
 const categories = [
   "All",
-  "Food",
+  "Occasion",
   "Fashion",
   "Home Improvement",
   "Furniture",
@@ -272,6 +272,13 @@ const orderedCatalogues = [...catalogues].sort((a, b) => {
               <a href="/community">Community</a>
               <a href="/help">Help</a>
             </div>
+            <div>
+              <span>LEGAL</span>
+              <a href="/privacy">Privacy</a>
+              <a href="/terms">Terms</a>
+              <a href="/cookies">Cookies</a>
+              <a href="/refunds">Refunds</a>
+            </div>
           </div>
         </div>
         <div class="footer-bottom">
@@ -299,8 +306,8 @@ const orderedCatalogues = [...catalogues].sort((a, b) => {
       const PRIORITY_TEMPLATE_ID = 'plantation_shutters'
 
       const CATEGORY_META = {
-        cakes:                { category: 'Food' },
-        flowers:               { category: 'Food' },
+        cakes:                { category: 'Occasion' },
+        flowers:               { category: 'Occasion' },
         womens_dresses:         { category: 'Fashion' },
         vehicle_parts:          { category: 'Automotive' },
         plantation_shutters:    { category: 'Home Improvement' },
@@ -1242,7 +1249,7 @@ const orderedCatalogues = [...catalogues].sort((a, b) => {
     display: grid;
 
     grid-template-columns:
-      repeat(3, 1fr);
+      repeat(4, 1fr);
 
     gap: 30px;
   }
@@ -1418,5 +1425,6 @@ const orderedCatalogues = [...catalogues].sort((a, b) => {
 
   </body>
 </html>
+
 
  
