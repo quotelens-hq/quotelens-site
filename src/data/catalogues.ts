@@ -37,8 +37,6 @@ export interface Catalogue {
 
   publishUrl: string;
 
-  demoUrl: string;
-
   featured: boolean;
 
   comingSoon?: boolean;
@@ -88,8 +86,6 @@ export const catalogues: Catalogue[] = [
     // project — matches the catalogue id exactly, no fix needed.
     publishUrl: "/join?template=cakes",
 
-    demoUrl: "/market?category=cakes",
-
     featured: true,
   },
 
@@ -131,8 +127,6 @@ export const catalogues: Catalogue[] = [
     // Confirmed against src/solution-templates/flowers — matches
     // the catalogue id exactly, no fix needed.
     publishUrl: "/join?template=flowers",
-
-    demoUrl: "/market?category=flowers",
 
     featured: true,
   },
@@ -181,8 +175,6 @@ export const catalogues: Catalogue[] = [
     // this ships live rather than as comingSoon.
     publishUrl: "/join?template=blinds",
 
-    demoUrl: "/market?category=blinds",
-
     featured: true,
   },
 
@@ -221,13 +213,14 @@ export const catalogues: Catalogue[] = [
       cta: "Publish This Catalogue",
     },
 
-    // FIXED: real template folder is "plantation-shutters"
-    // (hyphenated, matches the catalogue id exactly) — the old
-    // underscore comment/value here was wrong, confirmed against
-    // src/solution-templates/plantation-shutters in the React repo.
-    publishUrl: "/join?template=plantation-shutters",
-
-    demoUrl: "/market?category=plantation-shutters",
+    // The catalogue folder/id is hyphenated ("plantation-shutters"),
+    // but JoinPage.jsx's signup form (the actual destination of this
+    // link) validates template ids against tenant_config's stored
+    // convention, which is underscored ("plantation_shutters") — see
+    // the ALL_CATEGORIES comment in quotelens-react/src/pages/JoinPage.jsx.
+    // Using the hyphenated form here made the "Publish This
+    // Catalogue" link silently fail to pre-select anything on /join.
+    publishUrl: "/join?template=plantation_shutters",
 
     featured: true,
   },
@@ -271,8 +264,6 @@ export const catalogues: Catalogue[] = [
     // the catalogue id exactly, no fix needed.
     publishUrl: "/join?template=curtains",
 
-    demoUrl: "/market?category=curtains",
-
     featured: true,
   },
 
@@ -311,12 +302,10 @@ export const catalogues: Catalogue[] = [
       cta: "Publish This Catalogue",
     },
 
-    // FIXED: real template folder is "wooden-doors" (hyphenated,
-    // matches the catalogue id exactly) — confirmed against
-    // src/solution-templates/wooden-doors in the React repo.
-    publishUrl: "/join?template=wooden-doors",
-
-    demoUrl: "/market?category=wooden-doors",
+    // See the plantation-shutters entry above: JoinPage.jsx expects
+    // the underscored id ("wooden_doors"), not the hyphenated folder
+    // name, or the signup pre-selection silently fails.
+    publishUrl: "/join?template=wooden_doors",
 
     featured: true,
   },
@@ -356,12 +345,9 @@ export const catalogues: Catalogue[] = [
       cta: "Publish This Catalogue",
     },
 
-    // FIXED: real template folder is "steel-doors" (hyphenated,
-    // matches the catalogue id exactly) — confirmed against
-    // src/solution-templates/steel-doors in the React repo.
-    publishUrl: "/join?template=steel-doors",
-
-    demoUrl: "/market?category=steel-doors",
+    // See the plantation-shutters entry above: JoinPage.jsx expects
+    // the underscored id ("steel_doors").
+    publishUrl: "/join?template=steel_doors",
 
     featured: true,
   },
@@ -405,8 +391,6 @@ export const catalogues: Catalogue[] = [
     // catalogue id exactly, no fix needed.
     publishUrl: "/join?template=gates",
 
-    demoUrl: "/market?category=gates",
-
     featured: true,
   },
 
@@ -445,12 +429,9 @@ export const catalogues: Catalogue[] = [
       cta: "Publish This Catalogue",
     },
 
-    // FIXED: real template folder is "garage-doors" (hyphenated,
-    // matches the catalogue id exactly) — confirmed against
-    // src/solution-templates/garage-doors in the React repo.
-    publishUrl: "/join?template=garage-doors",
-
-    demoUrl: "/market?category=garage-doors",
+    // See the plantation-shutters entry above: JoinPage.jsx expects
+    // the underscored id ("garage_doors").
+    publishUrl: "/join?template=garage_doors",
 
     featured: true,
   },
@@ -460,7 +441,7 @@ export const catalogues: Catalogue[] = [
   // ==========================================================
 
   {
-    id: "dresses",
+    id: "womens-dresses",
 
     title: "Women's Dresses",
 
@@ -494,17 +475,10 @@ export const catalogues: Catalogue[] = [
       cta: "Publish This Catalogue",
     },
 
-    // FIXED: real template folder is "womens-dresses" (hyphenated,
-    // NOT the underscore version this used to point at) — confirmed
-    // against src/solution-templates/womens-dresses in the React
-    // repo. The catalogue's own id ("dresses") intentionally stays
-    // as-is; only the template link needed to change. The image
-    // folder was also renamed from "dresses" to "womens-dresses" to
-    // match — see the rename commands you were given alongside this
-    // file.
-    publishUrl: "/join?template=womens-dresses",
-
-    demoUrl: "/market?category=womens-dresses",
+    // JoinPage.jsx expects the underscored id ("womens_dresses").
+    // The catalogue's own id was also changed from the old "dresses"
+    // to "womens-dresses" to match this template consistently.
+    publishUrl: "/join?template=womens_dresses",
 
     featured: true,
   },
@@ -548,12 +522,9 @@ export const catalogues: Catalogue[] = [
       cta: "Publish This Catalogue",
     },
 
-    // FIXED: real template folder is "vehicle-parts" (hyphenated,
-    // matches the catalogue id exactly) — confirmed against
-    // src/solution-templates/vehicle-parts in the React repo.
-    publishUrl: "/join?template=vehicle-parts",
-
-    demoUrl: "/market?category=vehicle-parts",
+    // See the plantation-shutters entry above: JoinPage.jsx expects
+    // the underscored id ("vehicle_parts").
+    publishUrl: "/join?template=vehicle_parts",
 
     featured: true,
   },
@@ -563,7 +534,7 @@ export const catalogues: Catalogue[] = [
   // ==========================================================
 
   {
-    id: "kitchen-islands",
+    id: "kitchen-island",
 
     title: "Kitchen Islands",
 
@@ -592,16 +563,11 @@ export const catalogues: Catalogue[] = [
       cta: "Publish This Catalogue",
     },
 
-    // FIXED: real template folder is "kitchen-island" — SINGULAR
-    // and HYPHENATED, unlike this catalogue's own id
-    // ("kitchen-islands", plural). The earlier underscore version
-    // ("kitchen_island") was wrong on the separator even though it
-    // had correctly guessed the word should be singular. Confirmed
-    // against src/solution-templates/kitchen-island in the React
-    // repo.
-    publishUrl: "/join?template=kitchen-island",
-
-    demoUrl: "/market?category=kitchen-island",
+    // JoinPage.jsx expects the underscored id ("kitchen_island").
+    // The catalogue's own id was also changed from the plural
+    // "kitchen-islands" to singular "kitchen-island" to match the
+    // real template name consistently.
+    publishUrl: "/join?template=kitchen_island",
 
     featured: true,
   },

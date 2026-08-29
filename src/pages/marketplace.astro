@@ -4,7 +4,7 @@ const PAGE_DESCRIPTION = "Browse real, published product catalogues from busines
 
 const categories = [
   "All",
-  "Food",
+  "Occasion",
   "Fashion",
   "Home Improvement",
   "Furniture",
@@ -136,6 +136,13 @@ const categories = [
               <a href="/community">Community</a>
               <a href="/help">Help</a>
             </div>
+            <div>
+              <span>LEGAL</span>
+              <a href="/privacy">Privacy</a>
+              <a href="/terms">Terms</a>
+              <a href="/cookies">Cookies</a>
+              <a href="/refunds">Refunds</a>
+            </div>
           </div>
         </div>
         <div class="footer-bottom">
@@ -167,8 +174,8 @@ const categories = [
       const PRIORITY_TEMPLATE_ID = 'plantation_shutters'
 
       const CATEGORY_META = {
-        cakes:                { category: 'Food',              icon: '🎂' },
-        flowers:               { category: 'Food',              icon: '💐' },
+        cakes:                { category: 'Occasion',          icon: '🎂' },
+        flowers:               { category: 'Occasion',          icon: '💐' },
         womens_dresses:         { category: 'Fashion',           icon: '👗' },
         vehicle_parts:          { category: 'Automotive',        icon: '🔧' },
         plantation_shutters:    { category: 'Home Improvement',  icon: '🪟' },
@@ -428,7 +435,7 @@ const categories = [
       .footer-main { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; }
       .footer-logo { color: white; }
       .footer-brand p { max-width: 310px; margin-top: 20px; color: #77736c; font-size: 12px; line-height: 1.7; }
-      .footer-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+      .footer-links { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
       .footer-links > div { display: flex; flex-direction: column; gap: 12px; }
       .footer-links span { margin-bottom: 6px; color: #77736c; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; }
       .footer-links a { color: #c2beb8; font-size: 11px; }
@@ -457,3 +464,5 @@ const categories = [
 
   </body>
 </html>
+
+
