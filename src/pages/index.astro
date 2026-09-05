@@ -29,11 +29,19 @@ function isPriorityCatalogue(catalogue) {
   return catalogue?.id === PRIORITY_CATALOGUE_ID;
 }
 
-const orderedCatalogues = [...catalogues].sort((a, b) => {
-  const aRank = isPriorityCatalogue(a) ? 0 : 1;
-  const bRank = isPriorityCatalogue(b) ? 0 : 1;
-  return aRank - bRank;
-});
+// comingSoon isn't just a display badge here — CatalogueCard.astro
+// (which does render a "Coming Soon" badge) isn't actually imported
+// anywhere in this site; this homepage grid is the only place a
+// visitor ever sees these. So a comingSoon catalogue is excluded
+// outright rather than shown-but-labelled, until it's actually
+// ready for a real signup to click through to.
+const orderedCatalogues = [...catalogues]
+  .filter((catalogue) => !catalogue.comingSoon)
+  .sort((a, b) => {
+    const aRank = isPriorityCatalogue(a) ? 0 : 1;
+    const bRank = isPriorityCatalogue(b) ? 0 : 1;
+    return aRank - bRank;
+  });
 ---
 
 <html lang="en">

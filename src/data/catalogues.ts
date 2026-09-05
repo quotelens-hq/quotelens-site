@@ -483,6 +483,61 @@ export const catalogues: Catalogue[] = [
     featured: true,
   },
 
+  {
+    id: "wigs",
+
+    title: "Wigs & Facial Matching",
+
+    category: "Fashion",
+
+    // No real product photography exists for this catalogue yet —
+    // path follows the same convention as every other entry so a
+    // real photo can just be dropped in at
+    // public/images/catalogues/wigs/wigs.jpeg later with no code
+    // change. Until then this renders as a missing image, same as
+    // any other catalogue would with no asset uploaded.
+    image: "/images/catalogues/wigs/wigs.jpeg",
+
+    images: [
+      {
+        src: "/images/catalogues/wigs/wigs.jpeg",
+        label: "Wigs",
+      },
+    ],
+
+    shortDescription:
+      "Customers scan their face, then see how each wig style would actually look on them.",
+
+    experience: {
+      title: "Fit Matching",
+
+      icon: "💇",
+
+      color: "#8B5CF6",
+
+      steps: [
+        "Scan Your Face",
+        "Preview Styles",
+        "Prepared Enquiry",
+      ],
+
+      cta: "Publish This Catalogue",
+    },
+
+    // Matches src/solution-templates/wigs' own id exactly — "wigs"
+    // has no underscore/hyphen form to drift between, unlike the
+    // multi-word template ids elsewhere in this file.
+    publishUrl: "/join?template=wigs",
+
+    featured: false,
+
+    // Per-card virtual try-on depends on a Google AI Studio project
+    // with billing enabled for Gemini's image-edit model — deliberately
+    // left off until then (see the generate-wig-tryon quota-exhausted
+    // finding). Flip this once that's turned on for the revenue stage.
+    comingSoon: true,
+  },
+
   // ==========================================================
   // AUTOMOTIVE
   // ==========================================================
