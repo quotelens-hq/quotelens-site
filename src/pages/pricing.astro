@@ -1,6 +1,7 @@
 ---
 const PAGE_TITLE = "Pricing — QuoteLens"
-const PAGE_DESCRIPTION = "Simple, transparent pricing for publishing your interactive product catalogue with QuoteLens. Pay with M-Pesa, cancel anytime."
+const PAGE_DESCRIPTION = "Publish your interactive product catalogue with QuoteLens for free. Need something built around your exact business? Talk to us about a custom plan."
+const SUPPORT_EMAIL = "quotelensapp@gmail.com"
 ---
 
 <!doctype html>
@@ -103,15 +104,16 @@ const PAGE_DESCRIPTION = "Simple, transparent pricing for publishing your intera
               </div>
 
               <h1>
-                Simple pricing.
+                Start free.
                 <br />
-                Pay with M-Pesa.
+                Go custom when you need to.
               </h1>
 
             </div>
 
             <p>
-              Two plans. No hidden fees. Cancel anytime.
+              Publish your catalogue at no cost. Need something built around your
+              exact business instead? Let's talk.
             </p>
 
           </div>
@@ -121,21 +123,20 @@ const PAGE_DESCRIPTION = "Simple, transparent pricing for publishing your intera
 
             <article class="pricing-card">
 
-              <p class="pricing-plan-name">QuoteLens Starter</p>
+              <p class="pricing-plan-name">QuoteLens Free</p>
 
               <p class="pricing-amount">
-                KSh 2,500<span>/month</span>
+                Free
               </p>
 
-              <p class="pricing-usd">≈ $19 USD/month</p>
-
               <p class="pricing-tag">
-                Perfect if you're running this yourself.
+                Everything you need to publish and run your own catalogue.
               </p>
 
               <ul class="pricing-features">
                 <li>Your own quote page</li>
-                <li>Limited AI-assisted measurements</li>
+                <li>All 13 catalogue types — shutters, curtains, doors, gates, cakes, flowers, dresses, vehicle parts, wigs and more</li>
+                <li>AI-assisted measurements &amp; visual previews</li>
                 <li>Unlimited customer quotes</li>
                 <li>Marketplace listing</li>
                 <li>WhatsApp &amp; email delivery</li>
@@ -154,31 +155,28 @@ const PAGE_DESCRIPTION = "Simple, transparent pricing for publishing your intera
 
             <article class="pricing-card featured">
 
-              <p class="pricing-plan-name">QuoteLens Growth</p>
+              <p class="pricing-plan-name">QuoteLens Custom</p>
 
               <p class="pricing-amount">
-                KSh 5,500<span>/month</span>
+                Let's talk
               </p>
 
-              <p class="pricing-usd">≈ $42 USD/month</p>
-
               <p class="pricing-tag">
-                For businesses handling higher volume.
+                Built around exactly what your business needs.
               </p>
 
               <ul class="pricing-features">
-                <li>Your own quote page</li>
-                <li>Higher AI-assisted measurements</li>
-                <li>Unlimited customer quotes</li>
-                <li><strong>Priority</strong> Marketplace listing</li>
-                <li>WhatsApp &amp; email delivery</li>
-                <li>Business dashboard</li>
+                <li>Everything in Free</li>
+                <li>Bespoke catalogue templates for your exact products</li>
+                <li>Custom branding — your logo, colours and domain</li>
                 <li>We personally set up your catalogue with you</li>
+                <li>Higher AI-assisted measurement volume</li>
+                <li><strong>Priority</strong> Marketplace listing</li>
                 <li><strong>Priority</strong> support</li>
               </ul>
 
-              <a href="/join" class="pricing-cta">
-                <span>Get Started</span>
+              <a href={`mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent("Custom QuoteLens plan")}`} class="pricing-cta">
+                <span>Talk to us</span>
                 <span>→</span>
               </a>
 
@@ -187,7 +185,7 @@ const PAGE_DESCRIPTION = "Simple, transparent pricing for publishing your intera
           </div>
 
           <p class="pricing-footnote">
-            Pay with M-Pesa · Prices billed in KSh · Cancel anytime
+            Free to publish · Custom plans quoted directly · No obligation
           </p>
 
         </div>
